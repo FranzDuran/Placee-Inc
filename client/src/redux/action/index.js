@@ -8,7 +8,7 @@ export const setSelectedCardId = (id) => ({
 export const AllPostTuristic = () => {
   return async (dispach) => {
     const res = await axios.get(
-      "https://demo-turistic-production.up.railway.app/turistic"
+      "https://placee-inc-production.up.railway.app/turistic"
     );
     const data = res.data.User;
     return dispach({
@@ -21,7 +21,7 @@ export const AllPostTuristic = () => {
 export const DetailsPostTuristic = (idTuristic) => {
   return async (dispach) => {
     const res = await axios.get(
-      `https://demo-turistic-production.up.railway.app/turistic/${idTuristic}`
+      `https://placee-inc-production.up.railway.app/${idTuristic}`
     );
     const data = res.data.details;
     return dispach({
@@ -33,7 +33,7 @@ export const DetailsPostTuristic = (idTuristic) => {
 export const HostesstUser = (idHostess) => {
   return async (dispach) => {
     const res = await axios.get(
-      `https://demo-turistic-production.up.railway.app/hostess/${idHostess}`
+      `https://placee-inc-production.up.railway.app/${idHostess}`
     );
     const data = res.data.details;
     return dispach({
@@ -49,7 +49,7 @@ export const createPost = (postData, token) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://demo-turistic-production.up.railway.app/post",
+        "https://placee-inc-production.up.railway.app/post",
         postData,
         {
           headers: {
@@ -77,7 +77,7 @@ export const CommentPost = (payload, token) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        `https://demo-turistic-production.up.railway.app/comment`,
+        `https://placee-inc-production.up.railway.app/comment`,
         payload,
         {
           headers: {
@@ -104,7 +104,7 @@ export const CommentPost = (payload, token) => {
 export const UserRegister = (payload) => {
   return async (dispach) => {
     const res = await axios.post(
-      "https://demo-turistic-production.up.railway.app/auth/register",
+      "https://placee-inc-production.up.railway.app/auth/register",
       payload
     );
     const data = res.data;
@@ -119,7 +119,7 @@ export const UserLogin = (email, password) => {
   return async (dispatch) => {
     try {
       const response = await axios.post(
-        "https://demo-turistic-production.up.railway.app/auth/login",
+        "https://placee-inc-production.up.railway.app/auth/login",
         {
           email,
           password,
@@ -145,7 +145,7 @@ export const UserLogin = (email, password) => {
 const checkServerStatus = async () => {
   try {
     const response = await axios.get(
-      "https://demo-turistic-production.up.railway.app/status"
+      "https://placee-inc-production.up.railway.app/status"
     );
     return response.status === 200;
   } catch (error) {
@@ -156,7 +156,7 @@ const checkServerStatus = async () => {
 export const UserLogout = (payload) => {
   return async (dispach) => {
     const res = await axios.post(
-      "https://demo-turistic-production.up.railway.app/logout",
+      "https://placee-inc-production.up.railway.app/logout",
       payload
     );
     const data = res.data;
@@ -180,7 +180,7 @@ export const logoutUser = () => {
 export const dataPersonal = (token) => {
   return async (dispatch) => {
     const res = await axios.get(
-      "https://demo-turistic-production.up.railway.app/user",
+      "https://placee-inc-production.up.railway.app/user",
       {
         method: "GET",
         headers: {
@@ -202,7 +202,7 @@ export const updatePersonal = (userId, userData) => {
   return async (dispatch) => {
     try {
       const res = await axios.put(
-        `https://demo-turistic-production.up.railway.app/user/preregister/${userId}`,
+        `https://placee-inc-production.up.railway.app/user/preregister/${userId}`,
         userData
       );
       const data = await res.data;
@@ -221,7 +221,7 @@ export const updatePersonal = (userId, userData) => {
 export const DeletePost = (postId) => {
   return async (dispatch) => {
     const res = await axios.delete(
-      `https://demo-turistic-production.up.railway.app/post/${postId}`
+      `https://placee-inc-production.up.railway.app/post/${postId}`
     );
     const data = res.data;
     return dispatch({
@@ -234,7 +234,7 @@ export const DeletePost = (postId) => {
 export const OnlyAllPost = () => {
   return async (dispatch) => {
     const res = await axios.get(
-      `https://demo-turistic-production.up.railway.app/posthostess`
+      `https://placee-inc-production.up.railway.app/posthostess`
     );
     const data = res.data.OnlyPosts;
     return dispatch({
@@ -247,7 +247,7 @@ export const OnlyAllPost = () => {
 export const UserPostDetails = (idUser) => {
   return async (dispatch) => {
     const res = await axios.get(
-      `https://demo-turistic-production.up.railway.app/user/${idUser}`
+      `https://placee-inc-production.up.railway.app/user/${idUser}`
     );
     const data = res.data.UserDetails;
     return dispatch({
@@ -260,7 +260,7 @@ export const UserPostDetails = (idUser) => {
 export const updatepost = (postId, payload) => {
   return async (dispatch) => {
     const res = await axios.put(
-      `https://demo-turistic-production.up.railway.app/post/${postId}`,
+      `https://placee-inc-production.up.railway.app/post/${postId}`,
       payload
     );
     const data = res.data;
@@ -274,7 +274,7 @@ export const paymentReserve = (reservationData) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        "https://demo-turistic-production.up.railway.app/api/pago",
+        "https://placee-inc-production.up.railway.app/api/pago",
         reservationData
       );
       const data = res.data;
