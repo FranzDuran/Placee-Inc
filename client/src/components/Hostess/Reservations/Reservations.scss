@@ -1,0 +1,493 @@
+.container-reservation {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 0;
+}
+
+.tittle {
+  box-shadow: 0px 0px 2px;
+  border-radius: 0.7rem;
+  border-style: solid;
+  border-color: #000;
+  width: 90%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h1 {
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    //padding: 0.3em;
+  }
+}
+.box-reservation {
+  border-radius: 0.7rem;
+  border-width: 0.2rem;
+  border-color: #6249ad;
+  padding: 15px;
+  //margin-top: 1rem;
+  width: 95%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .content-search-months {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+
+    .year-months {
+      display: flex;
+      gap: 15px;
+      //margin-top: -6em;
+      height: 100%;
+
+      .months-carrusel {
+        border-width: 0.2rem;
+        border-color: rgb(206, 206, 206);
+        //padding: 15px;
+        //margin-top: 2%;
+        //width: 12%;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 0 15px;
+
+        .months {
+          color: #6249ad;
+          text-align: center;
+          font-size: 22px;
+          font-weight: 700;
+        }
+        .years {
+          text-align: center;
+          font-size: 22px;
+          font-weight: 700;
+        }
+      }
+    }
+
+    .input-reservations {
+      display: flex;
+      gap: 10px;
+      height: 100%;
+      width: 30%;
+      position: relative;
+
+      .days-input {
+        width: 100%;
+        outline: none;
+        border: 2px solid #6249ad;
+        border-radius: 2rem;
+        padding: 0 0 0 10px;
+      }
+
+      .btn-reservation-search {
+        background: #6249ad;
+        border-radius: 5rem;
+        height: 100%;
+        width: auto;
+        margin: auto;
+        position: absolute;
+        right: 0px;
+        padding: 0 3px;
+        #icons-search-reservtion {
+          color: white;
+          width: 90%;
+          height: 90%;
+        }
+      }
+    }
+  }
+  .days-container {
+    display: flex;
+    width: 100%;
+    height: 10%;
+    gap: 15px;
+
+    .days-carrusel {
+      border-radius: 2rem;
+      border: 2px solid #6249ad;
+      height: 100%;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .days {
+        font-size: 22px;
+        font-weight: 700;
+      }
+    }
+
+    .num-carrusel {
+      border: 1px solid #cecece;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      margin: 0px;
+
+      .num-days {
+        color: #6249ad;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .container-paper {
+    width: 100%;
+    height: 80%;
+    .paper {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.length-reservation {
+  display: flex;
+  justify-content: space-around;
+  gap: 0px !important;
+  width: 100%;
+  height: 10%;
+  padding: 0 48px 0 230px;
+  //margin: 0 auto 0 145px;
+
+  /* @media screen and (max-width: 2100px) {
+    width: 83%;
+  }
+  @media screen and (max-width: 2100px) {
+    width: 83%;
+  }
+  @media screen and (max-width: 1700px) {
+    width: 80%;
+  } */
+
+  .length-container {
+    border: 2px solid rgb(206, 206, 206);
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    .length {
+      color: #6249ad;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+    }
+  }
+}
+
+.modal-container {
+  width: 700px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  background: #fff;
+  border: 2px solid #000;
+}
+.calendar-table {
+  display: flex;
+
+  .icons-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+
+    .arrow-container {
+      margin: 0px;
+      #arrow-icons {
+        margin: 0px;
+        font-size: 33px;
+      }
+    }
+  }
+}
+
+.data-calendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+
+  .day {
+    font-weight: 800;
+    font-size: 15px;
+    text-align: center;
+  }
+  .date {
+    font-weight: 800;
+    font-size: 15px;
+    text-align: center;
+  }
+  .months-calendar {
+    font-weight: 800;
+    font-size: 15px;
+    text-align: center;
+  }
+}
+/**********************/
+
+.days-carrusel:hover .num-carrusel {
+  display: grid;
+}
+
+.calendar-container {
+  display: flex;
+  gap: 80px;
+}
+
+.calendar-days {
+  font-size: 30px;
+  box-shadow: 0px 0px 1px black;
+}
+
+#icons-clendar-expand {
+  font-size: 40px;
+  margin-top: -5px;
+}
+/* .arrow-container {
+  margin-top: 2em;
+}
+.icons-arrow {
+  display: flex;
+  gap: 3em;
+}
+#arrow-icons {
+  font-size: 40px;
+  margin-top: 15px;
+} */
+
+/* Aplicar estilo vertical solo a la clase "vertical-text" */
+
+/* En tu archivo de estilos CSS */
+.customTableCell {
+  height: 2em; /* Ajusta la altura a tu preferencia */
+  border-width: 0.3px;
+  text-align: center;
+  border-color: #a4a4a4;
+}
+
+.contact-reservation {
+  display: flex;
+  gap: 5em;
+}
+
+.detail-reservation {
+  display: flex;
+  gap: 10em;
+  margin-top: 2em;
+}
+
+.title-dtail-reserva {
+  margin-top: 2em;
+}
+
+.modal-reservation {
+  display: flex;
+  gap: 5em;
+}
+
+.pago-total {
+  text-align: center;
+}
+.calendar-table {
+  border-width: 0.2rem;
+  width: 12rem;
+}
+#clients {
+  border-width: 0.3px;
+  text-align: center;
+  border-color: #a4a4a4;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 1439px) {
+  .data-calendar {
+    gap: 0px;
+  }
+  .input-reservations{
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .container-reservation {
+    padding: 20px 0 80px 0;
+
+    .tittle {
+      h1 {
+        font-size: 22px;
+      }
+    }
+    .box-reservation {
+      .content-search-months {
+        .year-months {
+          .months-carrusel {
+            .years {
+              font-size: 14px;
+            }
+            .months {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      .days-container {
+        .days-carrusel {
+          .days {
+            font-size: 14px;
+          }
+        }
+        .num-carrusel {
+          .num-days {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container-reservation {
+    padding: 10px 0 60px 0;
+    gap: 5px;
+
+    .tittle {
+      height: 5%;
+      h1 {
+        font-size: 16px;
+      }
+    }
+    .box-reservation {
+      height: 95%;
+      .content-search-months {
+        flex-direction: column-reverse;
+        height: 16%;
+
+        .year-months {
+          height: 50%;
+          margin-top: 5px;
+          .months-carrusel {
+            width: fit-content;
+            margin: 0px;
+            .years {
+              font-size: 14px;
+            }
+            .months {
+              font-size: 14px;
+            }
+          }
+        }
+        .input-reservations {
+          height: 50%;
+          width: 75% !important;
+
+          .btn-reservation-search {
+            #icons-search-reservtion {
+              font-size: 25px;
+            }
+          }
+        }
+      }
+      .days-container {
+        height: 8%;
+        .days-carrusel {
+          margin: 0px;
+          .days {
+            font-size: 14px;
+          }
+        }
+      }
+      .container-paper {
+        height: 76%;
+      }
+    }
+  }
+
+  .item-title-day {
+    width: 80px;
+    padding: 5px 0 !important;
+
+    .data-calendar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0px;
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+  .calendar-table {
+    width: 70px;
+    padding: 0px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .icons-arrow {
+      display: grid;
+      gap: 5px;
+
+      .arrow-container {
+        margin: 0px;
+        width: 100%;
+        #arrow-icons {
+          font-size: 25px;
+          margin: 0px;
+        }
+      }
+      div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
+        #icons-clendar-expand {
+          font-size: 25px;
+        }
+      }
+    }
+  }
+
+  .length-reservation {
+    display: none;
+  }
+
+  .modal-container {
+    width: 90%;
+    height: 100%;
+  }
+  .modal-reservation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+
+  #clients {
+    font-size: 10px;
+    text-align: 0;
+  }
+}

@@ -1,0 +1,328 @@
+.container-hostess {
+  width: 100%;
+  display: flex;
+  height: 100vh;
+  background: #fff !important;
+}
+
+//-------MENU VERTICAL-------
+.container-sider {
+  margin: auto 0 0 0 !important;
+  background: #f8f9fa;
+  position: relative;
+  width: 25%;
+  height: calc(100vh - 10vh);
+}
+
+/* Estilos del menú vertical */
+.vertical-menu {
+  margin-left: -20% !important;
+  transition: margin-left 0.1s ease-in-out;
+
+  .menu-anfitrion {
+    align-items: flex-end;
+
+    .items-anfitrion {
+      text-align: end;
+
+      i {
+        font-size: 40px;
+        color: #7f7f7f;
+      }
+      img {
+        width: auto;
+        height: 40px;
+        margin: 0 0 0 auto;
+      }
+    }
+    .items-anfitrion:hover {
+      border-radius: 0px;
+      background: #fff;
+    }
+  }
+}
+.vertical-menu.hidden {
+  right: -20%; /* Puedes ajustar esto según tus necesidades */
+}
+
+.visible {
+  margin-left: 0%;
+  transition: margin-left 0.1s ease-in-out;
+}
+
+#menu-left {
+  background: #f8f9fa;
+  //border: 1px solid blue;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100% !important;
+  max-width: inherit !important;
+  min-width: inherit !important;
+}
+
+/* Estilos del botón */
+.toggle-menu-btn {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+  right: -21px;
+  font-size: 40px;
+  cursor: pointer;
+  z-index: 1;
+  width: fit-content;
+  height: fit-content;
+  padding: 0px 4px;
+  border-radius: 50px;
+  background: transparent;
+  transition: box-shadow 0.4s ease;
+  color: #cfcfcf !important;
+}
+.toggle-menu-btn:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+//-------MENU VERTICAL - PERFIL -------
+.avatar-anfitrion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+  gap: 10%;
+}
+.avatar-anfitrion div {
+  position: relative;
+}
+
+.camera-hostess {
+  position: absolute;
+  font-size: 2em;
+  bottom: 0px;
+  right: 0px;
+  color: #fff;
+}
+.photo-camera {
+  font-size: 30px !important;
+  color: #fff;
+  padding: 5px;
+  background: #a5a5a5;
+  border-radius: 50px;
+}
+
+.gap-input {
+  margin: 30px 0 0 0 !important;
+}
+
+//-------MENU VERTICAL - ITEMS LINK -------
+.menu-anfitrion {
+  background: #f8f9fa;
+  color: black;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 70%;
+  padding: 0px;
+  overflow-y: auto;
+  gap: 5px;
+}
+.menu-anfitrion::-webkit-scrollbar {
+  width: 0px; /* Ajusta el ancho según tus necesidades */
+}
+
+.menu-anfitrion::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+  border: 2px solid transparent; /* Hacer el borde del thumb transparente */
+  border-radius: 4px; /* Añadir un borde redondeado al thumb */
+}
+
+.menu-anfitrion::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+}
+
+.menu-anfitrion a {
+  color: black;
+  width: 90%;
+}
+.menu-anfitrion li {
+  padding: 20px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.menu-anfitrion li:hover {
+  background-color: rgb(158, 155, 155);
+  border-radius: 8px;
+}
+
+.menu-anfitrion li:focus {
+  background-color: rgb(158, 155, 155);
+}
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.button-primary {
+  background-color: rgb(0, 119, 255);
+}
+
+.button-delete {
+  background-color: #cc0404;
+  color: white;
+  border-color: #cc0404;
+}
+
+.button-delete:hover {
+  background-color: rgb(204, 4, 4);
+  color: white;
+}
+.cards-anfitrion {
+  box-shadow: 0px 0px 20px;
+  border-radius: 15px;
+}
+
+.summary-hostess {
+  position: relative;
+  margin-left: 10px;
+  width: 270px;
+  margin-top: 545px;
+  font-size: 11px;
+  color: gray;
+}
+
+.hostess-swiper {
+  height: 270px;
+  width: 270px;
+}
+.demo-logo-vertical {
+  background: gray;
+}
+
+.items-anfitrion {
+  font-size: 1.8em;
+  background-color: #f8f9fa;
+
+  user-select: none;
+}
+:where(.css-dev-only-do-not-override-1vr7spz).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-1vr7spz).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  background-color: #f8f9fa;
+}
+
+/* Cambiar el color del texto al seleccionar un elemento */
+:where(.css-dev-only-do-not-override-1vr7spz).ant-menu-light
+  .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-1vr7spz).ant-menu-light
+  > .ant-menu
+  .ant-menu-item-selected {
+  color: #8b008b;
+  background-color: #f8f9fa;
+}
+
+.items-anfitrion:hover {
+  color: #8b008b;
+  background: #f8f9fa;
+}
+.items-anfitrion:active {
+  color: #8b008b;
+  background: none;
+}
+.items-anfitrion::after {
+  color: #8b008b;
+  background: #f8f9fa;
+}
+.items-anfitrion:focus {
+  color: #8b008b;
+  background: #f8f9fa;
+}
+.items-anfitrion:active {
+  color: #8b008b;
+  background: #f8f9fa;
+}
+.items-anfitrion::after {
+  color: #8b008b;
+  background: #f8f9fa;
+}
+
+#close-sesion:hover {
+  color: #8b008b;
+  border-color: #8b008b;
+}
+
+.avatar-anfitrion-vertical {
+  justify-content: flex-end;
+  padding: 20px 20px 20px 0;
+  .avatar-anfitrion-perfil {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .avatar-anfitrion-camara {
+    display: none;
+  }
+
+  .avatar-anfitrion-perfil-option {
+    display: none;
+  }
+}
+.avatar-anfitrion-perfil {
+  width: 100px !important;
+  height: 100px !important;
+  object-fit: cover;
+}
+
+.active-link {
+  .items-anfitrion {
+    background: rgb(158, 155, 155);
+    border-radius: 8px;
+    color: #8b008b;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .items-anfitrion {
+    font-size: 1.4em;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .container-sider {
+    display: none;
+  }
+  /* .avatar-anfitrion {
+    display: flex;
+    margin-bottom: 10%;
+    margin-left: 2%;
+    gap: 10%;
+    margin-top: 10%;
+  } */
+}
+
+@media screen and (max-width: 767px) {
+  /* #menu-left {
+       display: none;
+    } */
+  .hostess-swiper {
+    height: 70px;
+    width: 70px;
+  }
+  .container-hostess {
+    width: 100%;
+  }
+}

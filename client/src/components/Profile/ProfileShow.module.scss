@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  //align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cardContent {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.btnAnfitrion {
+  background-color: black !important;
+  border: 1px solid black !important;
+  color: #fff;
+}
+.btnAnfitrion:hover {
+  background-color: #fff !important;
+  color: #000;
+}
+
+.btnActualizar {
+  background-color: #8b008b !important;
+  border: 1px solid #8b008b !important;
+  color: #fff;
+}
+.btnActualizar:hover {
+  background-color: #fff !important;
+  color: #8b008b;
+}

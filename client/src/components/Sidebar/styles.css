@@ -1,0 +1,541 @@
+.post-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* margin-left: 50px; */
+
+}
+
+.box-container {
+  display: flex;
+  gap: 150px;
+  justify-content: center;
+}
+
+
+/* .select-estado:focus {
+  border: 1px solid #ff0000; 
+  outline: none !important;
+} */
+
+
+.mb-3 {
+  /* Estilo personalizado para el input cuando show.status es "Privado" */
+  /* Por ejemplo, puedes establecer el ancho máximo para mantener el mismo tamaño */
+  max-width: 350px;
+}
+.card-textarea {
+  scroll-margin: 20px;
+  overflow-y: auto;
+}
+
+.back-next{
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid var(--grey);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
+  background-color: white;
+  height: 50px;
+  z-index: 2;
+}
+.back-next-footer {
+    display: flex;
+    justify-content: center;
+}
+.public-cancel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 3rem;
+  position: sticky;
+  top: 0;
+  background: white;
+  box-shadow: 0px 0px 3px rgb(229, 229, 229);
+  z-index: 1000;
+  
+}
+.sidebar {
+  left: 0;
+  width: 650px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  /*  background-image: linear-gradient(#015C92, #2D83B5, #89CCF6); */
+  background-color: rgb(241, 241, 241);
+  position: sticky;
+  float: left;
+}
+input[type="file"] {
+  color: transparent;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+.x {
+  text-align: center;
+}
+.hours-container {
+  display: flex;
+  gap: 12px;
+}
+
+.prev-mini {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 100px);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.prev-mini img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 5px;
+  opacity: 0.6;
+}
+.file-container {
+  height: 50px;
+  background-color: white;
+}
+
+.action-private {
+  display: flex;
+  gap: 150px;
+  justify-content: center;
+  max-width: 800px;
+  width: 100%;
+ /* Agrega una altura máxima para que el desplazamiento funcione */
+}
+
+.action-box {
+  display: grid;
+  justify-content: center;
+  box-shadow: 0px 0px 50px rgb(215, 215, 215);
+  /* width: 500px; */
+  max-width: 400px;
+  width: 100%;
+  border-radius: 10px;
+  overflow-y: scroll;
+  max-height: 70vh; 
+}
+
+
+/* .start-input::-webkit-scrollbar {
+  width: 0px; 
+} */
+
+/* .start-input::-webkit-scrollbar-thumb {
+  background-color: transparent; 
+  border: 2px solid transparent;
+  border-radius: 4px; 
+} */
+
+.start-input::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.select-form-container{
+  width: 95%;
+  margin: 0 auto;
+}
+
+.select-form-container2{
+  width: 85%;
+  margin: 0 auto;
+}
+
+.rest-info::-webkit-scrollbar {
+  width: 0px; /* Ajusta el ancho según tus necesidades */
+}
+
+.rest-info::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+  border: 2px solid transparent; /* Hacer el borde del thumb transparente */
+  border-radius: 4px; /* Añadir un borde redondeado al thumb */
+}
+
+.rest-info::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+}
+
+.action-box::-webkit-scrollbar {
+  width: 0px; /* Ajusta el ancho según tus necesidades */
+}
+
+.action-box::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+  border: 2px solid transparent; /* Hacer el borde del thumb transparente */
+  border-radius: 4px; /* Añadir un borde redondeado al thumb */
+}
+
+.action-box::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+}
+.rest-info {
+  display: grid;
+  justify-content: center;
+  box-shadow: 0px 0px 50px rgb(215, 215, 215);
+  /* width: 500px; */
+  max-width: 400px;
+  width: 100%;
+  border-radius: 10px;
+  overflow-y: scroll;
+  max-height: 70vh; 
+}
+
+.start-input {
+  display: grid;
+  justify-content: center;
+  box-shadow: 0px 0px 50px rgb(215, 215, 215);
+  /* width: 500px; */
+  max-width: 400px;
+  width: 100%;
+  border-radius: 10px;
+  max-height: 70vh; 
+  overflow-y: scroll;
+  max-height: 70vh; 
+}
+.label-continent {
+  margin-top: 50px;
+  font-weight: 700;
+
+}
+.label-status {
+  margin-top: 50px;
+  font-weight: 700;
+}
+.label-title {
+  font-weight: 700;
+}
+
+.btn-calendario{
+  padding: 10px 15px;
+  background: #8B008B;
+  border: 1px solid #8B008B;
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+}
+.label-calendar {
+  margin-top: 50px;
+  font-weight: 700;
+
+}
+
+.bottom-description {
+  margin-bottom: 50px;
+}
+.bottom-people {
+  margin-bottom: 50px;
+}
+.bottom-description {
+  margin-bottom: 50px;
+}
+
+.btn-x {
+  margin-top: 0px;
+  position: absolute;
+  margin-left: 100px;
+  background-color: red;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+.btn-x button {
+  color: white;
+}
+
+.btn-x span {
+  font-size: 15px;
+  text-align: center;
+}
+
+.sidebar-logo-container {
+  display: "flex";
+  align-items: center;
+}
+.sidebar-logo-container img {
+  width: 50%;
+  padding: 2em;
+}
+.sidebar-container {
+  display: grid;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sidebar-items {
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar-item {
+  padding: 1.5em;
+  padding-left: 2em;
+  display: flex;
+  color: #ffffff;
+  list-style: none;
+  text-decoration: none;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+.sidebar-item:hover {
+  background-color: #8B008B;
+}
+.sidebar-item-active {
+  padding: 1.5em;
+  padding-left: 2em;
+  display: flex;
+  color: #ffffff;
+  list-style: none;
+  text-decoration: none;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #8B008B;
+  cursor: pointer;
+}
+.sidebar-item-icon {
+  width: 20px;
+}
+.sidebar-item-label {
+  font-size: small;
+  font-weight: 600;
+  margin-left: 15px;
+}
+/* Footer */
+.sidebar-footer {
+  padding: 1.5em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.btn-reserva {
+  background-color: #8B008B ;
+}
+
+.btn-reserva:hover {
+  background-color: #8B008B ;
+}
+
+.btn-reserva:active {
+  border-color: #8B008B ;
+}
+
+.img-mini img {
+  width: 150px;
+}
+
+.exit-public {
+  display: none;
+
+}
+
+#exit-icon-public {
+  display: none;
+}
+
+
+@media only screen and (max-width: 767px) {
+  /* .box-container {
+    margin-bottom: 80px;
+  } */
+  .box-container{
+    padding: 0 20px 60px 20px !important;
+  }
+  .post-container {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .sidebar-container {
+    width: 100%;
+    margin-left: 0;
+  }
+  .sidebar-logo-container {
+    margin-left: 0;
+  }
+
+  .box-container {
+    display: grid;
+    gap: 30px;
+  }
+  .start-input {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 350px;
+    height: 450px;
+
+  }
+
+  .rest-info {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 350px;
+    height: 450px;
+  }
+  /*     .start-input input {
+      width: 300px;
+      margin-left: 10px;
+     margin-right: 10px;
+
+    }
+    .start-input select {
+      width: 300px;
+      margin-left: 15px;
+      margin-right: 15px;
+
+    }
+    .start-input textarea {
+      width: 300px;
+      margin-left: 15px;
+      margin-right: 15px;
+
+    }
+    .start-input label {
+      margin-left: 15px;
+      margin-right: 15px;
+    } */
+
+  .post-container {
+    display: grid;
+  }
+  .action-private {
+    display: grid;
+    gap: 30px;
+  }
+
+  .action-box {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 350px;
+  }
+  .public-cancel {
+display: none;
+  }
+  .exit-public {
+    display: grid;
+    color: #8B008B;
+  }
+
+  #exit-icon-public {
+    display: grid;
+    color: #8B008B;
+    font-size: 40px;
+
+  }
+
+  .box-all-public {
+    margin-top: 40px;
+  }
+}
+@media screen and (max-width: 1023px) {
+
+  .box-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 20px 60px 20px !important;
+  }
+  
+  .action-box{
+    overflow-y: auto;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .sidebar-container {
+    width: 100%;
+    margin-left: 0;
+  }
+  .sidebar-logo-container {
+    margin-left: 0;
+  }
+}
+
+@media only screen and (max-width: 1439px) {
+  .start-input {
+    min-width: 300px;
+  }
+  .rest-info {
+    min-width: 300px;
+  }
+  .action-box {
+    min-width: 300px;
+  }
+  .action-box input{
+    width: 340px;
+  }
+ 
+  .action-box input{
+  width: 650px;
+  }
+}
+
+  .action-private {
+    gap: 20px;
+  }
+  .box-container {
+    gap: 20px;
+    padding: 0 20px;
+  }
+  .hours-container {
+  width: 250px;
+  }
+
+#steps {
+  margin-top: 50px;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Asegura que esté en la parte superior de todos los elementos */
+}
+
+.loading-overlay h2 {
+  font-size: var(--titleSize);
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+

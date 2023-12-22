@@ -1,0 +1,66 @@
+.input-global {
+    outline: none;
+    }
+    
+    .input-global:focus {
+        box-shadow: 0px 0px 5px #8B008B ;
+    }
+    
+
+    .button-color {
+        background-color: #8B008B ;
+    }
+
+    .button-color :hover{
+        background-color: #8B008B ;
+    }
+
+    .text-color {
+        color: #8B008B ;
+        cursor: pointer;
+    }
+    .responsive-register {
+        overflow-y: scroll;
+        max-height: 90vh;
+        padding: 0px !important;
+        
+    }
+
+    .responsive-register::-webkit-scrollbar {
+        width: 0px; /* Ajusta el ancho según tus necesidades */
+      }
+      
+      .responsive-register::-webkit-scrollbar-thumb {
+        background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+        border: 2px solid transparent; /* Hacer el borde del thumb transparente */
+        border-radius: 4px; /* Añadir un borde redondeado al thumb */
+      }
+      
+      .responsive-register::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0, 0, 0, 0.5); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+      }
+
+
+    @media only screen and (max-width: 767px) {
+    
+        
+        .responsive-register {
+            overflow-y: scroll;
+            //max-height: 49em;
+            
+        }
+        
+        
+        }
+        
+    @media  ( max-width: 1440px) {
+    
+        
+        .responsive-register {
+            overflow-y: scroll;
+            //max-height: 100%;
+            
+        }
+        
+        
+        }

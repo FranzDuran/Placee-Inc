@@ -1,0 +1,197 @@
+@import "../../styles.scss";
+
+/* Modal.module.css */
+.modalOverlay {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  left: 0;
+  margin: auto;
+  width: 100% !important;
+  max-width: none !important;
+  height: calc(100vh - 13vh);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  background: white;
+  padding: 50px;
+  border-radius: 8px;
+  border: 1px solid #8b008b;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  max-width: 600px !important;
+  width: 60% !important;
+  height: 80%;
+  margin: auto;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start !important;
+  gap: 0px !important;
+}
+.boxTwo,
+.boxOne {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center !important;
+  gap: 0px !important;
+}
+
+.boxOne {
+  width: 400px !important;
+  height: 30%;
+}
+
+.boxTwo {
+  height: 70%;
+  textarea {
+    width: 100%;
+    height: 250px;
+    border: 1px solid #7f7f7f;
+    border-radius: 8px;
+    padding: 10px;
+    resize: none;
+  }
+}
+.title {
+  @include paragraphBody1Bold;
+  color: #8b008b;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  border: none;
+  background: #8b008b;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #8b008b;
+  padding: 5px 10px !important;
+}
+.closeButton:hover {
+  background: #fff;
+  color: #8b008b;
+}
+
+.iconContainer {
+  width: 100%;
+  display: flex !important;
+  justify-content: space-around !important;
+  margin: 20px 0;
+  gap: 0px !important;
+}
+
+.icon {
+  
+  cursor: pointer;
+  width: fit-content !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0px !important;
+  height: fit-content;
+
+  h4 {
+    margin: 0px !important;
+    @include desktopH4;
+  }
+
+  span{
+    i{
+        font-size: 35px;
+        padding: 5px 5px;
+        border: 1px solid #7f7f7f;
+        margin-left: 5px;
+    }
+  }
+}
+
+.selected {
+  color: #8b008b;
+}
+.btnComentar{
+  background: #8b008b;
+  color: #fff;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+button {
+  background: #8b008b;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.closeButtonMobile{
+  display: none;
+}
+.visible {
+  transform: translateY(0);
+  transition: transform 0.5s ease-in-out;
+}
+
+.oculto {
+  transform: translateY(100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+//------------ MOBILE --------------------
+@media screen and (max-width: 767px) {
+  .modalOverlay {
+    z-index: 1000 !important;
+    height: calc(100vh - 12vh);
+  }
+
+  .modalContent {
+    width: 100% !important;
+    margin: auto 0 0 0;
+    z-index: 1000 !important;
+    height: 100%;
+    padding: 50px 20px;
+    border: none;
+    border-radius: 0px;
+  }
+
+  .boxOne {
+    width: 100% !important;
+  }
+  .closeButton{
+    display: none;
+  }
+  .closeButtonMobile{
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    i{
+      font-size: 25px;
+    }
+  }
+
+  .icon{
+    h4{
+      @include subSemibold;
+    }
+    span{
+      i{
+        font-size: 20px
+      }
+    };
+  }
+}

@@ -1,0 +1,43 @@
+.footer-container {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid var(--grey);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
+  background-color: white;
+  padding-top: 13px;
+  padding-bottom: 14px;
+
+}
+
+.text-footer-home {
+  text-align: center;
+}
+
+.text-footer-home span {
+  font-size: 14px;
+  line-height: 18px;
+  color: black;
+  background-color: white;
+}
+
+ .text-footer-home a {
+  font-size: 14px;
+  line-height: 18px;
+  color: #8B008B;
+  text-decoration: none;
+} 
+
+@media only screen and (max-width: 767px) {
+  .footer-container {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .footer-container {
+    display: none;
+  }
+}

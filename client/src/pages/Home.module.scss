@@ -1,0 +1,23 @@
+//---------HOME--------------------
+.container{
+    width: 100%;
+    .continentContent{
+        width: 100%;
+    }
+    .cardsContent{
+        width: 100%;
+        padding: 40px 0 100px 0;
+    }
+    .footerContent{
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+//---------HOSTESS--------------------
+.hostess{
+    width: 100%;
+    display: flex;
+     flex-direction: column;
+}

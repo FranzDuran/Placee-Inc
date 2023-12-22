@@ -1,0 +1,102 @@
+.login-container {
+  background: white;
+  //height: 100vh !important;
+}
+
+.button-login {
+  background-color: #8b008b;
+  display: flex !important;
+  align-items: center;
+}
+
+.button-login:hover {
+  background-color: #8b008b;
+}
+
+.input-password {
+  outline: none;
+}
+
+.input-password:focus {
+  box-shadow: 0px 0px 5px #8b008b;
+}
+
+.input-email {
+  outline: none;
+}
+
+.input-email:focus {
+  box-shadow: 0px 0px 5px #8b008b;
+}
+
+.text-color {
+  color: #8b008b;
+}
+
+.text-color :hover {
+  color: #8b008b;
+}
+
+.eyes-button {
+  margin-left: 350px;
+  margin-top: -60px;
+}
+
+.loading1 {
+  color: #8b008b;
+  margin-left: 50%;
+}
+
+/* LoginForms.scss */
+
+.horizontal-line-with-o {
+  width: 100%;
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+  margin: 20px 0; /* Ajusta el margen superior e inferior según sea necesario */
+}
+
+.line {
+  flex: 1;
+  height: 1px; /* Altura de la línea */
+  background-color: #ccc; /* Color de la línea */
+  margin: 0 10px; /* Espacio entre la línea y la letra "O" */
+}
+
+.letter {
+  font-size: 20px; /* Ajusta el tamaño de la letra "O" según tus preferencias */
+  color: #909090; /* Color de la línea */
+  /* Otros estilos de la letra "O" */
+}
+
+.login-container {
+  width: 100%;
+
+}
+.container-form{
+    width: 100%;
+}
+.container-modal-login {
+  width: 450px !important;
+}
+
+.button-color-iniciar{
+  background-color: #8b008b !important;
+  border: 1px solid #8b008b !important;
+}
+
+.container-login{
+  padding-top: 20px !important;
+}
+
+.holaaaaa{
+  height: 100vh !important;
+}
+
+@media screen and (max-width: 767px) {
+  .login-container{
+    height: 90vh !important;
+    overflow-y: auto;
+  }
+  
+}

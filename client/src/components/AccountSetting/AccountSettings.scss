@@ -1,0 +1,58 @@
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 50px;
+
+  
+
+    .icons {
+        font-size: 30px;
+    }
+    a {
+        text-decoration: none;
+    }
+}
+
+.text-account h1 {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.text-account {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.sub-text {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+
+    p {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    span {
+        font-size: 18px;
+
+    }
+}
+.sub-text a {
+     color: #8B008B;
+     text-decoration: underline;
+ }
+
+@media only screen and (max-width: 767px) {
+    .card-container {
+   display: grid;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .card-container {
+        display: grid;
+    }
+
+}

@@ -1,0 +1,62 @@
+/* Modal.module.css */
+.modalOverlay {
+  position: fixed;
+  //top: 0;
+  bottom: 50px;
+  left: 25%;
+  //right: 0;
+  margin: auto;
+  width: 320px !important;
+  //height: 100px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 100% !important;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.closeBtn {
+  background: transparent;
+  color: #8b008b;
+  //border: 1px solid  #8b008b;
+  border-radius: 50px;
+  font-size: 30px;
+  padding: 0px;
+  cursor: pointer;
+  margin: 0 0 10px auto;
+}
+.closeBtn:hover {
+    background: rgb(228, 228, 228);
+    color:  #8b008b;
+  }
+
+.modalActions {
+  display: flex !important;
+  justify-content: space-between !important;
+  //gap: 20px !important;
+}
+.btnSeleccion {
+  padding: 10px 20px;
+}
+
+/* Agrega más estilos según tus necesidades */
+
+@media screen and (max-width: 767px) {
+  .modalOverlay {
+    bottom: 50px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+}

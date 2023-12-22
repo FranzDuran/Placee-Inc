@@ -1,0 +1,98 @@
+/* src/components/Carousel.module.css */
+
+@import "../../styles.scss";
+
+.swiperContainer {
+  display: none;
+}
+
+.buttonContainer {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .swiperContainer {
+    display: flex;
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .swiperSlide {
+    width: auto;
+    margin-right: 8px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #fff;
+  }
+
+  .swiper-pagination-bullet {
+    background-color: #3498db;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: #2980b9;
+  }
+
+  .contentComment {
+    width: 87%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    //border: 1px solid red;
+    padding: 15px;
+    background: #f1f0f0;
+    border-radius: 12px;
+
+    span {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      i {
+        font-size: 25px;
+      }
+    }
+
+    div {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 90%;
+      margin-bottom: 10px;
+      gap: 10px;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+      h3 {
+        @include paragBody2Regular;
+        font-weight: 600;
+        color: #7e00e5;
+        margin: 0px;
+      }
+    }
+    p {
+      @include paragBody2Regular;
+      width: 90%;
+    }
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 40px;
+    a{
+        width: 60%;
+        margin: 0 auto;
+        .button {
+            width: 100%;  
+          }
+    }
+  }
+  
+}

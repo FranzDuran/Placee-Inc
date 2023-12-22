@@ -1,0 +1,142 @@
+.menu-anfitrion:active {
+  background: none;
+}
+
+.container-description-menu {
+  //width: 75%;
+  //height: 90vh;
+  margin: auto 0 0 0;
+  width: 75%;
+  height: calc(100vh - 10vh); /* Altura de la ventana - altura del navbar */
+  overflow-y: auto;
+  padding: 10px;
+  background: #fff;
+  //border: 1px solid red;
+}
+
+.container-description-menu::-webkit-scrollbar {
+  width: 0px; /* Ajusta el ancho según tus necesidades */
+}
+
+.container-description-menu::-webkit-scrollbar-thumb {
+  background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+  border: 2px solid transparent; /* Hacer el borde del thumb transparente */
+  border-radius: 4px; /* Añadir un borde redondeado al thumb */
+}
+
+.container-description-menu::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+}
+
+.container-description-menu-compled{
+  width: 95%;
+}
+.container-description-menu-2 {
+  width: 100%;
+  height: 100%;
+}
+.start-container {
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+
+  a {
+    width: 50%;
+    margin: auto;
+    .start-img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .start-comment,
+  .start-img {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: auto;
+  }
+  .start-img:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 4px rgb(213, 213, 213);
+    border-radius: 1em;
+  }
+
+  .start-comment:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 4px rgb(213, 213, 213);
+    border-radius: 1em;
+  }
+  .start-comment img,
+  .start-img img {
+    width: 100%;
+    height: auto;
+  }
+  .start-comment h2,
+  .start-img h2 {
+    margin: 0 0 10px 0;
+    text-align: center;
+    color: #8b008b;
+  }
+}
+
+@media screen and (max-width: 1439px) {
+  .start-comment h2,
+  .start-img h2 {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .container-description-menu {
+    width: 100%;
+  }
+
+  .start-container {
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr); */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+    width: 90%;
+    margin: 0 auto;
+    gap: 30px;
+    padding: 50px 0 80px 0;
+    a {
+      max-width: 325px;
+      margin: 0px;
+    }
+  }
+  .start-img,
+  .start-comment {
+    cursor: pointer;
+    box-shadow: 0px 0px 4px rgb(213, 213, 213);
+    border-radius: 1em;
+    max-width: 325px;
+    margin: 0px !important;
+
+  }
+}
+@media screen and (max-width: 767px) {
+  .start-container {
+    height: auto;
+
+    a {
+      width: 100%;
+    }
+    .start-comment,
+    .start-img {
+      width: 100%;
+    }
+  }
+}

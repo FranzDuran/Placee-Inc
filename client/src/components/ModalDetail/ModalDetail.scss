@@ -1,0 +1,41 @@
+
+
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 30px);
+    gap: 50px;
+    justify-content: space-between;
+  }
+
+  .image-container img {
+    width: 100%
+  }
+  
+  
+  
+.button-modal {
+    display: flex;
+    justify-content: end;
+    margin-right: 50px;
+    margin-top: -50px;
+
+}
+
+.button-modal button {
+    color: white;
+    background: #8B008B;
+
+}
+
+.button-modal button:hover {
+    background: #8B008B;
+}
+
+.button-close button {
+    background: #8B008B;
+}
+
+.button-close button:hover {
+    background: #8B008B;
+}

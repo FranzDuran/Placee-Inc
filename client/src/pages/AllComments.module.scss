@@ -1,0 +1,79 @@
+@import "../styles.scss";
+
+.container{
+    width: 100%;
+    margin: 0px 0 20px;
+
+    .commentsContainer{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px 0;
+        //border: 1px solid red;
+        border-radius: 16px;
+        gap: 30px;
+        
+        .contentComment{
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            //border: 1px solid red;
+            padding: 15px;
+            background: #f1f0f0;
+
+            div{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 10px;
+                img{
+                    width: 60px;
+                    height: 60px;
+                }
+                h3{
+                    @include paragBody2Regular;
+                    font-weight: 600;
+                    color: #7e00e5;
+                    margin: 0px;
+                }
+                span{
+                    i{
+                        font-size: 25px;
+                    }
+                }
+            }
+            p{
+                @include paragBody2Regular;
+                width: 95%;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1023px) {
+
+    .commentsContainer{
+        border-radius: 0px !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* .container{
+        display: none;
+    } */
+
+    .commentsContainer{
+        flex-direction: column;
+        .contentComment{
+            width: 100% !important;
+        }
+    }
+}
+
+
+
+
+//-------------- MODAL COMENTAR --------------------------

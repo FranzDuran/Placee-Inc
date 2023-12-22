@@ -1,0 +1,156 @@
+//Mixins de Fonts:
+
+//Title:
+@mixin desktopH1($color: #020203) {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    color: $color;
+  }
+  
+  @mixin desktopH2($color: #020203) {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    color: $color;
+  }
+  
+  @mixin desktopH3($color: #020203) {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 38px;
+    color: $color;
+  }
+  @mixin desktopH4 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+  
+  @mixin MobileH1 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 31px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #020203;
+  }
+  //Title-MOBILE:
+  @mixin MobileH2() {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #020203;
+  }
+  
+  @mixin MobileH3 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 25.2px;
+  }
+  
+  @mixin MobileH4() {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+  
+  //AnteTitle: Paragraph/Body 1/Medium;
+  @mixin ParagBody1Medium() {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #717171;
+  }
+  
+  @mixin paragraphBody2Medium {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+  
+  @mixin ParagCaptionMedium() {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #717171;
+  }
+  
+  //Subtitle:
+  @mixin subMedium($color: #020203) {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: $color;
+  }
+  
+  @mixin subSemibold() {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  //Paragraph:
+  @mixin paragCaptionRegular($color: #2c2c2c) {
+    line-height: 21px;
+    font-size: 14px;
+    font-weight: 400;
+    color: $color;
+  }
+  
+  @mixin paragBody1Regular($color: #2c2c2c) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 27px;
+    color: $color;
+  }
+  
+  @mixin paragBody2Regular($color: #2c2c2c) {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: $color;
+  }
+  
+  @mixin paragraphBody2Light {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #020203;
+  }
+  
+  @mixin paragXsRegular {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    color: #717171;
+  }
+  @mixin paragraphBody1Bold {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+  }

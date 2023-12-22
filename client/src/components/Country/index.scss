@@ -1,0 +1,68 @@
+.country-container {
+    background-color:"background.paper" ;
+    width: 100%;
+    position: "relative";
+    min-height: 200px;
+    margin-top: 20px;
+    justify-content: center;
+    margin-bottom: -80px;
+
+}
+/* YourComponent.css */
+
+.country-name {
+  display: flex;
+}
+
+
+
+
+
+#flag-img {
+  margin-left: 5px;
+}
+
+.flag-container {
+  width: 30px; /* Ajusta el ancho deseado para el círculo */
+  height: 30px; /* Ajusta la altura deseada para el círculo */
+  border: 0.5px solid #979797; /* Borde negro de 2px */
+  border-radius: 50%; /* Hace que el elemento sea circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+  gap: 50px;
+}
+
+.flag-container img {
+  max-width: 100%; /* Ajusta el ancho máximo de la imagen */
+  max-height: 100%; /* Ajusta la altura máxima de la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  place-content: center;
+  place-items: center;
+}
+
+
+.country-filter {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+
+.country-filter:focus {
+  color: orange;
+
+}
+
+@media only screen and (max-width: 767px) {
+  .country-filter {
+    font-size: 10px;
+  }
+}
+
