@@ -14,6 +14,8 @@ export default function CommentsDetails() {
   useEffect(() => {
     dispatch(DetailsPostTuristic(idTuristic));
   }, [dispatch, idTuristic]);
+
+  
   if (!detailpost.comments) {
     return null; // Puedes mostrar un mensaje de carga aquí si lo deseas
   }

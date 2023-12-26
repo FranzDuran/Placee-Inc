@@ -47,27 +47,6 @@ dayjs.extend(customParseFormat);
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
-/* const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 90%,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  "@media (max-width: 768px)": {
-    width: "90%", // Cambia el ancho a un porcentaje deseado para pantallas más pequeñas
-    maxWidth: 500, // Puedes establecer un ancho máximo también
-  },
-
-  "@media (max-width: 1800px)": {
-    width: "100%", // Cambia el ancho a un porcentaje deseado para pantallas más pequeñas
-    maxWidth: 1200, // Puedes establecer un ancho máximo también
-  },
-}; */
-
 export default function CardDetails() {
   const { idTuristic } = useParams();
   const [state, setState] = React.useState({
@@ -81,7 +60,6 @@ export default function CardDetails() {
   const handleClose2 = () => setOpen2(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const detailpost = useSelector((state) => state.detailpost);
-  console.log(detailpost)
   const dispatch = useDispatch();
   const values = [true];
 

@@ -281,14 +281,18 @@
   border-radius: 8px;
 }
 .carousel-control-prev {
+  //display: none;
+  width: fit-content;
   .carousel-control-prev-icon {
     padding: 20px;
     background-color: #000;
     border-radius: 50px;
     color: #000;
+    font-size: 20px;
   }
 }
 .carousel-control-next {
+  //display: none;
   .carousel-control-next-icon {
     padding: 20px;
     background-color: #000;

@@ -21,7 +21,7 @@ export const AllPostTuristic = () => {
 export const DetailsPostTuristic = (idTuristic) => {
   return async (dispach) => {
     const res = await axios.get(
-      `https://placee-inc-production.up.railway.app/${idTuristic}`
+      `https://placee-inc-production.up.railway.app/turistic/${idTuristic}`
     );
     const data = res.data.details;
     return dispach({

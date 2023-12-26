@@ -83,6 +83,8 @@ function Card() {
 
   const maxLength = isMobile ? 9 : 14;
 
+  //--------------NAVIDATION---------------------------
+
   return (
     <div className="card-container-post">
       {isLoading ? (
@@ -104,9 +106,15 @@ function Card() {
               data.Posts.map((info, index) => (
                 <div className="card-box" key={index}>
                   <div className="carousel-container">
-                    <Carousel interval={null} className="swiper-container">
+                    <Carousel
+                      interval={null}
+                      className="swiper-container custom-carousel"
+                    >
                       {info.imageFile.map((imageSrc, imageIndex) => (
-                        <Carousel.Item key={imageIndex}>
+                        <Carousel.Item
+                          key={imageIndex}
+                          className="custom-carousel-item"
+                        >
                           <a
                             href={"/rooms/" + info.id}
                             target="_blank"
@@ -114,7 +122,7 @@ function Card() {
                           >
                             <div className="image-container">
                               <img
-                                srcset={imageSrc}
+                                srcSet={imageSrc}
                                 alt={imageSrc}
                                 className="card-img"
                               />
@@ -123,8 +131,9 @@ function Card() {
                         </Carousel.Item>
                       ))}
                     </Carousel>
+
                     <span className="content-icon-favoritos">
-                    <i class="ri-bookmark-line"></i>
+                      <i class="ri-bookmark-line"></i>
                     </span>
                   </div>
 

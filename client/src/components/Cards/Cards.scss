@@ -24,19 +24,23 @@
       position: relative;
       width: 100%;
 
-      .content-icon-favoritos{
+      .custom-carousel .carousel-control-prev,
+      .custom-carousel .carousel-control-next{
+        display: none;
+      }
+      .content-icon-favoritos {
         position: absolute;
         top: 20px;
         right: 10px;
         z-index: 1;
-        
+
         /* display: flex;
         justify-content: center;
         align-items: center; */
         /* padding: 5px;
         background: rgb(240, 240, 240);
         border-radius: 4px; */
-        i{
+        i {
           font-size: 30px;
           cursor: pointer;
           color: #fff;
@@ -69,11 +73,17 @@
     transform: scale(1.1);
     position: relative;
     box-shadow: 3px 5px 5px rgb(202, 202, 202);
-    
-    .swiper-container{
-      .text-link{
-        .image-container{
-          .card-img{
+
+    .custom-carousel .carousel-control-prev,
+      .custom-carousel .carousel-control-next{
+        display: flex;
+        transition: all .5s ease-in-out;
+      }
+
+    .swiper-container {
+      .text-link {
+        .image-container {
+          .card-img {
             border-radius: 8px 8px 0 0;
           }
         }
@@ -81,6 +91,33 @@
     }
   }
 }
+
+
+/* Estilos específicos para los botones de navegación del Carousel personalizado */
+.custom-carousel .carousel-control-prev,
+.custom-carousel .carousel-control-next {
+  width: 20px;
+  height: 20px;
+  bottom: 0px;
+  top: 0px;
+  margin: auto;
+  /* Agrega estilos específicos para los botones de navegación aquí */
+}
+
+.carousel-control-next .carousel-control-next-icon {
+  background-color: transparent !important; 
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+.carousel-control-prev .carousel-control-prev-icon {
+  background-color: transparent !important;
+  width: 15px;
+  height: 15px;
+  margin-left: 10px;
+}
+
+
 
 .desc-hover {
   width: 100%;
@@ -92,7 +129,7 @@
   flex-direction: column;
   position: relative;
 
-  .content-info-favoritos{
+  .content-info-favoritos {
     position: absolute;
     right: 15px;
     top: 65px;
@@ -100,10 +137,10 @@
     justify-content: center;
     align-items: center;
     font-size: 25px;
-    i{
+    i {
       color: rgb(92, 92, 92);
     }
-    p{
+    p {
       margin: 0px;
     }
   }
@@ -166,7 +203,7 @@
 }
 
 .carousel-with-button {
-  margin-top: 50px; 
+  margin-top: 50px;
 }
 
 #skeleton {
@@ -227,7 +264,6 @@
   }
 }
 
-
 //--------------------- TABLET --------------------------
 
 @media screen and (max-width: 1023px) {
@@ -240,8 +276,6 @@
     position: relative;
     box-shadow: none !important;
   }
-
-  
 
   .summary-card {
     line-height: 21px !important;
@@ -298,7 +332,6 @@
             height: 300px !important;
             object-fit: cover;
             object-position: center;
-            
           }
         }
       }
