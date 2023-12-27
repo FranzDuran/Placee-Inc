@@ -270,13 +270,11 @@ export const updatepost = (postId, payload) => {
     });
   };
 };
-export const paymentReserve = (reservationData) => {
+export const paymentReserve = () => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        "https://placee-inc-production.up.railway.app/api/pago",
-        reservationData
-      );
+        "https://placee-inc-production.up.railway.app/create-checkout-session");
       const data = res.data;
 
       dispatch({

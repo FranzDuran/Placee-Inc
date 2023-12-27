@@ -13,7 +13,7 @@ cloudinary.config({
   cloud_name: 'dz0lruj7k',
   api_key: '128323134832632',
   api_secret: '04JixT8UcmHYY-QfbwSTBzT-L7I'
-});  
+});
 
 app.use(cors())
 app.use(session({
@@ -30,9 +30,7 @@ app.use(express.json())
 app.use('/', routers)
 
 
-
 app.listen(PORT, () => {
-
-    console.log(`server on port ${PORT}`);
+  console.log(`server on port ${PORT}`);
 })
 

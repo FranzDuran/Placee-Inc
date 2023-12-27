@@ -8,7 +8,7 @@ const initialState = {
   detailpost: [],
   hostessuser: [],
   onlypost: [],
-  clientSecret: null,
+  payment: null,
   reservaEnProceso: false,
   reservaError: null,
   selectedCardId: null,
@@ -114,12 +114,12 @@ export const rootReducer = (state = initialState, action) => {
           comments: [...state.detailpost.comments, action.payload],
         },
       };
-    case "PAYMENT_POST":
-      return {
-        ...state,
-        clientSecret: action.payload.clientSecret,
-        // Puedes manejar otros estados relacionados con la reserva aquí
-      };
+      case "PAYMENT_POST":
+        return {
+          ...state,
+          // Otro estado actualizado aquí según sea necesario
+          payment: action.payload
+        };
 
     default:
       return { ...state };
