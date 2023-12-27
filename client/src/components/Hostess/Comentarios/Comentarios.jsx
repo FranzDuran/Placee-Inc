@@ -10,18 +10,47 @@ export default function Comentarios({ onDelete }) {
   const [showOptions, setShowOptions] = useState(
     Array(data.length).fill(false)
   );
+
   const { idTuristic } = useParams();
   const dispatch = useDispatch();
   const detailpost = useSelector((state) => state.detailpost);
-  console.log(detailpost)
+ // console.log(detailpost);
+
   useEffect(() => {
     dispatch(DetailsPostTuristic(idTuristic));
   }, [dispatch, idTuristic]);
-  if (!detailpost.comments) {
-    return null; // Puedes mostrar un mensaje de carga aquí si lo deseas
-  }
 
-  
+  const [detailposts, setDetailPosts] = useState();
+
+  useEffect(() => {
+    const storedDetailPost = JSON.parse(localStorage.getItem("detailpost"));
+    //console.log(storedDetailPost);
+
+    if ((!storedDetailPost || (Array.isArray(storedDetailPost) && storedDetailPost.length === 0)) && detailpost.comments) {
+      //console.log("1");
+      localStorage.setItem("detailpost", JSON.stringify(detailpost));
+      setDetailPosts(JSON.parse(localStorage.getItem("detailpost")));
+      //console.log(detailposts);
+
+    } else if ((!storedDetailPost || (Array.isArray(storedDetailPost) && storedDetailPost.length === 0)) && (!detailpost || (Array.isArray(detailpost) && detailpost.length === 0))) {
+      //console.log("no hay comentarios");
+
+    } else if (storedDetailPost.comments && detailpost.comments) {
+      //console.log("2");
+      if (storedDetailPost.id !== detailpost.id) {
+        localStorage.setItem("detailpost", JSON.stringify(detailpost));
+        setDetailPosts(JSON.parse(localStorage.getItem("detailpost")));
+      }
+    } else if (storedDetailPost.comments && (!detailpost || (Array.isArray(detailpost) && detailpost.length === 0))) {
+      setDetailPosts(storedDetailPost);
+      //console.log("3");
+      //console.log(storedDetailPost);
+    }
+  }, [detailpost]);
+
+  if (!detailposts || detailposts.length === 0) {
+    return <p>No comments available.</p>;
+  }
 
   const handleButtonClick = (index) => {
     // Toggle the state for the clicked card
@@ -42,7 +71,7 @@ export default function Comentarios({ onDelete }) {
   return (
     <div className={styles.container}>
       <div className={styles.cardsContainer}>
-        {detailpost.comments.map((item, index) => (
+        {detailposts.comments.map((item, index) => (
           <div
             className={styles.contentCard}
             key={index}
@@ -75,7 +104,10 @@ export default function Comentarios({ onDelete }) {
                 </div>
               )}
               <img src={item.user.avatar} alt={item.user.name} />
-              <h2>{item.user.name}{item.user.lastName}</h2>
+              <h2>
+                {item.user.name}
+                {item.user.lastName}
+              </h2>
               <p>{item.text}</p>
               <span>
                 {item.emoji === "corazon" ? (
