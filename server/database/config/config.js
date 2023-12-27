@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
-  development: {
+ development: {
      dialect: 'postgres',
     host: 'monorail.proxy.rlwy.net',
     port: 44280,
@@ -37,5 +37,5 @@ module.exports = {
     password: 'password',
     database: 'turistic',
    
-  },      */
+  },    */
 };
