@@ -10,8 +10,8 @@ module.exports = {
                 {
                     price_data: {
                         product_data: {
-                            name: "Laptop",
-                            description: 'Gaming Laptop',
+                            name: "Buenos Aires",
+                            description: 'Hotel parana',
                         },
                         currency: 'usd',
                         unit_amount: 20000,
@@ -22,8 +22,8 @@ module.exports = {
                     price_data: {
 
                     product_data: {
-                     name: 'Headset',
-                     description: 'Smart Tv',
+                     name: 'Panama',
+                     description: 'Lagos privados',
                     },
                     currency: 'usd',
 
@@ -34,10 +34,11 @@ module.exports = {
                 }
             ],
             mode: 'payment',
-            success_url: 'http://localhost:4000/success',
-            cancel_url: 'http://localhost:4000/cancel'
+            success_url: 'https://placee-inc.vercel.app',
+            cancel_url: 'https://placee-inc.vercel.app'
 
         })
+        console.log('pago realizado');
         return res.json(session)
 
     } catch (error) {

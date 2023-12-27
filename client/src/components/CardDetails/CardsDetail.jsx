@@ -12,7 +12,7 @@ import Carousel from "react-bootstrap/Carousel";
 import Skeleton from "@mui/material/Skeleton";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { DetailsPostTuristic } from "../../redux/action";
+import { DetailsPostTuristic, paymentReserve } from "../../redux/action";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import Diversity3RoundedIcon from "@mui/icons-material/Diversity3Rounded";
 import { Calendar, theme } from "antd";
@@ -252,7 +252,12 @@ export default function CardDetails() {
     event.preventDefault(); // Evita el comportamiento predeterminado del botón (scroll hacia arriba)
     openModal();
   };
-
+  const payment = useSelector(state => state.payment);
+  console.log(payment);
+    const handlePayment = () => {
+      dispatch(paymentReserve());
+      window.location.href =payment.url &&  payment.url;
+    };
   return (
     <div className="detail-container">
       <Header />
@@ -522,14 +527,12 @@ export default function CardDetails() {
                     </div>
                   </p>
 
-                  <form className="mt-10">
                     <button
-                      type="submit"
                       className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve"
-                    >
+                      onClick={handlePayment}
+                >
                       Reservar
                     </button>
-                  </form>
                 </div>
               </div>
             )}
