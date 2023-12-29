@@ -5,7 +5,7 @@ const {createSession} = require('../controllers/User/Payment')
 
 
 
-router.post('/create-checkout-session', createSession )
+router.post('/create-checkout-session/:postId', createSession )
 router.get('/success', (req, res) => res.send('success')  )
 
 router.get('/cancel', (req, res) => res.redirect('cancel') )

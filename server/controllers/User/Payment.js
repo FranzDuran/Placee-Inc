@@ -1,50 +1,41 @@
+const { Post } = require('../../database/models');
 const Stripe = require('stripe');
-const stripe= new Stripe('sk_test_51ONdk7AlajpyxreyoVzwpdS62OV4Z6p2G0OrtXhxbF8gGAd8IbIfxIv92gBQbXNU9JEI3LZFan9Za4aD2F4eLNyz00ZVVB8TRz');
-
+const stripe = new Stripe('sk_test_51ONdk7AlajpyxreyoVzwpdS62OV4Z6p2G0OrtXhxbF8gGAd8IbIfxIv92gBQbXNU9JEI3LZFan9Za4aD2F4eLNyz00ZVVB8TRz');
 
 module.exports = {
     createSession: async (req, res) => {
-    try {
-      const session = await  stripe.checkout.sessions.create({
-            line_items: [
-                {
-                    price_data: {
-                        product_data: {
-                            name: "Buenos Aires",
-                            description: 'Hotel parana',
+        const { postId } = req.params;
+
+        try {
+            const post = await Post.findByPk(postId);
+            if (!post) {
+                return res.status(404).json({ message: 'Publicación no encontrada' });
+            }
+
+            const session = await stripe.checkout.sessions.create({
+                line_items: [
+                    {
+                        price_data: {
+                            product_data: {
+                                name: post.title,
+                                description: post.description,
+                            },
+                            currency: 'usd',
+                            unit_amount: post.price * 100,
                         },
-                        currency: 'usd',
-                        unit_amount: 20000,
+                        quantity: 1,
                     },
-                    quantity: 1
-                },
-                {
-                    price_data: {
+                ],
+                mode: 'payment',
+                success_url: 'https://placee-inc.vercel.app',
+                cancel_url: 'https://placee-inc.vercel.app',
+            });
 
-                    product_data: {
-                     name: 'Panama',
-                     description: 'Lagos privados',
-                    },
-                    currency: 'usd',
-
-                    unit_amount: 10000, 
-                },
-                quantity: 2
-
-                }
-            ],
-            mode: 'payment',
-            success_url: 'https://placee-inc.vercel.app',
-            cancel_url: 'https://placee-inc.vercel.app'
-
-        })
-        console.log('pago realizado');
-        return res.json(session)
-
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error en el servidor' });
-    }
-  }
+            console.log('Pago exitoso');
+            return res.json(session);
+        } catch (error) {
+            console.error('Error al crear la sesión:', error);
+            return res.status(500).json({ message: 'Error del servidor' });
+        }
+    },
 };
- 

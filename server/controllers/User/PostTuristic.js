@@ -64,6 +64,7 @@ module.exports = {
         const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1);
         const capitalizedSummary = summary.charAt(0).toUpperCase() + summary.slice(1);
         const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
+     
 
         if (status === "Privado") {
           const newPost = await Post.create({

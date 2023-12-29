@@ -253,9 +253,8 @@ export default function CardDetails() {
     openModal();
   };
   const payment = useSelector(state => state.payment);
-  console.log(payment);
     const handlePayment = () => {
-      dispatch(paymentReserve());
+      dispatch(paymentReserve(idTuristic));
       window.location.href =payment.url &&  payment.url;
     };
   return (
