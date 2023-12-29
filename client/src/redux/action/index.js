@@ -274,7 +274,7 @@ export const paymentReserve = (idTuristic) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `https://placee-inc-production.up.railway.app/create-checkout-session${idTuristic}`);
+        `https://placee-inc-production.up.railway.app/create-checkout-session/${idTuristic}`);
       const data = res.data;
 
       dispatch({
