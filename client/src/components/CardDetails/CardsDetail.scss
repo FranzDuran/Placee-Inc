@@ -160,6 +160,125 @@
   background: #fff;
   padding: 15px;
   overflow: auto;
+
+  .content-card-reserve{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #8b008b;
+    margin-top: 20px;
+  }
+}
+
+.btn-close-card-reserve{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: all .5s ease-in-out;
+  color: rgb(73, 73, 73);
+}
+.btn-close-card-reserve:hover{
+  background: rgba(0, 0, 0, 0.11);
+  color: #000;
+}
+.content-title-card-reserve{
+  width: 100%;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #8b008b;
+  margin-bottom: 15px;
+  p{
+    font-size: 18px;
+    @include subSemibold;
+    color: #000;
+    span{
+      margin-left: 25px;
+    }
+  }
+}
+.container-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 295px;
+  width: 70%;
+  .content-btn-masmenos {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #8b008b;
+    border-right: 0px;
+    .title-btn-masmenos {
+      width: 50%;
+      margin: 0px;
+      text-align: center;
+      height: fit-content;
+      color: #000;
+    }
+    div {
+      width: 50%;
+      display: flex;
+      .btn-masmenos{
+        background: transparent;
+        border-radius: 0px;
+        text-align: center;
+        color: #000;
+        font-size: 35px;
+        padding: 0px 10px;
+        width: 50%;
+        height: fit-content;
+        border: 1px solid #8b008b;
+        border-top: 0px;
+        border-bottom: 0px;
+        //border-left: 0px;
+      }
+    }
+  }
+
+  .content-masinfo{
+    display: flex;
+    align-items: center;
+    border: 1px solid #8b008b;
+    border-right: 0px;
+    .title-masinfo{
+      width: 75%;
+      margin: 0px;
+      text-align: center;
+      height: fit-content;
+      color: #000;
+    }
+    .btn-masinfo{
+      width: 25%;
+      background: transparent;
+      border: 1px solid #8b008b;
+      border-top: 0px;
+      border-bottom: 0px;
+      border-radius: 0px;
+      color: #000;
+      font-size: 35px;
+      padding: 0px 10px;
+      height: fit-content;
+    }
+
+  }
+}
+
+.btn-reserve {
+  background: #000;
+  color: #fff;
+  margin: 20px 0px 15px;
+  width: 70%;
+  border: 1px solid #000;
+}
+
+.btn-reserve:hover {
+  background: #fff;
+  color: #000;
 }
 
 .footer-details {
@@ -240,7 +359,7 @@
   width: 48.5%;
   height: 460px;
   overflow: hidden;
-  img{
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -259,45 +378,52 @@
   border-radius: 8px;
   border: 2px solid #fff;
   box-shadow: rgb(204, 204, 204);
-  overflow: hidden;
-  .carousel{
+  background-color: #fff;
+  .carousel {
     height: 100%;
-    .carousel-indicators{
+    .carousel-indicators {
       height: 100%;
     }
-    .carousel-inner{
+    .carousel-inner {
       height: 100%;
-      .carousel-item{
+      .carousel-item {
         height: 100%;
       }
     }
   }
 }
 .container-carusel-image {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 8px;
+  margin: 0 auto;
 }
-.carousel-control-prev {
-  //display: none;
-  width: fit-content;
+
+.custom-carousel-cardDetail .carousel-control-prev,
+.custom-carousel-cardDetail .carousel-control-next {
+  width: 50px;
+  height: 50px;
+  top: 0px;
+  bottom: 0px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  background: rgb(219, 219, 219);
+  background: #8b008b;
+}
+.custom-carousel-cardDetail .carousel-control-prev {
+  left: 15px;
   .carousel-control-prev-icon {
     padding: 20px;
-    background-color: #000;
-    border-radius: 50px;
-    color: #000;
-    font-size: 20px;
+    margin: 0px;
   }
 }
-.carousel-control-next {
-  //display: none;
+.custom-carousel-cardDetail .carousel-control-next {
+  right: 15px;
   .carousel-control-next-icon {
     padding: 20px;
-    background-color: #000;
-    border-radius: 50px;
-    color: #000;
+    margin: 0px;
   }
 }
 
@@ -435,14 +561,7 @@
   justify-content: center;
 }
 
-.btn-reserve {
-  background-color: #8b008b;
-  margin-bottom: 20px;
-}
 
-.btn-reserve:hover {
-  background-color: #8b008b;
-}
 
 #icons-details {
   color: #fff;
@@ -617,7 +736,7 @@
     height: 136px;
     object-fit: cover;
   }
-  
+
   /* .card-text {
     background-color: #f1f0f0;
   } */

@@ -159,8 +159,8 @@ export default function CardDetails() {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box /* sx={style} */ className="container-modal-material">
-                <Carousel>
+              <Box className="container-modal-material">
+                <Carousel className="custom-carousel-cardDetail">
                   {detailpost.imageFile.map((img, index) => (
                     <Carousel.Item>
                       <img
@@ -252,11 +252,11 @@ export default function CardDetails() {
     event.preventDefault(); // Evita el comportamiento predeterminado del botón (scroll hacia arriba)
     openModal();
   };
-  const payment = useSelector(state => state.payment);
-    const handlePayment = () => {
-      dispatch(paymentReserve(idTuristic));
-      window.location.href =payment.url &&  payment.url;
-    };
+  const payment = useSelector((state) => state.payment);
+  const handlePayment = () => {
+    dispatch(paymentReserve(idTuristic));
+    window.location.href = payment.url && payment.url;
+  };
   return (
     <div className="detail-container">
       <Header />
@@ -482,24 +482,61 @@ export default function CardDetails() {
                 }
               >
                 {detailpost.status === "Privado" && (
-                  <div className="absolute top-0 right-0 p-2">
-                    <div
-                      style={{
-                        fontSize: "20px",
-                        cursor: "pointer",
-                        color: "#000",
-                      }}
-                      onClick={() => setCardReserve(false)}
-                    >
-                      x
-                    </div>
+                  <div
+                    /* className="absolute top-0 right-0 p-2" */
+                    className="btn-close-card-reserve"
+                    onClick={() => setCardReserve(false)}
+                  >
+                    <i class="ri-close-line"></i>
                   </div>
                 )}
-                <div className="mt-4 lg:row-span-3 lg:mt-0 ">
-                  <h2 className="sr-only">Product information</h2>
-                  <p className="text-3xl tracking-tight text-gray-900">
-                    {detailpost.price ? <span>${detailpost.price}</span> : null}
-                    <div>
+                <div /* className="mt-4 lg:row-span-3 lg:mt-0 " */
+                  className="content-card-reserve"
+                >
+                  {/* <h2 className="sr-only">Product information</h2> */}
+                  <div className="content-title-card-reserve">
+                    <p /* className="text-3xl tracking-tight text-gray-900" */
+                      className="title-card-reserve"
+                    >
+                      Reservado en Panajachel
+                      {detailpost.price ? (
+                        <span>${detailpost.price}</span>
+                      ) : null}
+                    </p>
+                  </div>
+                  <div className="container-buttons">
+                    <div className="content-btn-masmenos">
+                      <h3 className="title-btn-masmenos">Adultos</h3>
+                      <div>
+                        <button className="btn-masmenos">
+                          <i class="ri-add-line"></i>
+                        </button>
+                        <button className="btn-masmenos">
+                          <i class="ri-subtract-line"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="content-btn-masmenos">
+                      <h3 className="title-btn-masmenos">Menores</h3>
+                      <div>
+                        <button className="btn-masmenos">
+                          <i class="ri-add-line"></i>
+                        </button>
+                        <button className="btn-masmenos">
+                          <i class="ri-subtract-line"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div className="content-masinfo">
+                      <h3 className="title-masinfo">Transporte</h3>
+                      <button className="btn-masinfo">v</button>
+                    </div>
+                    <div className="content-masinfo">
+                      <h3 className="title-masinfo">Fecha de llegada</h3>
+                      <button className="btn-masinfo">v</button>
+                    </div>
+                  </div>
+                  {/* <div>
                       <div className="space-y-6">
                         <h3 className="text-base text-gray-900">
                           {detailpost.people ? (
@@ -523,15 +560,15 @@ export default function CardDetails() {
                           </Space>
                         </div>
                       ) : null}
-                    </div>
-                  </p>
+                    </div> */}
 
-                    <button
-                      className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve"
-                      onClick={handlePayment}
-                >
-                      Reservar
-                    </button>
+                  <button
+                    /* className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve" */
+                    className="btn-reserve"
+                    onClick={handlePayment}
+                  >
+                    Reservar
+                  </button>
                 </div>
               </div>
             )}
@@ -639,60 +676,14 @@ export default function CardDetails() {
               </div>
               <CommentsDetails />
               <Carrusel />
-              <ModalReclamos/>
+              <ModalReclamos />
             </div>
           </div>
         </div>
       </div>
       {/* {detailpost.status === "Privado" && ( */}
-        <div className="footer-details">
-          <div>
-            {isVisible && (
-              <button
-                onClick={handleComentarClick}
-                className="footer-btn-comentarios"
-              >
-                Comentar
-              </button>
-            )}
-            {isModalOpen && (
-               <ModalComponent onClose={closeModal} isModalOpen={isModalOpen} /> 
-              /* <ModalSeleccion
-                onClose={closeModal}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-              /> */
-            )}
-
-            <div className="btn-footer-laptop">
-              {values.map(
-                (v, idx) =>
-                  scrollPosition >= 350 && (
-                    <button
-                      onClick={() => handleShow(v)}
-                      type="submit"
-                      className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 footer-btn-photo"
-                    >
-                      Ver fotos
-                    </button>
-                  )
-              )}
-            </div>
-            <div className="btn-footer-container">
-              <button
-                onClick={OpenReserCard}
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 footer-btn"
-              >
-                Reservar
-              </button>
-            </div>
-          </div>
-        </div>
-      {/* )} */}
-
-      {/* {detailpost.status === "Privado" && ( */}
-        <div className="footer-details-mobile">
+      <div className="footer-details">
+        <div>
           {isVisible && (
             <button
               onClick={handleComentarClick}
@@ -703,83 +694,129 @@ export default function CardDetails() {
           )}
           {isModalOpen && (
             <ModalComponent onClose={closeModal} isModalOpen={isModalOpen} />
-              /* <ModalSeleccion
+            /* <ModalSeleccion
                 onClose={closeModal}
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
               /> */
-            )}
+          )}
 
+          <div className="btn-footer-laptop">
+            {values.map(
+              (v, idx) =>
+                scrollPosition >= 350 && (
+                  <button
+                    onClick={() => handleShow(v)}
+                    type="submit"
+                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 footer-btn-photo"
+                  >
+                    Ver fotos
+                  </button>
+                )
+            )}
+          </div>
           <div className="btn-footer-container">
             <button
+              onClick={OpenReserCard}
               type="submit"
-              className="footer-btn"
-              onClick={() => handleShowMobile()}
+              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 footer-btn"
             >
               Reservar
             </button>
           </div>
-
-          <Modal
-            show={detailsCardReserve}
-            fullscreen={fullscreenMobile}
-            onHide={() => setDetailsCardReserve(false)}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title></Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <div
-                className={
-                  detailpost.status === "Privado" ? "card-reserve-mobile" : ""
-                }
-              >
-                <div className="mt-4 lg:row-span-3 lg:mt-0 text-content">
-                  <h2 className="sr-only">Product information</h2>
-                  <p className="text-3xl tracking-tight text-gray-900">
-                    {detailpost.price ? <span>${detailpost.price}</span> : null}
-                    <div>
-                      <div className="space-y-6">
-                        <h3 >
-                          {detailpost.people ? (
-                            <div>
-                              <Diversity3RoundedIcon />
-                              {detailpost.people} personas
-                            </div>
-                          ) : null}
-                        </h3>
-                      </div>
-
-                      {detailpost.status === "Privado" ? (
-                        <div /* style={wrapperStyle} */>
-                          <Space direction="vertical" size={12}>
-                            <RangePicker
-                              defaultValue={[
-                                dayjs("2015/01/01", dateFormat),
-                                dayjs("2015/01/01", dateFormat),
-                              ]}
-                              format={dateFormat}
-                            />
-                          </Space>
-                        </div>
-                      ) : null}
-                    </div>
-                  </p>
-                  <form className="mt-10 form-card-reserve-mobile">
-                    {detailpost.status === "Privado" ? (
-                      <button
-                        type="submit"
-                        className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve"
-                      >
-                        Reservar
-                      </button>
-                    ) : null}
-                  </form>
-                </div>
-              </div>
-            </Modal.Body>
-          </Modal>
         </div>
+      </div>
+      {/* )} */}
+
+      {/* {detailpost.status === "Privado" && ( */}
+      <div className="footer-details-mobile">
+        {isVisible && (
+          <button
+            onClick={handleComentarClick}
+            className="footer-btn-comentarios"
+          >
+            Comentar
+          </button>
+        )}
+        {isModalOpen && (
+          <ModalComponent onClose={closeModal} isModalOpen={isModalOpen} />
+          /* <ModalSeleccion
+                onClose={closeModal}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+              /> */
+        )}
+
+        <div className="btn-footer-container">
+          <button
+            type="submit"
+            className="footer-btn"
+            onClick={() => handleShowMobile()}
+          >
+            Reservar
+          </button>
+        </div>
+
+        <Modal
+          show={detailsCardReserve}
+          fullscreen={fullscreenMobile}
+          onHide={() => setDetailsCardReserve(false)}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title></Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              className={
+                detailpost.status === "Privado" ? "card-reserve-mobile" : ""
+              }
+            >
+              <div className="mt-4 lg:row-span-3 lg:mt-0 text-content">
+                <h2 className="sr-only">Product information</h2>
+                <p className="text-3xl tracking-tight text-gray-900">
+                  {detailpost.price ? <span>${detailpost.price}</span> : null}
+                  <div>
+                    <div className="space-y-6">
+                      <h3>
+                        {detailpost.people ? (
+                          <div>
+                            <Diversity3RoundedIcon />
+                            {detailpost.people} personas
+                          </div>
+                        ) : null}
+                      </h3>
+                    </div>
+
+                    {detailpost.status === "Privado" ? (
+                      <div /* style={wrapperStyle} */>
+                        <Space direction="vertical" size={12}>
+                          <RangePicker
+                            defaultValue={[
+                              dayjs("2015/01/01", dateFormat),
+                              dayjs("2015/01/01", dateFormat),
+                            ]}
+                            format={dateFormat}
+                          />
+                        </Space>
+                      </div>
+                    ) : null}
+                  </div>
+                </p>
+                <form className="mt-10 form-card-reserve-mobile">
+                  {detailpost.status === "Privado" ? (
+                    <button
+                      type="submit"
+                      className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve"
+                    >
+                      Reservar
+                    </button>
+                  ) : null}
+                </form>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
+      </div>
       {/* )} */}
     </div>
   );
