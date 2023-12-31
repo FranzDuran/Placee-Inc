@@ -1,16 +1,32 @@
 import { data } from "../Hostess/Comentarios/Data";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import styles from "./Carrusel.module.scss";
-import { Link } from "react-router-dom";
 import Modal from "./ModalDetalleComentario";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams, Link } from "react-router-dom";
+import { DetailsPostTuristic } from "../../redux/action";
 
 const Carousel = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState("");
   const [modalPosition, setModalPosition] = useState("");
   const [transition, setTransition] = useState("");
+
+
+  const { idTuristic } = useParams();
+  const dispatch = useDispatch();
+  const detailpost = useSelector((state) => state.detailpost);
+
+  useEffect(() => {
+    dispatch(DetailsPostTuristic(idTuristic));
+  }, [dispatch, idTuristic]);
+
+  
+  if (!detailpost.comments) {
+    return null; // Puedes mostrar un mensaje de carga aquí si lo deseas
+  }
 
   const openModal = (content) => {
     setModalPosition("0");
@@ -37,7 +53,7 @@ const Carousel = () => {
         loop
         className={styles.swiperContainer}
       >
-        {data.map((item, index) => (
+        {detailpost.comments.map((item, index) => (
           <SwiperSlide key={index} className={styles.swiperSlide}>
             <div
               className={styles.contentComment}
@@ -61,10 +77,10 @@ const Carousel = () => {
                 )}
               </span>
               <div>
-                <img src={item.image} alt={item.name} />
-                <h3>{item.name}</h3>
+                <img src={item.user.avatar} alt={item.name} />
+                <h3>{item.user.name}</h3>
               </div>
-              <p>{item.paragraph}</p>
+              <p>{item.text}</p>
             </div>
           </SwiperSlide>
         ))}
