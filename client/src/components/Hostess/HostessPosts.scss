@@ -36,11 +36,27 @@
       }
     }
     .items-anfitrion:hover {
-      border-radius: 0px;
-      background: #fff;
+      border-radius: 8px;
+      background: #7f7f7f;
+
+      i{
+        color: #fff;
+      }
     }
   }
 }
+
+.active-link {
+  .items-anfitrion {
+    background: rgb(158, 155, 155);
+    border-radius: 8px;
+    color: #8b008b;
+    #icon-item-hover{
+      color: #fff;
+    }
+  }
+}
+
 .vertical-menu.hidden {
   right: -20%; /* Puedes ajustar esto según tus necesidades */
 }
@@ -287,13 +303,7 @@
   object-fit: cover;
 }
 
-.active-link {
-  .items-anfitrion {
-    background: rgb(158, 155, 155);
-    border-radius: 8px;
-    color: #8b008b;
-  }
-}
+
 
 @media screen and (max-width: 1440px) {
   .items-anfitrion {

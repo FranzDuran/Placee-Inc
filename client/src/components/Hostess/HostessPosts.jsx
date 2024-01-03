@@ -230,7 +230,7 @@ const App = () => {
               >
                 <li className="items-anfitrion">
                   {isMenuVisible ? (
-                    <i className="ri-home-2-line"></i>
+                    <i className="ri-home-2-line"  id="icon-item-hover"></i>
                   ) : (
                     "Inicio"
                   )}
@@ -244,14 +244,7 @@ const App = () => {
                 onClick={() => setActiveLink("/anfitrion/mi sitio")}
               >
                 <li className="items-anfitrion">
-                  {isMenuVisible ? (
-                    <img
-                      srcSet={require("../../assets/images/mi-sitio-m.png")}
-                      alt="Not found"
-                    />
-                  ) : (
-                    "Mi sitio"
-                  )}
+                  {isMenuVisible ? <i class="ri-profile-line"  id="icon-item-hover"></i> : "Mi sitio"}
                 </li>
               </Link>
               <Link
@@ -263,10 +256,7 @@ const App = () => {
               >
                 <li className="items-anfitrion">
                   {isMenuVisible ? (
-                    <img
-                      srcSet={require("../../assets/images/reservations-m.png")}
-                      alt="Not found"
-                    />
+                    <i class="ri-calendar-2-line"  id="icon-item-hover"></i>
                   ) : (
                     "Reservaciones"
                   )}
@@ -286,10 +276,7 @@ const App = () => {
               >
                 <li className="items-anfitrion">
                   {isMenuVisible ? (
-                    <img
-                      srcSet={require("../../assets/images/historial-m.png")}
-                      alt="Not found"
-                    />
+                    <i class="ri-file-list-3-line"  id="icon-item-hover"></i>
                   ) : (
                     "Historial de reservas"
                   )}
@@ -304,10 +291,7 @@ const App = () => {
               >
                 <li className="items-anfitrion">
                   {isMenuVisible ? (
-                    <img
-                      srcSet={require("../../assets/images/reclamos-m.png")}
-                      alt="Not found"
-                    />
+                    <i class="ri-file-warning-line"  id="icon-item-hover" ></i>
                   ) : (
                     "Reclamos"
                   )}
@@ -323,10 +307,7 @@ const App = () => {
               >
                 <li className="items-anfitrion">
                   {isMenuVisible ? (
-                    <img
-                      srcSet={require("../../assets/images/comentarios-m.png")}
-                      alt="Not found"
-                    />
+                    <i class="ri-message-2-line" id="icon-item-hover"></i>
                   ) : (
                     "Comentarios"
                   )}
