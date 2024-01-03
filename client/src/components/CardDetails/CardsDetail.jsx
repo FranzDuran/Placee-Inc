@@ -477,11 +477,12 @@ export default function CardDetails() {
 
             {cardReserve && (
               <div
-                className={
+              className="card-reserve"
+               /*  className={
                   detailpost.status === "Privado" ? "card-reserve" : ""
-                }
+                } */
               >
-                {detailpost.status === "Privado" && (
+                {/* {detailpost.status === "Privado" && ( */}
                   <div
                     /* className="absolute top-0 right-0 p-2" */
                     className="btn-close-card-reserve"
@@ -489,7 +490,7 @@ export default function CardDetails() {
                   >
                     <i class="ri-close-line"></i>
                   </div>
-                )}
+                {/* )} */}
                 <div /* className="mt-4 lg:row-span-3 lg:mt-0 " */
                   className="content-card-reserve"
                 >
@@ -694,11 +695,6 @@ export default function CardDetails() {
           )}
           {isModalOpen && (
             <ModalComponent onClose={closeModal} isModalOpen={isModalOpen} />
-            /* <ModalSeleccion
-                onClose={closeModal}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-              /> */
           )}
 
           <div className="btn-footer-laptop">
@@ -740,11 +736,6 @@ export default function CardDetails() {
         )}
         {isModalOpen && (
           <ModalComponent onClose={closeModal} isModalOpen={isModalOpen} />
-          /* <ModalSeleccion
-                onClose={closeModal}
-                isModalOpen={isModalOpen}
-                setIsModalOpen={setIsModalOpen}
-              /> */
         )}
 
         <div className="btn-footer-container">

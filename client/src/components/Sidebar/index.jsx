@@ -1053,21 +1053,15 @@ export default function FormStepper() {
                         </Form.Group>
                       </Row>
                       {/* Inside the JSX where you map over additionalPrices */}
-                      <Button variant="secondary" onClick={handleAddMore}>
-                        Agregar mas
-                      </Button>
-
                       {show.additionalPrices.length > 0 && (
                         <>
                           {show.additionalPrices.map((price, index) => (
                             <Row className="mb-3" key={index}>
                               <Form.Group as={Col}>
-                                <Form.Label>{`Nuevo Precio ${
-                                  index + 1
-                                } - Label`}</Form.Label>
+                                <Form.Label>{`Label`}</Form.Label>
                                 <Form.Control
                                   type="text"
-                                  placeholder={`Label ${index + 1}`}
+                                  placeholder={`Label`}
                                   value={price.label}
                                   onChange={(e) =>
                                     handleAdditionalLabelChange(index, e)
@@ -1076,14 +1070,12 @@ export default function FormStepper() {
                               </Form.Group>
 
                               <Form.Group as={Col}>
-                                <Form.Label>{`Nuevo Precio ${
-                                  index + 1
-                                } - Valor`}</Form.Label>
+                                <Form.Label>{`Valor`}</Form.Label>
                                 <InputGroup className="mb-3">
                                   <InputGroup.Text>$</InputGroup.Text>
                                   <Form.Control
                                     type="number"
-                                    placeholder={`Precio ${index + 1}`}
+                                    placeholder={`Precio`}
                                     value={price.value}
                                     onChange={(e) =>
                                       handleAdditionalPriceChange(index, e)
@@ -1096,17 +1088,38 @@ export default function FormStepper() {
                           ))}
                         </>
                       )}
+                      <Button variant="secondary" onClick={handleAddMore}>
+                        Agregar +
+                      </Button>
                     </div>
                   )}
-                  {/* --------------------------------------------------- */}
+                  
+                  {/* -------------------- SEGUNDO INPUT ESCONDIDO ------------------------------- */}
                   <Row className="mb-3">
                     <Form.Group as={Col}>
-                      <Form.Label>
+                      <Form.Label className="label-status">
                         ¿Cuenta con algún paquete especial que ofrezca acceso a
                         varias actividades a un precio en específico?
                       </Form.Label>
                       <div>
-                        <ButtonGroup>
+                        <Form.Check
+                          inline
+                          type="radio"
+                          label="NO"
+                          name="specialPackage"
+                          id="noSpecialPackage"
+                          defaultChecked
+                          onChange={() => handleSpecialPackage(false)}
+                        />
+                        <Form.Check
+                          inline
+                          type="radio"
+                          label="SI"
+                          name="specialPackage"
+                          id="yesSpecialPackage"
+                          onChange={() => handleSpecialPackage(true)}
+                        />
+                        {/* <ButtonGroup>
                           <Button
                             variant={
                               show.hasSpecialPackage
@@ -1127,7 +1140,7 @@ export default function FormStepper() {
                           >
                             NO
                           </Button>
-                        </ButtonGroup>
+                        </ButtonGroup> */}
                       </div>
                     </Form.Group>
                   </Row>
@@ -1160,7 +1173,7 @@ export default function FormStepper() {
                               variant="success"
                               onClick={handleAddSpecialPackageItem}
                             >
-                              Agregar
+                              Agregar +
                             </Button>
                           </InputGroup>
                         </Form.Group>
@@ -1203,8 +1216,6 @@ export default function FormStepper() {
                             <InputGroup.Text>.00</InputGroup.Text>
                           </InputGroup>
                         </Form.Group>
-
-                  
                       </Row>
                     </>
                   )}
