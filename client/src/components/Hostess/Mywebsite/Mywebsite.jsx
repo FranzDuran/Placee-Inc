@@ -19,7 +19,7 @@ function Mywebsite() {
   const dispatch = useDispatch();
   const { idTuristic } = useParams();
   const datapersonal = useSelector((state) => state.datapersonal);
-  //console.log(datapersonal);
+  console.log(datapersonal);
 
   const token = useSelector((state) => state.token);
   const [isLoading, setIsLoading] = useState(true);

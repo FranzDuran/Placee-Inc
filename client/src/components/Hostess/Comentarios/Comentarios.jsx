@@ -5,6 +5,7 @@ import { data } from "./Data";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { dataPersonal, DetailsPostTuristic } from "../../../redux/action";
+import Avatar from "@mui/material/Avatar";
 
 export default function Comentarios({ onDelete }) {
   const [showOptions, setShowOptions] = useState(
@@ -103,7 +104,27 @@ export default function Comentarios({ onDelete }) {
                   </div>
                 </div>
               )}
-              <img src={item.user.avatar} alt={item.user.name} />
+              {item.user && (
+                  <Avatar
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      background:
+                        item.user.avatar && item.user.avatar
+                          ? `url(${item.user.avatar})`
+                          : item.user.backgroundColor,
+                      backgroundSize: "cover",
+                    }}
+                  >
+                    {item.user.avatar ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        {item.user.name && item.user.name[0].toUpperCase()}
+                      </div>
+                    )}
+                  </Avatar>
+                )}
               <h2>
                 {item.user.name}
                 {item.user.lastName}

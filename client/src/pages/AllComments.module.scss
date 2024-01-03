@@ -23,16 +23,13 @@
             padding: 15px;
             background: #f1f0f0;
 
-            div{
+            .containerPerfil{
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
                 margin-bottom: 10px;
-                img{
-                    width: 60px;
-                    height: 60px;
-                }
+                
                 h3{
                     @include paragBody2Regular;
                     font-weight: 600;

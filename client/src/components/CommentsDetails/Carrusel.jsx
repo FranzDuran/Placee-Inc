@@ -1,4 +1,3 @@
-import { data } from "../Hostess/Comentarios/Data";
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
@@ -7,13 +6,13 @@ import Modal from "./ModalDetalleComentario";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { DetailsPostTuristic } from "../../redux/action";
+import Avatar from "@mui/material/Avatar";
 
 const Carousel = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [content, setContent] = useState("");
   const [modalPosition, setModalPosition] = useState("");
   const [transition, setTransition] = useState("");
-
 
   const { idTuristic } = useParams();
   const dispatch = useDispatch();
@@ -23,7 +22,6 @@ const Carousel = () => {
     dispatch(DetailsPostTuristic(idTuristic));
   }, [dispatch, idTuristic]);
 
-  
   if (!detailpost.comments) {
     return null; // Puedes mostrar un mensaje de carga aquí si lo deseas
   }
@@ -46,7 +44,7 @@ const Carousel = () => {
   return (
     <>
       <Swiper
-        //navigation
+        
         spaceBetween={8}
         slidesPerView={1.15}
         centeredSlides
@@ -76,8 +74,29 @@ const Carousel = () => {
                   ></i>
                 )}
               </span>
-              <div>
-                <img src={item.user.avatar} alt={item.name} />
+              <div className={styles.perfilContent} >
+               
+                {item.user && (
+                  <Avatar
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      background:
+                        item.user.avatar && item.user.avatar
+                          ? `url(${item.user.avatar})`
+                          : item.user.backgroundColor,
+                      backgroundSize: "cover",
+                    }}
+                  >
+                    {item.user.avatar ? (
+                      <div></div>
+                    ) : (
+                      <div>
+                        {item.user.name && item.user.name[0].toUpperCase()}
+                      </div>
+                    )}
+                  </Avatar>
+                )}
                 <h3>{item.user.name}</h3>
               </div>
               <p>{item.text}</p>

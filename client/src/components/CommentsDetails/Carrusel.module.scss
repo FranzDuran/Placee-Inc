@@ -57,17 +57,17 @@
       }
     }
 
-    div {
+    .perfilContent {
       display: flex;
       justify-content: flex-start;
       align-items: center;
       width: 90%;
       margin-bottom: 10px;
       gap: 10px;
-      img {
+      /* img {
         width: 40px;
         height: 40px;
-      }
+      } */
       h3 {
         @include paragBody2Regular;
         font-weight: 600;

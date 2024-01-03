@@ -56,6 +56,7 @@ const AddNewUser = () => {
   const dispatch = useDispatch();
   const [imagePreview, setImagePreview] = useState(null);
   const datapersonal = useSelector((state) => state.datapersonal);
+  console.log(datapersonal);
   const [openSucces, setOpenSuccess] = React.useState(false);
 
   const [update, setUpdate] = useState({
@@ -246,16 +247,31 @@ const AddNewUser = () => {
                     </Grid>
 
                     <Grid item xs={12} sx={{ display: "flex", gap: 2 }}>
-                      <Link to="/anfitrion">
+                      {datapersonal && datapersonal.Posts && datapersonal.Posts.length === 0 ? (
+                        <Link to="/preregister">
                         <Button
                           variant="contained"
                           /* sx={{ background: "black" }} */ className={
                             styles.btnAnfitrion
                           }
                         >
-                          Modo anfitrion
+                          Unirse como anfitrion
                         </Button>
                       </Link>
+                      ) : (
+                        <Link to="/anfitrion">
+                          <Button
+                            variant="contained"
+                            /* sx={{ background: "black" }} */ className={
+                              styles.btnAnfitrion
+                            }
+                          >
+                            Modo anfitrion
+                          </Button>
+                        </Link>
+                        
+                      )}
+
                       <Button
                         type="submit"
                         variant="contained"
