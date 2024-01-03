@@ -4,7 +4,7 @@ module.exports = {
   AllUser: async (req, res) => {
     try {
       const users = await User.findAll({
-        include: [{ model: Post }, {model: Comment, as: 'comments'}] // Usa 'include' en lugar de 'includes'
+        include: [{ model: Post }, {model: Comment, as: 'comments'}] 
       });
 
       if (users.length > 0) {

@@ -5,6 +5,8 @@ const { PostTuristic } = require('../controllers/User/PostTuristic')
 const { AllTuristic } = require('../controllers/User/AllPost')
 const { DetailsTuristic } = require('../controllers/User/DetailsTuristic');
 const { CommentPost } = require('../controllers/User/CommentPost');
+const { ReportPost } = require('../controllers/User/Report');
+
 
 
 
@@ -27,6 +29,8 @@ const upload = multer({ storage: storage });
 
 router.post('/post', authenticate, upload.array('imageFile', 1000), PostTuristic);
 router.post('/comment',  CommentPost);
+router.post('/reports',  ReportPost);
+
 
 router.get('/turistic', AllTuristic)
 
