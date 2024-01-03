@@ -33,6 +33,7 @@ import { Upload, Space, DatePicker, Select, Tag } from "antd";
 import Fab from "@mui/material/Fab";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { dataPersonal } from "../../redux/action";
+import { ButtonGroup } from "react-bootstrap";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -132,6 +133,12 @@ export default function FormStepper() {
     reservedDates: [],
     listDetails: [],
     infoImportant: [],
+    additionalPrices: [],
+    hasSpecialPackage: false,
+    specialPackageName: "",
+    specialPrecioTotal: "",
+    specialPackageItem: "",
+    specialPackageItems: [],
   });
   const [detail, setDetail] = useState(""); // Estado para el detalle que se está escribiendo
   const [info, setInfo] = useState(""); // Estado para el detalle que se está escribiendo
@@ -696,7 +703,7 @@ export default function FormStepper() {
     "Vanuatu",
   ];
 
-  const tipos = [ "bosques", "playas", "montañas"];
+  const tipos = ["bosques", "playas", "montañas"];
   //retocar
   const [size, setSize] = useState("middle");
 
@@ -742,6 +749,109 @@ export default function FormStepper() {
       updatedSelectedWords.push(index);
     }
     setSelectedWords(updatedSelectedWords);
+  };
+
+  //-----------------------------------------------------
+
+  // Initialize show state with additionalPrices as an empty array
+  const handleAdditionalExpenses = (hasExpenses) => {
+    setShow((prevState) => ({
+      ...prevState,
+      additionalExpenses: hasExpenses,
+    }));
+  };
+
+  const handlePriceChange = (type, event) => {
+    const newValue = event.target.value;
+    setShow((prevState) => ({
+      ...prevState,
+      [`${type}`]: newValue,
+    }));
+  };
+
+  const handleAddMore = () => {
+    setShow((prevState) => ({
+      ...prevState,
+      additionalPrices: [
+        ...prevState.additionalPrices,
+        { label: "", value: "" },
+      ],
+    }));
+  };
+
+  const handleAdditionalPriceChange = (index, event) => {
+    const { name, value } = event.target;
+    setShow((prevState) => ({
+      ...prevState,
+      additionalPrices: prevState.additionalPrices.map((price, i) =>
+        i === index ? { ...price, [name]: value } : price
+      ),
+    }));
+  };
+
+  const handleAdditionalLabelChange = (index, event) => {
+    const updatedPrices = [...show.additionalPrices];
+    updatedPrices[index].label = event.target.value;
+    setShow((prevState) => ({
+      ...prevState,
+      additionalPrices: updatedPrices,
+    }));
+  };
+
+  //---------------------------------------------------------
+  const handleSpecialPackage = (value) => {
+    console.log(value);
+    setShow((prevState) => ({
+      ...prevState,
+      hasSpecialPackage: value,
+      specialPackageName: "",
+      specialPrecioTotal: "",
+      specialPackageItem: "",
+      specialPackageItems: [],
+    }));
+  };
+
+  const handleSpecialPackageName = (e) => {
+    setShow((prevState) => ({
+      ...prevState,
+      specialPackageName: e.target.value,
+    }));
+  };
+
+  const handlePrecioTotal = (e) => {
+    setShow((prevState) => ({
+      ...prevState,
+      specialPrecioTotal: e.target.value,
+    }));
+  };
+
+  const handleSpecialPackageItem = (e) => {
+    setShow((prevState) => ({
+      ...prevState,
+      specialPackageItem: e.target.value,
+    }));
+  };
+
+  const handleAddSpecialPackageItem = () => {
+    if (show.specialPackageItem.trim() !== "") {
+      setShow((prevState) => ({
+        ...prevState,
+        specialPackageItems: [
+          ...prevState.specialPackageItems,
+          show.specialPackageItem,
+        ],
+        specialPackageItem: "",
+      }));
+    }
+  };
+
+  const handleRemoveSpecialPackageItem = (index) => {
+    const updatedItems = [...show.specialPackageItems];
+    updatedItems.splice(index, 1);
+    setShow((prevState) => ({
+      ...prevState,
+      specialPackageItems: updatedItems,
+    }));
   };
 
   const renderForm = (step) => {
@@ -801,7 +911,6 @@ export default function FormStepper() {
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
-
                   <Row className="mb-3">
                     <Form.Group
                       as={Col}
@@ -828,7 +937,6 @@ export default function FormStepper() {
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
-
                   <Row className="mb-3">
                     {show.status === "Privado" || show.status === "Público" ? (
                       <Form.Group as={Col}>
@@ -849,6 +957,257 @@ export default function FormStepper() {
                       <div></div>
                     )}
                   </Row>
+                  <Row className="mb-3">
+                    <Form.Group as={Col}>
+                      <Form.Label className="label-title">Precio</Form.Label>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control
+                          aria-label="Amount (to the nearest dollar)"
+                          type="number"
+                          defaultValue={show.price}
+                          onChange={handlePrice}
+                          required={show.status === "Privado"}
+                        />
+                        <InputGroup.Text>.00</InputGroup.Text>
+                      </InputGroup>
+                    </Form.Group>
+                  </Row>
+                  {/* Additional Row for "¿Su sitio cuenta con gastos adicionales?" */}
+                  <Row className="mb-3">
+                    <Form.Group as={Col} controlId="additionalExpenses">
+                      <Form.Label className="label-status">
+                        ¿Su sitio cuenta con gastos adicionales?
+                      </Form.Label>
+                      <div className="additional-expenses-buttons">
+                        <Form.Check
+                          inline
+                          type="radio"
+                          label="NO"
+                          name="additionalExpenses"
+                          id="noExpenses"
+                          defaultChecked
+                          onChange={() => handleAdditionalExpenses(false)}
+                        />
+                        <Form.Check
+                          inline
+                          type="radio"
+                          label="SI"
+                          name="additionalExpenses"
+                          id="yesExpenses"
+                          onChange={() => handleAdditionalExpenses(true)}
+                        />
+                      </div>
+                    </Form.Group>
+                  </Row>
+                  {/* Additional Section for Prices */}
+
+                  {show.additionalExpenses && (
+                    <div>
+                      <h4>Agregar precio a</h4>
+                      <Row className="mb-3">
+                        <Form.Group /* as={Col} */>
+                          <Form.Label>Piscina</Form.Label>
+                          <InputGroup className="mb-3">
+                            <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control
+                              type="number"
+                              placeholder="Precio de Piscina"
+                              value={show.poolPrice}
+                              onChange={(e) =>
+                                handlePriceChange("poolPrice", e)
+                              }
+                            />
+                            <InputGroup.Text>.00</InputGroup.Text>
+                          </InputGroup>
+                        </Form.Group>
+                        <Form.Group /* as={Col} */>
+                          <Form.Label>Parqueo</Form.Label>
+                          <InputGroup className="mb-3">
+                            <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control
+                              type="number"
+                              placeholder="Precio de Parqueo"
+                              value={show.parkingPrice}
+                              onChange={(e) =>
+                                handlePriceChange("parkingPrice", e)
+                              }
+                            />
+                            <InputGroup.Text>.00</InputGroup.Text>
+                          </InputGroup>
+                        </Form.Group>
+                        <Form.Group /* as={Col} */>
+                          <Form.Label>Área de cocina</Form.Label>
+                          <InputGroup className="mb-3">
+                            <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control
+                              type="number"
+                              placeholder="Precio de Área de cocina"
+                              value={show.kitchenPrice}
+                              onChange={(e) =>
+                                handlePriceChange("kitchenPrice", e)
+                              }
+                            />
+                            <InputGroup.Text>.00</InputGroup.Text>
+                          </InputGroup>
+                        </Form.Group>
+                      </Row>
+                      {/* Inside the JSX where you map over additionalPrices */}
+                      <Button variant="secondary" onClick={handleAddMore}>
+                        Agregar mas
+                      </Button>
+
+                      {show.additionalPrices.length > 0 && (
+                        <>
+                          {show.additionalPrices.map((price, index) => (
+                            <Row className="mb-3" key={index}>
+                              <Form.Group as={Col}>
+                                <Form.Label>{`Nuevo Precio ${
+                                  index + 1
+                                } - Label`}</Form.Label>
+                                <Form.Control
+                                  type="text"
+                                  placeholder={`Label ${index + 1}`}
+                                  value={price.label}
+                                  onChange={(e) =>
+                                    handleAdditionalLabelChange(index, e)
+                                  }
+                                />
+                              </Form.Group>
+
+                              <Form.Group as={Col}>
+                                <Form.Label>{`Nuevo Precio ${
+                                  index + 1
+                                } - Valor`}</Form.Label>
+                                <InputGroup className="mb-3">
+                                  <InputGroup.Text>$</InputGroup.Text>
+                                  <Form.Control
+                                    type="number"
+                                    placeholder={`Precio ${index + 1}`}
+                                    value={price.value}
+                                    onChange={(e) =>
+                                      handleAdditionalPriceChange(index, e)
+                                    }
+                                  />
+                                  <InputGroup.Text>.00</InputGroup.Text>
+                                </InputGroup>
+                              </Form.Group>
+                            </Row>
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  )}
+                  {/* --------------------------------------------------- */}
+                  <Row className="mb-3">
+                    <Form.Group as={Col}>
+                      <Form.Label>
+                        ¿Cuenta con algún paquete especial que ofrezca acceso a
+                        varias actividades a un precio en específico?
+                      </Form.Label>
+                      <div>
+                        <ButtonGroup>
+                          <Button
+                            variant={
+                              show.hasSpecialPackage
+                                ? "success"
+                                : "outline-secondary"
+                            }
+                            onClick={() => handleSpecialPackage(true)}
+                          >
+                            SI
+                          </Button>
+                          <Button
+                            variant={
+                              !show.hasSpecialPackage
+                                ? "danger"
+                                : "outline-secondary"
+                            }
+                            onClick={() => handleSpecialPackage(false)}
+                          >
+                            NO
+                          </Button>
+                        </ButtonGroup>
+                      </div>
+                    </Form.Group>
+                  </Row>
+
+                  {show.hasSpecialPackage && (
+                    <>
+                      <Row className="mb-3">
+                        <Form.Group as={Col}>
+                          <Form.Label>Nombre del pase o paquete</Form.Label>
+                          <Form.Control
+                            type="text"
+                            placeholder="Nombre del pase o paquete"
+                            value={show.specialPackageName}
+                            onChange={handleSpecialPackageName}
+                          />
+                        </Form.Group>
+                      </Row>
+
+                      <Row className="mb-3">
+                        <Form.Group as={Col}>
+                          <Form.Label>Incluye:</Form.Label>
+                          <InputGroup className="mb-3">
+                            <Form.Control
+                              type="text"
+                              placeholder="Ingrese un elemento"
+                              value={show.specialPackageItem}
+                              onChange={handleSpecialPackageItem}
+                            />
+                            <Button
+                              variant="success"
+                              onClick={handleAddSpecialPackageItem}
+                            >
+                              Agregar
+                            </Button>
+                          </InputGroup>
+                        </Form.Group>
+                      </Row>
+
+                      {show.specialPackageItems.map((item, index) => (
+                        <Row className="mb-3" key={index}>
+                          <Form.Group as={Col}>
+                            <InputGroup>
+                              <Form.Control
+                                type="text"
+                                placeholder={`Elemento ${index + 1}`}
+                                value={item}
+                                readOnly
+                              />
+                              <Button
+                                variant="danger"
+                                onClick={() =>
+                                  handleRemoveSpecialPackageItem(index)
+                                }
+                              >
+                                x
+                              </Button>
+                            </InputGroup>
+                          </Form.Group>
+                        </Row>
+                      ))}
+                      {/* New input for the total price */}
+                      <Row className="mb-3">
+                        <Form.Group as={Col}>
+                          <Form.Label>Total</Form.Label>
+                          <InputGroup className="mb-3">
+                            <InputGroup.Text>$</InputGroup.Text>
+                            <Form.Control
+                              type="number"
+                              placeholder="Total"
+                              value={show.specialPrecioTotal}
+                              onChange={handlePrecioTotal}
+                            />
+                            <InputGroup.Text>.00</InputGroup.Text>
+                          </InputGroup>
+                        </Form.Group>
+
+                  
+                      </Row>
+                    </>
+                  )}
 
                   <Row className="mb-3">
                     <Form.Group
