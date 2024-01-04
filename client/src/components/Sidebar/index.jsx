@@ -118,6 +118,11 @@ export default function FormStepper() {
   const [show, setShow] = useState({
     title: "",
     price: "",
+    poolPrice:"",
+    parkingPrice:"",
+    kitchenPrice: "",
+    specialPackageName: "",
+    specialPackageItems: [],
     people: "",
     imageFile: [],
     summary: "",
@@ -135,10 +140,7 @@ export default function FormStepper() {
     infoImportant: [],
     additionalPrices: [],
     hasSpecialPackage: false,
-    specialPackageName: "",
     specialPrecioTotal: "",
-    specialPackageItem: "",
-    specialPackageItems: [],
   });
   const [detail, setDetail] = useState(""); // Estado para el detalle que se está escribiendo
   const [info, setInfo] = useState(""); // Estado para el detalle que se está escribiendo

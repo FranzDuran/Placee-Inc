@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
       // Atributos del modelo 'Post'
       title: DataTypes.STRING,
       price: DataTypes.STRING,
+      poolPrice: DataTypes.STRING,
+      parkingPrice: DataTypes.STRING,
+      kitchenPrice: DataTypes.STRING,
+      specialPackageName: DataTypes.STRING,
+      specialPackageItem: DataTypes.ARRAY(DataTypes.STRING),
       people: DataTypes.STRING,
       summary: DataTypes.STRING,
       description: DataTypes.STRING,

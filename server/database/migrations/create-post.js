@@ -17,6 +17,16 @@ module.exports = {
       price: {
         type: Sequelize.STRING,
       },
+      poolPrice: {
+        type: Sequelize.STRING,
+      },
+      parkingPrice: {
+        type: Sequelize.STRING,
+      },
+      kitchenPrice: {
+        type: Sequelize.STRING,
+      },
+       
       people: {
         type: Sequelize.STRING,
       },
@@ -58,7 +68,15 @@ module.exports = {
         type: Sequelize.ARRAY(Sequelize.STRING(3000)), 
 
       },
-   
+      specialPackageItem: {
+        type: Sequelize.ARRAY(Sequelize.STRING(3000)), 
+
+      },
+      specialPackageName: {
+        type: Sequelize.STRING,
+      },
+      
+      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

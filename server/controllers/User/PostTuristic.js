@@ -57,10 +57,12 @@ module.exports = {
           return res.sendStatus(401);
         }
 
-        const { title, price, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
+        const { title, price, price_pool, price_parking, price_kitchen, specialPackageName,specialPackageItem, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
         const parsedReservedDates = typeof reservedDates === 'string' ? JSON.parse(reservedDates) : [];
         const parsedListDetails = typeof listDetails === 'string' ? JSON.parse(listDetails) : [];
         const parsedInfoImportant = typeof infoImportant === 'string' ? JSON.parse(infoImportant) : [];
+        const parsedspecialPackageIteme= typeof specialPackageItem === 'string' ? JSON.parse(specialPackageItem) : [];
+
         const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1);
         const capitalizedSummary = summary.charAt(0).toUpperCase() + summary.slice(1);
         const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
@@ -70,6 +72,11 @@ module.exports = {
           const newPost = await Post.create({
             title: capitalizedTitle,
             price,
+            price_pool,
+            price_parking,
+            price_kitchen,
+            specialPackageName,
+            specialPackageItem: parsedspecialPackageIteme,
             people,
             summary: capitalizedSummary,
             description: capitalizedDescription,
@@ -97,6 +104,11 @@ module.exports = {
             status,
             people,
             price,
+            price_pool,
+            price_parking,
+            price_kitchen,
+            specialPackageName,
+            specialPackageItem: parsedspecialPackageIteme,
             continent,
             country,
             infoImportant: parsedInfoImportant,
