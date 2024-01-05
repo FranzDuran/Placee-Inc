@@ -1,6 +1,8 @@
 const { Comment, User, Post } = require('../../database/models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+// Agrega postId al cuerpo de la solicitud
+// Agrega postId al cuerpo de la solicitud
 
 module.exports = {
     CommentPost: async (req, res) => {
