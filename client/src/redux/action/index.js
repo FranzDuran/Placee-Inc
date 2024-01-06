@@ -1,6 +1,6 @@
 import axios from "axios";
 
- /* export const setSelectedCardId = (id) => ({
+ export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -287,12 +287,12 @@ export const paymentReserve = (idTuristic) => {
     }
   };
 };
- */
 
 
 
 
-export const setSelectedCardId = (id) => ({
+
+/* export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -578,4 +578,4 @@ export const paymentReserve = (idTuristic) => {
       // Puedes despachar otra acción de error si es necesario
     }
   };
-};
+}; */
