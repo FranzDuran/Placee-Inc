@@ -334,7 +334,7 @@ export default function CardDetails() {
                       <div>
                         <Fab size="small" id="icons-details" aria-label="add">
                           <AddIcon />
-                          {detailpost.imageFile.length}
+                          {detailpost.imageFile.length -4}
                         </Fab>
                       </div>
                     </div>

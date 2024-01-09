@@ -101,6 +101,35 @@ export const CommentPost = (payload, token) => {
   };
 };
 
+export const ReportsPost = (payload, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `https://placee-inc-production.up.railway.app/reports`,
+        payload,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      const createdPost = response.data.post;
+
+      dispatch({
+        type: "POST_REPORTS",
+        payload: createdPost,
+      });
+
+      return createdPost;
+    } catch (error) {
+      console.error("Error creating post:", error);
+      throw error;
+    }
+  };
+};
+
+
 export const UserRegister = (payload) => {
   return async (dispach) => {
     const res = await axios.post(

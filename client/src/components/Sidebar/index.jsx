@@ -34,6 +34,7 @@ import Fab from "@mui/material/Fab";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { dataPersonal } from "../../redux/action";
 import { ButtonGroup } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -53,7 +54,7 @@ const validate = (input) => {
   if (!input.status) {
     errors.status = "El estado es requerido";
   }
-  if (input.status === "Privado") {
+  /* if (input.status === "Privado") {
     if (!input.people) {
       errors.people = "La capacidad es requerida";
     }
@@ -84,7 +85,7 @@ const validate = (input) => {
       errors.listDetails =
         "Los dias no disponibles tienen que estar seleccionado";
     }
-  }
+  } */
 
   return errors;
 };
@@ -118,8 +119,8 @@ export default function FormStepper() {
   const [show, setShow] = useState({
     title: "",
     price: "",
-    poolPrice:"",
-    parkingPrice:"",
+    poolPrice: "",
+    parkingPrice: "",
     kitchenPrice: "",
     specialPackageName: "",
     specialPackageItems: [],
@@ -142,8 +143,13 @@ export default function FormStepper() {
     hasSpecialPackage: false,
     specialPrecioTotal: "",
   });
+  console.log("Show:", show);
+
   const [detail, setDetail] = useState(""); // Estado para el detalle que se está escribiendo
   const [info, setInfo] = useState(""); // Estado para el detalle que se está escribiendo
+  const [detailtotal, setDetailtotal] = useState({
+    select: [],
+  });
 
   React.useEffect(() => {
     dispatch(dataPersonal(token));
@@ -155,22 +161,50 @@ export default function FormStepper() {
 
   const handleAddDetail = () => {
     if (detail.trim() !== "") {
-      setShow((prevState) => ({
+      setDetailtotal((prevState) => ({
         ...prevState,
-        listDetails: [...prevState.listDetails, detail],
+        select: [...prevState.select, detail],
       }));
       setDetail(""); // Limpia el campo de entrada después de agregar
     }
   };
 
   const handleDeleteDetail = (index) => {
-    const updatedDetails = [...show.listDetails];
+    const updatedDetails = [...detailtotal.select];
     updatedDetails.splice(index, 1);
-    setShow((prevState) => ({
+    setDetailtotal((prevState) => ({
       ...prevState,
-      listDetails: updatedDetails,
+      select: updatedDetails,
     }));
   };
+
+  //--------------------------------------------------------------------------
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+
+  const handleCheckboxChange2 = (itemName) => {
+    // Handle checkbox state change
+    const updatedCheckboxes = selectedCheckboxes.includes(itemName)
+      ? selectedCheckboxes.filter((item) => item !== itemName)
+      : [...selectedCheckboxes, itemName];
+
+    setSelectedCheckboxes(updatedCheckboxes);
+  };
+  const handleSubirTodo = () => {
+    // Handle the logic for "Subir todo" button
+    const total = [...detailtotal.select, ...selectedCheckboxes];
+
+    setShow((prevState) => ({
+      ...prevState,
+      listDetails: [...prevState.listDetails, ...total],
+    }));
+  };
+
+  //---------------------------------------------------------------------------
 
   const handleInfoChange = (event) => {
     setInfo(event.target.value);
@@ -421,6 +455,7 @@ export default function FormStepper() {
       ...show,
       reservedDates: updatedSelectedDates,
     });
+    console.log(show.reservedDates)
   };
   const toggleCalendar = () => {
     setCalendarOpen(!calendarOpen); // Invierte el estado del calendario (abrir/cerrar)
@@ -705,6 +740,19 @@ export default function FormStepper() {
     "Vanuatu",
   ];
 
+  const paqueteAlquiler = [
+    "Ropa de cama",
+    "Toallas",
+    "Artículos de baño",
+    "Cocina equipada",
+    "Cafetera",
+    "Wi-Fi",
+    "TV por cable",
+    "Mapa local",
+    "Secador",
+    "Productos de limpieza",
+  ];
+
   const tipos = ["bosques", "playas", "montañas"];
   //retocar
   const [size, setSize] = useState("middle");
@@ -913,7 +961,7 @@ export default function FormStepper() {
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
-                  <Row className="mb-3">
+                  {/* <Row className="mb-3">
                     <Form.Group
                       as={Col}
                       className="mb-3"
@@ -938,7 +986,7 @@ export default function FormStepper() {
                         Por favor seleccione una opción.
                       </Form.Control.Feedback>
                     </Form.Group>
-                  </Row>
+                  </Row> */}
                   <Row className="mb-3">
                     {show.status === "Privado" || show.status === "Público" ? (
                       <Form.Group as={Col}>
@@ -959,7 +1007,7 @@ export default function FormStepper() {
                       <div></div>
                     )}
                   </Row>
-                  <Row className="mb-3">
+                  {/* <Row className="mb-3">
                     <Form.Group as={Col}>
                       <Form.Label className="label-title">Precio</Form.Label>
                       <InputGroup className="mb-3">
@@ -974,154 +1022,158 @@ export default function FormStepper() {
                         <InputGroup.Text>.00</InputGroup.Text>
                       </InputGroup>
                     </Form.Group>
-                  </Row>
-                  {/* Additional Row for "¿Su sitio cuenta con gastos adicionales?" */}
-                  <Row className="mb-3">
-                    <Form.Group as={Col} controlId="additionalExpenses">
-                      <Form.Label className="label-status">
-                        ¿Su sitio cuenta con gastos adicionales?
-                      </Form.Label>
-                      <div className="additional-expenses-buttons">
-                        <Form.Check
-                          inline
-                          type="radio"
-                          label="NO"
-                          name="additionalExpenses"
-                          id="noExpenses"
-                          defaultChecked
-                          onChange={() => handleAdditionalExpenses(false)}
-                        />
-                        <Form.Check
-                          inline
-                          type="radio"
-                          label="SI"
-                          name="additionalExpenses"
-                          id="yesExpenses"
-                          onChange={() => handleAdditionalExpenses(true)}
-                        />
-                      </div>
-                    </Form.Group>
-                  </Row>
-                  {/* Additional Section for Prices */}
+                  </Row> */}
 
-                  {show.additionalExpenses && (
-                    <div>
-                      <h4>Agregar precio a</h4>
+                  {show.status === "Privado" && (
+                    <>
+                      {/* Additional Row for "¿Su sitio cuenta con gastos adicionales?" */}
                       <Row className="mb-3">
-                        <Form.Group /* as={Col} */>
-                          <Form.Label>Piscina</Form.Label>
-                          <InputGroup className="mb-3">
-                            <InputGroup.Text>$</InputGroup.Text>
-                            <Form.Control
-                              type="number"
-                              placeholder="Precio de Piscina"
-                              value={show.poolPrice}
-                              onChange={(e) =>
-                                handlePriceChange("poolPrice", e)
-                              }
+                        <Form.Group as={Col} controlId="additionalExpenses">
+                          <Form.Label className="label-status">
+                            ¿Su sitio cuenta con gastos adicionales?
+                          </Form.Label>
+                          <div className="additional-expenses-buttons">
+                            <Form.Check
+                              inline
+                              type="radio"
+                              label="NO"
+                              name="additionalExpenses"
+                              id="noExpenses"
+                              defaultChecked
+                              onChange={() => handleAdditionalExpenses(false)}
                             />
-                            <InputGroup.Text>.00</InputGroup.Text>
-                          </InputGroup>
-                        </Form.Group>
-                        <Form.Group /* as={Col} */>
-                          <Form.Label>Parqueo</Form.Label>
-                          <InputGroup className="mb-3">
-                            <InputGroup.Text>$</InputGroup.Text>
-                            <Form.Control
-                              type="number"
-                              placeholder="Precio de Parqueo"
-                              value={show.parkingPrice}
-                              onChange={(e) =>
-                                handlePriceChange("parkingPrice", e)
-                              }
+                            <Form.Check
+                              inline
+                              type="radio"
+                              label="SI"
+                              name="additionalExpenses"
+                              id="yesExpenses"
+                              onChange={() => handleAdditionalExpenses(true)}
                             />
-                            <InputGroup.Text>.00</InputGroup.Text>
-                          </InputGroup>
-                        </Form.Group>
-                        <Form.Group /* as={Col} */>
-                          <Form.Label>Área de cocina</Form.Label>
-                          <InputGroup className="mb-3">
-                            <InputGroup.Text>$</InputGroup.Text>
-                            <Form.Control
-                              type="number"
-                              placeholder="Precio de Área de cocina"
-                              value={show.kitchenPrice}
-                              onChange={(e) =>
-                                handlePriceChange("kitchenPrice", e)
-                              }
-                            />
-                            <InputGroup.Text>.00</InputGroup.Text>
-                          </InputGroup>
+                          </div>
                         </Form.Group>
                       </Row>
-                      {/* Inside the JSX where you map over additionalPrices */}
-                      {show.additionalPrices.length > 0 && (
-                        <>
-                          {show.additionalPrices.map((price, index) => (
-                            <Row className="mb-3" key={index}>
-                              <Form.Group as={Col}>
-                                <Form.Label>{`Label`}</Form.Label>
+                      {/* Additional Section for Prices */}
+
+                      {show.additionalExpenses && (
+                        <div>
+                          <h4>Agregar precio a</h4>
+                          {/* <Row className="mb-3">
+                            <Form.Group as={Col}>
+                              <Form.Label>Piscina</Form.Label>
+                              <InputGroup className="mb-3">
+                                <InputGroup.Text>$</InputGroup.Text>
                                 <Form.Control
-                                  type="text"
-                                  placeholder={`Label`}
-                                  value={price.label}
+                                  type="number"
+                                  placeholder="Precio de Piscina"
+                                  value={show.poolPrice}
                                   onChange={(e) =>
-                                    handleAdditionalLabelChange(index, e)
+                                    handlePriceChange("poolPrice", e)
                                   }
                                 />
-                              </Form.Group>
+                                <InputGroup.Text>.00</InputGroup.Text>
+                              </InputGroup>
+                            </Form.Group>
+                            <Form.Group as={Col} >
+                              <Form.Label>Parqueo</Form.Label>
+                              <InputGroup className="mb-3">
+                                <InputGroup.Text>$</InputGroup.Text>
+                                <Form.Control
+                                  type="number"
+                                  placeholder="Precio de Parqueo"
+                                  value={show.parkingPrice}
+                                  onChange={(e) =>
+                                    handlePriceChange("parkingPrice", e)
+                                  }
+                                />
+                                <InputGroup.Text>.00</InputGroup.Text>
+                              </InputGroup>
+                            </Form.Group>
+                            <Form.Group as={Col}>
+                              <Form.Label>Área de cocina</Form.Label>
+                              <InputGroup className="mb-3">
+                                <InputGroup.Text>$</InputGroup.Text>
+                                <Form.Control
+                                  type="number"
+                                  placeholder="Precio de Área de cocina"
+                                  value={show.kitchenPrice}
+                                  onChange={(e) =>
+                                    handlePriceChange("kitchenPrice", e)
+                                  }
+                                />
+                                <InputGroup.Text>.00</InputGroup.Text>
+                              </InputGroup>
+                            </Form.Group> 
+                          </Row> */}
+                          {/* Inside the JSX where you map over additionalPrices */}
+                          {show.additionalPrices.length > 0 && (
+                            <>
+                              {show.additionalPrices.map((price, index) => (
+                                <Row className="mb-3" key={index}>
+                                  <Form.Group as={Col}>
+                                    <Form.Label>{`Nombre`}</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder={` Ej: Piscina`}
+                                      value={price.label}
+                                      onChange={(e) =>
+                                        handleAdditionalLabelChange(index, e)
+                                      }
+                                    />
+                                  </Form.Group>
 
-                              <Form.Group as={Col}>
-                                <Form.Label>{`Valor`}</Form.Label>
-                                <InputGroup className="mb-3">
-                                  <InputGroup.Text>$</InputGroup.Text>
-                                  <Form.Control
-                                    type="number"
-                                    placeholder={`Precio`}
-                                    value={price.value}
-                                    onChange={(e) =>
-                                      handleAdditionalPriceChange(index, e)
-                                    }
-                                  />
-                                  <InputGroup.Text>.00</InputGroup.Text>
-                                </InputGroup>
-                              </Form.Group>
-                            </Row>
-                          ))}
-                        </>
+                                  <Form.Group as={Col}>
+                                    <Form.Label>{`Precio`}</Form.Label>
+                                    <InputGroup className="mb-3">
+                                      <InputGroup.Text>$</InputGroup.Text>
+                                      <Form.Control
+                                        type="number"
+                                        placeholder={`50`}
+                                        value={price.value}
+                                        onChange={(e) =>
+                                          handleAdditionalPriceChange(index, e)
+                                        }
+                                      />
+                                      <InputGroup.Text>.00</InputGroup.Text>
+                                    </InputGroup>
+                                  </Form.Group>
+                                </Row>
+                              ))}
+                            </>
+                          )}
+                          <Button variant="secondary" onClick={handleAddMore}>
+                            Agregar +
+                          </Button>
+                        </div>
                       )}
-                      <Button variant="secondary" onClick={handleAddMore}>
-                        Agregar +
-                      </Button>
-                    </div>
-                  )}
-                  
-                  {/* -------------------- SEGUNDO INPUT ESCONDIDO ------------------------------- */}
-                  <Row className="mb-3">
-                    <Form.Group as={Col}>
-                      <Form.Label className="label-status">
-                        ¿Cuenta con algún paquete especial que ofrezca acceso a
-                        varias actividades a un precio en específico?
-                      </Form.Label>
-                      <div>
-                        <Form.Check
-                          inline
-                          type="radio"
-                          label="NO"
-                          name="specialPackage"
-                          id="noSpecialPackage"
-                          defaultChecked
-                          onChange={() => handleSpecialPackage(false)}
-                        />
-                        <Form.Check
-                          inline
-                          type="radio"
-                          label="SI"
-                          name="specialPackage"
-                          id="yesSpecialPackage"
-                          onChange={() => handleSpecialPackage(true)}
-                        />
-                        {/* <ButtonGroup>
+
+                      {/* -------------------- SEGUNDO INPUT ESCONDIDO ------------------------------- */}
+                      <Row className="mb-3">
+                        <Form.Group as={Col}>
+                          <Form.Label className="label-status">
+                            ¿Cuenta con algún paquete especial que ofrezca
+                            acceso a varias actividades a un precio en
+                            específico?
+                          </Form.Label>
+                          <div>
+                            <Form.Check
+                              inline
+                              type="radio"
+                              label="NO"
+                              name="specialPackage"
+                              id="noSpecialPackage"
+                              defaultChecked
+                              onChange={() => handleSpecialPackage(false)}
+                            />
+                            <Form.Check
+                              inline
+                              type="radio"
+                              label="SI"
+                              name="specialPackage"
+                              id="yesSpecialPackage"
+                              onChange={() => handleSpecialPackage(true)}
+                            />
+                            {/* <ButtonGroup>
                           <Button
                             variant={
                               show.hasSpecialPackage
@@ -1143,82 +1195,88 @@ export default function FormStepper() {
                             NO
                           </Button>
                         </ButtonGroup> */}
-                      </div>
-                    </Form.Group>
-                  </Row>
-
-                  {show.hasSpecialPackage && (
-                    <>
-                      <Row className="mb-3">
-                        <Form.Group as={Col}>
-                          <Form.Label>Nombre del pase o paquete</Form.Label>
-                          <Form.Control
-                            type="text"
-                            placeholder="Nombre del pase o paquete"
-                            value={show.specialPackageName}
-                            onChange={handleSpecialPackageName}
-                          />
+                          </div>
                         </Form.Group>
                       </Row>
 
-                      <Row className="mb-3">
-                        <Form.Group as={Col}>
-                          <Form.Label>Incluye:</Form.Label>
-                          <InputGroup className="mb-3">
-                            <Form.Control
-                              type="text"
-                              placeholder="Ingrese un elemento"
-                              value={show.specialPackageItem}
-                              onChange={handleSpecialPackageItem}
-                            />
-                            <Button
-                              variant="success"
-                              onClick={handleAddSpecialPackageItem}
-                            >
-                              Agregar +
-                            </Button>
-                          </InputGroup>
-                        </Form.Group>
-                      </Row>
-
-                      {show.specialPackageItems.map((item, index) => (
-                        <Row className="mb-3" key={index}>
-                          <Form.Group as={Col}>
-                            <InputGroup>
+                      {show.hasSpecialPackage && (
+                        <>
+                          <Row className="mb-3">
+                            <Form.Group as={Col}>
+                              <Form.Label>Nombre del pase o paquete</Form.Label>
                               <Form.Control
                                 type="text"
-                                placeholder={`Elemento ${index + 1}`}
-                                value={item}
-                                readOnly
+                                placeholder="Nombre del pase o paquete"
+                                value={show.specialPackageName}
+                                onChange={handleSpecialPackageName}
                               />
-                              <Button
-                                variant="danger"
-                                onClick={() =>
-                                  handleRemoveSpecialPackageItem(index)
-                                }
-                              >
-                                x
-                              </Button>
-                            </InputGroup>
-                          </Form.Group>
-                        </Row>
-                      ))}
-                      {/* New input for the total price */}
-                      <Row className="mb-3">
-                        <Form.Group as={Col}>
-                          <Form.Label>Total</Form.Label>
-                          <InputGroup className="mb-3">
-                            <InputGroup.Text>$</InputGroup.Text>
-                            <Form.Control
-                              type="number"
-                              placeholder="Total"
-                              value={show.specialPrecioTotal}
-                              onChange={handlePrecioTotal}
-                            />
-                            <InputGroup.Text>.00</InputGroup.Text>
-                          </InputGroup>
-                        </Form.Group>
-                      </Row>
+                            </Form.Group>
+                          </Row>
+
+                          <Row className="mb-3">
+                            <Form.Group as={Col}>
+                              <Form.Label>Incluye:</Form.Label>
+                              <div className="container-package-item">
+                                {show.specialPackageItems.map((item, index) => (
+                                  <Row className="mb-3" key={index}>
+                                    <Form.Group as={Col}>
+                                      <InputGroup>
+                                        <Form.Control
+                                          type="text"
+                                          placeholder={`Elemento ${index + 1}`}
+                                          value={item}
+                                          readOnly
+                                        />
+                                        <Button
+                                          variant="danger"
+                                          onClick={() =>
+                                            handleRemoveSpecialPackageItem(
+                                              index
+                                            )
+                                          }
+                                        >
+                                          x
+                                        </Button>
+                                      </InputGroup>
+                                    </Form.Group>
+                                  </Row>
+                                ))}
+                              </div>
+                              <InputGroup className="mb-3">
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Ingrese un elemento"
+                                  value={show.specialPackageItem}
+                                  onChange={handleSpecialPackageItem}
+                                />
+                                <Button
+                                  variant="success"
+                                  onClick={handleAddSpecialPackageItem}
+                                >
+                                  Agregar +
+                                </Button>
+                              </InputGroup>
+                            </Form.Group>
+                          </Row>
+
+                          {/* New input for the total price */}
+                          <Row className="mb-3">
+                            <Form.Group as={Col}>
+                              <Form.Label>Total</Form.Label>
+                              <InputGroup className="mb-3">
+                                <InputGroup.Text>$</InputGroup.Text>
+                                <Form.Control
+                                  type="number"
+                                  placeholder="Total"
+                                  value={show.specialPrecioTotal}
+                                  onChange={handlePrecioTotal}
+                                />
+                                <InputGroup.Text>.00</InputGroup.Text>
+                              </InputGroup>
+                            </Form.Group>
+                          </Row>
+                        </>
+                      )}
                     </>
                   )}
 
@@ -1497,7 +1555,7 @@ export default function FormStepper() {
                       </div>
                     )}
 
-                    {show.status === "Privado" && (
+                    {/* {show.status === "Privado" && (
                       <Row className="mb-3">
                         <Form.Group
                           as={Col}
@@ -1529,7 +1587,7 @@ export default function FormStepper() {
                         </Form.Group>
                       </Row>
                     )}
-
+ */}
                     {show.daysAtentions ? (
                       <Row className="mb-3">
                         <div className="hours-container">
@@ -1828,7 +1886,91 @@ export default function FormStepper() {
                           >
                             El lugas cuenta con:
                           </span>
-                          <Card>
+                          <Button variant="secondary" onClick={handleOpenModal}>
+                            Agregar
+                          </Button>
+
+                          <Modal show={showModal} onHide={handleCloseModal}>
+                            <Modal.Header closeButton>
+                              <Modal.Title>El lugas cuenta con:</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              {/* Add the checkboxes here */}
+                              {paqueteAlquiler.map((item, index) => (
+                                <Form.Check
+                                  key={index}
+                                  type="checkbox"
+                                  label={item}
+                                  checked={selectedCheckboxes.includes(item)}
+                                  onChange={() => handleCheckboxChange2(item)}
+                                />
+                              ))}
+                              <Card>
+                                <Card.Body>
+                                  {detailtotal.select.map((details, index) => (
+                                    <span
+                                      key={index}
+                                      className="mr-2"
+                                      style={{
+                                        fontSize: "14px",
+                                        maxHeight: "80px",
+                                        background: "#DFDFDF",
+                                        padding: "5px",
+                                        borderRadius: "5px",
+                                        lineHeight: "30pt",
+                                      }}
+                                    >
+                                      {details}
+                                      <button
+                                        onClick={() =>
+                                          handleDeleteDetail(index)
+                                        }
+                                        size="sm"
+                                        className="ml-2"
+                                      >
+                                        X
+                                      </button>
+                                    </span>
+                                  ))}
+                                </Card.Body>
+                              </Card>
+                              <Form.Group className="d-flex">
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Nuevo detalle"
+                                  value={detail}
+                                  onChange={handleDetailChange}
+                                  className="flex-grow-1 mr-2"
+                                  isInvalid={!show.listDetails && validated}
+                                />
+                                <Button
+                                  variant="primary"
+                                  onClick={handleAddDetail}
+                                >
+                                  Agregar
+                                </Button>
+                                <Form.Control.Feedback type="invalid">
+                                  Por favor seleccione una opción de capacidad
+                                  de personas.
+                                </Form.Control.Feedback>
+                              </Form.Group>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button
+                                variant="primary"
+                                onClick={handleSubirTodo}
+                              >
+                                Agregar todo
+                              </Button>
+                              {/*  <Button
+                                variant="secondary"
+                                onClick={handleCloseModal}
+                              >
+                                Cerrar
+                              </Button> */}
+                            </Modal.Footer>
+                          </Modal>
+                          {/* <Card>
                             <Card.Body>
                               {show.listDetails.map((details, index) => (
                                 <span
@@ -1871,7 +2013,7 @@ export default function FormStepper() {
                               Por favor seleccione una opción de capacidad de
                               personas.
                             </Form.Control.Feedback>
-                          </Form.Group>
+                          </Form.Group> */}
                         </div>
                         <div>
                           <Form.Label
@@ -1932,50 +2074,90 @@ export default function FormStepper() {
                           <span className="label-title">
                             El lugas cuenta con:
                           </span>
-                          <Card>
-                            <Card.Body>
-                              {show.listDetails.map((details, index) => (
-                                <span
+                          <Button variant="secondary" onClick={handleOpenModal}>
+                            Agregar
+                          </Button>
+
+                          <Modal show={showModal} onHide={handleCloseModal}>
+                            <Modal.Header closeButton>
+                              <Modal.Title>El lugas cuenta con:</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              {/* Add the checkboxes here */}
+                              {paqueteAlquiler.map((item, index) => (
+                                <Form.Check
                                   key={index}
-                                  className="mr-2"
-                                  style={{
-                                    fontSize: "14px",
-                                    maxHeight: "80px",
-                                    background: "#DFDFDF",
-                                    padding: "5px",
-                                    borderRadius: "5px",
-                                    lineHeight: "30pt",
-                                  }}
-                                >
-                                  {details}
-                                  <button
-                                    onClick={() => handleDeleteDetail(index)}
-                                    size="sm"
-                                    className="ml-2"
-                                  >
-                                    X
-                                  </button>
-                                </span>
+                                  type="checkbox"
+                                  label={item}
+                                  checked={selectedCheckboxes.includes(item)}
+                                  onChange={() => handleCheckboxChange2(item)}
+                                />
                               ))}
-                            </Card.Body>
-                          </Card>
-                          <Form.Group className="d-flex">
-                            <Form.Control
-                              type="text"
-                              placeholder="Nuevo detalle"
-                              value={detail}
-                              onChange={handleDetailChange}
-                              className="flex-grow-1 mr-2"
-                              isInvalid={!show.listDetails && validated}
-                            />
-                            <Button variant="primary" onClick={handleAddDetail}>
-                              Agregar
-                            </Button>
-                            <Form.Control.Feedback type="invalid">
-                              Por favor seleccione una opción de capacidad de
-                              personas.
-                            </Form.Control.Feedback>
-                          </Form.Group>
+                              <Card>
+                                <Card.Body>
+                                  {detailtotal.select.map((details, index) => (
+                                    <span
+                                      key={index}
+                                      className="mr-2"
+                                      style={{
+                                        fontSize: "14px",
+                                        maxHeight: "80px",
+                                        background: "#DFDFDF",
+                                        padding: "5px",
+                                        borderRadius: "5px",
+                                        lineHeight: "30pt",
+                                      }}
+                                    >
+                                      {details}
+                                      <button
+                                        onClick={() =>
+                                          handleDeleteDetail(index)
+                                        }
+                                        size="sm"
+                                        className="ml-2"
+                                      >
+                                        X
+                                      </button>
+                                    </span>
+                                  ))}
+                                </Card.Body>
+                              </Card>
+                              <Form.Group className="d-flex">
+                                <Form.Control
+                                  type="text"
+                                  placeholder="Nuevo detalle"
+                                  value={detail}
+                                  onChange={handleDetailChange}
+                                  className="flex-grow-1 mr-2"
+                                  isInvalid={!show.listDetails && validated}
+                                />
+                                <Button
+                                  variant="primary"
+                                  onClick={handleAddDetail}
+                                >
+                                  Agregar
+                                </Button>
+                                <Form.Control.Feedback type="invalid">
+                                  Por favor seleccione una opción de capacidad
+                                  de personas.
+                                </Form.Control.Feedback>
+                              </Form.Group>
+                            </Modal.Body>
+                            <Modal.Footer>
+                              <Button
+                                variant="primary"
+                                onClick={handleSubirTodo}
+                              >
+                                Agregar todo
+                              </Button>
+                              {/*  <Button
+                                variant="secondary"
+                                onClick={handleCloseModal}
+                              >
+                                Cerrar
+                              </Button> */}
+                            </Modal.Footer>
+                          </Modal>
                           <Form.Group
                             as={Col}
                             className="mb-3 bottom-people"

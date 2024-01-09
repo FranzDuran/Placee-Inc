@@ -114,12 +114,21 @@ export const rootReducer = (state = initialState, action) => {
           comments: [...state.detailpost.comments, action.payload],
         },
       };
-      case "PAYMENT_POST":
-        return {
-          ...state,
-          // Otro estado actualizado aquí según sea necesario
-          payment: action.payload
-        };
+
+      case "POST_REPORTS":
+      return {
+        ...state,
+        detailpost: {
+          ...state.detailpost,
+          reports: [...state.detailpost.reports, action.payload],
+        },
+      };
+    case "PAYMENT_POST":
+      return {
+        ...state,
+        // Otro estado actualizado aquí según sea necesario
+        payment: action.payload,
+      };
 
     default:
       return { ...state };

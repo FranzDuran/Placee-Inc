@@ -24,12 +24,13 @@
   /* Por ejemplo, puedes establecer el ancho máximo para mantener el mismo tamaño */
   max-width: 350px;
 }
+
 .card-textarea {
   scroll-margin: 20px;
   overflow-y: auto;
 }
 
-.back-next{
+.back-next {
   display: block;
   position: fixed;
   bottom: 0;
@@ -41,10 +42,12 @@
   height: 50px;
   z-index: 2;
 }
+
 .back-next-footer {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
+
 .public-cancel {
   display: flex;
   justify-content: space-between;
@@ -55,8 +58,9 @@
   background: white;
   box-shadow: 0px 0px 3px rgb(229, 229, 229);
   z-index: 1000;
-  
+
 }
+
 .sidebar {
   left: 0;
   width: 650px;
@@ -68,20 +72,26 @@
   position: sticky;
   float: left;
 }
+
 input[type="file"] {
   color: transparent;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
+  /* Firefox */
 }
+
 .x {
   text-align: center;
 }
+
 .hours-container {
   display: flex;
   gap: 12px;
@@ -101,6 +111,7 @@ input[type="number"] {
   margin: 5px;
   opacity: 0.6;
 }
+
 .file-container {
   height: 50px;
   background-color: white;
@@ -112,7 +123,7 @@ input[type="number"] {
   justify-content: center;
   max-width: 800px;
   width: 100%;
- /* Agrega una altura máxima para que el desplazamiento funcione */
+  /* Agrega una altura máxima para que el desplazamiento funcione */
 }
 
 .action-box {
@@ -124,7 +135,7 @@ input[type="number"] {
   width: 100%;
   border-radius: 10px;
   overflow-y: scroll;
-  max-height: 70vh; 
+  max-height: 70vh;
 }
 
 
@@ -139,46 +150,57 @@ input[type="number"] {
 } */
 
 .start-input::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.5); 
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.select-form-container{
+.select-form-container {
   width: 95%;
   margin: 0 auto;
 }
 
-.select-form-container2{
+.select-form-container2 {
   width: 85%;
   margin: 0 auto;
 }
 
 .rest-info::-webkit-scrollbar {
-  width: 0px; /* Ajusta el ancho según tus necesidades */
+  width: 0px;
+  /* Ajusta el ancho según tus necesidades */
 }
 
 .rest-info::-webkit-scrollbar-thumb {
-  background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
-  border: 2px solid transparent; /* Hacer el borde del thumb transparente */
-  border-radius: 4px; /* Añadir un borde redondeado al thumb */
+  background-color: transparent;
+  /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+  border: 2px solid transparent;
+  /* Hacer el borde del thumb transparente */
+  border-radius: 4px;
+  /* Añadir un borde redondeado al thumb */
 }
 
 .rest-info::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.5); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
 }
 
 .action-box::-webkit-scrollbar {
-  width: 0px; /* Ajusta el ancho según tus necesidades */
+  width: 0px;
+  /* Ajusta el ancho según tus necesidades */
 }
 
 .action-box::-webkit-scrollbar-thumb {
-  background-color: transparent; /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
-  border: 2px solid transparent; /* Hacer el borde del thumb transparente */
-  border-radius: 4px; /* Añadir un borde redondeado al thumb */
+  background-color: transparent;
+  /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
+  border: 2px solid transparent;
+  /* Hacer el borde del thumb transparente */
+  border-radius: 4px;
+  /* Añadir un borde redondeado al thumb */
 }
 
 .action-box::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.5); /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
 }
+
 .rest-info {
   display: grid;
   justify-content: center;
@@ -188,7 +210,7 @@ input[type="number"] {
   width: 100%;
   border-radius: 10px;
   overflow-y: scroll;
-  max-height: 70vh; 
+  max-height: 70vh;
 }
 
 .start-input {
@@ -199,24 +221,27 @@ input[type="number"] {
   max-width: 400px;
   width: 100%;
   border-radius: 10px;
-  max-height: 70vh; 
+  max-height: 70vh;
   overflow-y: scroll;
-  max-height: 70vh; 
+  max-height: 70vh;
 }
+
 .label-continent {
   margin-top: 50px;
   font-weight: 700;
 
 }
+
 .label-status {
   margin-top: 50px;
   font-weight: 700;
 }
+
 .label-title {
   font-weight: 700;
 }
 
-.btn-calendario{
+.btn-calendario {
   padding: 10px 15px;
   background: #8B008B;
   border: 1px solid #8B008B;
@@ -224,6 +249,7 @@ input[type="number"] {
   color: #fff;
   text-align: center;
 }
+
 .label-calendar {
   margin-top: 50px;
   font-weight: 700;
@@ -233,9 +259,11 @@ input[type="number"] {
 .bottom-description {
   margin-bottom: 50px;
 }
+
 .bottom-people {
   margin-bottom: 50px;
 }
+
 .bottom-description {
   margin-bottom: 50px;
 }
@@ -265,10 +293,12 @@ input[type="number"] {
   display: "flex";
   align-items: center;
 }
+
 .sidebar-logo-container img {
   width: 50%;
   padding: 2em;
 }
+
 .sidebar-container {
   display: grid;
   justify-content: center;
@@ -291,9 +321,11 @@ input[type="number"] {
   justify-content: flex-start;
   cursor: pointer;
 }
+
 .sidebar-item:hover {
   background-color: #8B008B;
 }
+
 .sidebar-item-active {
   padding: 1.5em;
   padding-left: 2em;
@@ -306,14 +338,17 @@ input[type="number"] {
   background-color: #8B008B;
   cursor: pointer;
 }
+
 .sidebar-item-icon {
   width: 20px;
 }
+
 .sidebar-item-label {
   font-size: small;
   font-weight: 600;
   margin-left: 15px;
 }
+
 /* Footer */
 .sidebar-footer {
   padding: 1.5em;
@@ -325,15 +360,15 @@ input[type="number"] {
 }
 
 .btn-reserva {
-  background-color: #8B008B ;
+  background-color: #8B008B;
 }
 
 .btn-reserva:hover {
-  background-color: #8B008B ;
+  background-color: #8B008B;
 }
 
 .btn-reserva:active {
-  border-color: #8B008B ;
+  border-color: #8B008B;
 }
 
 .img-mini img {
@@ -349,25 +384,45 @@ input[type="number"] {
   display: none;
 }
 
+.container-package-item {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.container-package-item .form-control {
+  width: auto;
+}
+
 
 @media only screen and (max-width: 767px) {
+
   /* .box-container {
     margin-bottom: 80px;
   } */
-  .box-container{
+  .box-container {
     padding: 0 20px 60px 20px !important;
   }
+
   .post-container {
     margin-left: 15px;
     margin-right: 15px;
   }
+
   .sidebar {
     width: 100%;
   }
+
   .sidebar-container {
     width: 100%;
     margin-left: 0;
   }
+
   .sidebar-logo-container {
     margin-left: 0;
   }
@@ -376,6 +431,7 @@ input[type="number"] {
     display: grid;
     gap: 30px;
   }
+
   .start-input {
     margin-left: 10px;
     margin-right: 10px;
@@ -390,6 +446,7 @@ input[type="number"] {
     width: 350px;
     height: 450px;
   }
+
   /*     .start-input input {
       width: 300px;
       margin-left: 10px;
@@ -416,6 +473,7 @@ input[type="number"] {
   .post-container {
     display: grid;
   }
+
   .action-private {
     display: grid;
     gap: 30px;
@@ -426,9 +484,11 @@ input[type="number"] {
     margin-right: 10px;
     width: 350px;
   }
+
   .public-cancel {
-display: none;
+    display: none;
   }
+
   .exit-public {
     display: grid;
     color: #8B008B;
@@ -445,25 +505,29 @@ display: none;
     margin-top: 40px;
   }
 }
+
 @media screen and (max-width: 1023px) {
 
-  .box-container{
+  .box-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0 20px 60px 20px !important;
   }
-  
-  .action-box{
+
+  .action-box {
     overflow-y: auto;
   }
+
   .sidebar {
     width: 100%;
   }
+
   .sidebar-container {
     width: 100%;
     margin-left: 0;
   }
+
   .sidebar-logo-container {
     margin-left: 0;
   }
@@ -473,31 +537,36 @@ display: none;
   .start-input {
     min-width: 300px;
   }
+
   .rest-info {
     min-width: 300px;
   }
+
   .action-box {
     min-width: 300px;
   }
-  .action-box input{
+
+  .action-box input {
     width: 340px;
   }
- 
-  .action-box input{
-  width: 650px;
+
+  .action-box input {
+    width: 650px;
   }
 }
 
-  .action-private {
-    gap: 20px;
-  }
-  .box-container {
-    gap: 20px;
-    padding: 0 20px;
-  }
-  .hours-container {
+.action-private {
+  gap: 20px;
+}
+
+.box-container {
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.hours-container {
   width: 250px;
-  }
+}
 
 #steps {
   margin-top: 50px;
@@ -509,11 +578,13 @@ display: none;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+  background-color: rgba(255, 255, 255, 0.8);
+  /* Fondo semitransparente */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999; /* Asegura que esté en la parte superior de todos los elementos */
+  z-index: 999;
+  /* Asegura que esté en la parte superior de todos los elementos */
 }
 
 .loading-overlay h2 {
@@ -533,9 +604,8 @@ display: none;
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
-
-
