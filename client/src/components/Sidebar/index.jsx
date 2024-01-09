@@ -143,7 +143,7 @@ export default function FormStepper() {
     hasSpecialPackage: false,
     specialPrecioTotal: "",
   });
-  console.log("Show:", show);
+  //console.log("Show:", show);
 
   const [detail, setDetail] = useState(""); // Estado para el detalle que se está escribiendo
   const [info, setInfo] = useState(""); // Estado para el detalle que se está escribiendo
@@ -438,15 +438,19 @@ export default function FormStepper() {
 
   dayjs.locale("es");
   const handleDateSelect = (date) => {
+    console.log("1", date)
     const updatedSelectedDates = [...show.reservedDates];
+    console.log("2", updatedSelectedDates)
     const dateIndex = updatedSelectedDates.findIndex((d) =>
       dayjs(d).isSame(date, "day")
     );
-
+    console.log("3", dateIndex)
     if (dateIndex !== -1) {
+      console.log("4")
       // Si la fecha ya está seleccionada, la deselecciona
       updatedSelectedDates.splice(dateIndex, 1);
     } else {
+      console.log("5")
       // Si la fecha no está seleccionada, la agrega
       updatedSelectedDates.push(date);
     }
@@ -455,11 +459,13 @@ export default function FormStepper() {
       ...show,
       reservedDates: updatedSelectedDates,
     });
-    console.log(show.reservedDates)
+    console.log("final",show.reservedDates)
   };
+  
   const toggleCalendar = () => {
     setCalendarOpen(!calendarOpen); // Invierte el estado del calendario (abrir/cerrar)
   };
+
   const disabledDate = (current) => {
     // Comprueba si la fecha actual está deshabilitada
     const isDisabled = show.reservedDates.some((date) =>
