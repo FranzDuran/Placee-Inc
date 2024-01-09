@@ -1,4 +1,4 @@
-const { Post, Transaction } = require('../../database/models'); // Asegúrate de tener el modelo Transaction importado
+const { Post,  } = require('../../database/models'); // Asegúrate de tener el modelo Transaction importado
 const Stripe = require('stripe');
 const stripe = new Stripe('sk_test_51ONdk7AlajpyxreyoVzwpdS62OV4Z6p2G0OrtXhxbF8gGAd8IbIfxIv92gBQbXNU9JEI3LZFan9Za4aD2F4eLNyz00ZVVB8TRz');
 
@@ -31,12 +31,7 @@ module.exports = {
                 cancel_url: 'https://placee-inc.vercel.app',
             });
 
-            // Crear una transacción en la base de datos
-            await Transaction.create({
-                postId: post.id,
-                sessionId: session.id,
-                // Agrega cualquier otra información que quieras almacenar en la transacción
-            });
+       
 
             console.log('Pago exitoso');
             return res.json(session);

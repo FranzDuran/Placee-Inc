@@ -6,6 +6,8 @@ const { AllTuristic } = require('../controllers/User/AllPost')
 const { DetailsTuristic } = require('../controllers/User/DetailsTuristic');
 const { CommentPost } = require('../controllers/User/CommentPost');
 const { ReportPost } = require('../controllers/User/Report');
+const { DeleteComment } = require('../controllers/User/DeleteComent');
+
 
 
 
@@ -29,6 +31,10 @@ const upload = multer({ storage: storage });
 
 router.post('/post', authenticate, upload.array('imageFile', 1000), PostTuristic);
 router.post('/comment',  CommentPost);
+router.delete('/comment/:commentId',  DeleteComment);
+router.delete('/report/:reportId',  DeleteComment);
+
+
 router.post('/reports',  ReportPost);
 
 
