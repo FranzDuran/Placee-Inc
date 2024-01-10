@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: flex-start;
   /* margin-left: 50px; */
-
 }
 
 .box-container {
@@ -12,12 +11,10 @@
   justify-content: center;
 }
 
-
 /* .select-estado:focus {
   border: 1px solid #ff0000; 
   outline: none !important;
 } */
-
 
 .mb-3 {
   /* Estilo personalizado para el input cuando show.status es "Privado" */
@@ -28,6 +25,54 @@
 .card-textarea {
   scroll-margin: 20px;
   overflow-y: auto;
+}
+
+.container-modal-public {
+  .modal-dialog {
+    max-width: 700px;
+  }
+  .modal-content {
+    .container-boxs-checks {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 25px;
+      .content-checkboxs-icons {
+        display: flex;
+        gap: 10px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    max-width: none;
+    width: 88%;
+    padding-left: 0px !important;
+
+    max-height: 100vh;
+
+    /* .container-modal-public::-webkit-scrollbar {
+    display: none; 
+  } */
+
+    .modal-content {
+      max-height: 96vh;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      .container-boxs-checks {
+        flex-direction: column;
+        gap: 0px;
+        .content-checkboxs-icons {
+          display: flex;
+          gap: 10px;
+        }
+      }
+      .modal-body {
+        flex-direction: column;
+      }
+    }
+  }
 }
 
 .back-next {
@@ -58,7 +103,6 @@
   background: white;
   box-shadow: 0px 0px 3px rgb(229, 229, 229);
   z-index: 1000;
-
 }
 
 .sidebar {
@@ -67,7 +111,6 @@
   height: 100vh;
   display: flex;
   justify-content: center;
-  /*  background-image: linear-gradient(#015C92, #2D83B5, #89CCF6); */
   background-color: rgb(241, 241, 241);
   position: sticky;
   float: left;
@@ -137,7 +180,6 @@ input[type="number"] {
   overflow-y: scroll;
   max-height: 70vh;
 }
-
 
 /* .start-input::-webkit-scrollbar {
   width: 0px; 
@@ -229,7 +271,6 @@ input[type="number"] {
 .label-continent {
   margin-top: 50px;
   font-weight: 700;
-
 }
 
 .label-status {
@@ -243,8 +284,8 @@ input[type="number"] {
 
 .btn-calendario {
   padding: 10px 15px;
-  background: #8B008B;
-  border: 1px solid #8B008B;
+  background: #8b008b;
+  border: 1px solid #8b008b;
   border-radius: 8px;
   color: #fff;
   text-align: center;
@@ -253,7 +294,6 @@ input[type="number"] {
 .label-calendar {
   margin-top: 50px;
   font-weight: 700;
-
 }
 
 .bottom-description {
@@ -323,7 +363,7 @@ input[type="number"] {
 }
 
 .sidebar-item:hover {
-  background-color: #8B008B;
+  background-color: #8b008b;
 }
 
 .sidebar-item-active {
@@ -335,7 +375,7 @@ input[type="number"] {
   text-decoration: none;
   align-items: center;
   justify-content: flex-start;
-  background-color: #8B008B;
+  background-color: #8b008b;
   cursor: pointer;
 }
 
@@ -360,15 +400,15 @@ input[type="number"] {
 }
 
 .btn-reserva {
-  background-color: #8B008B;
+  background-color: #8b008b;
 }
 
 .btn-reserva:hover {
-  background-color: #8B008B;
+  background-color: #8b008b;
 }
 
 .btn-reserva:active {
-  border-color: #8B008B;
+  border-color: #8b008b;
 }
 
 .img-mini img {
@@ -377,7 +417,6 @@ input[type="number"] {
 
 .exit-public {
   display: none;
-
 }
 
 #exit-icon-public {
@@ -392,16 +431,14 @@ input[type="number"] {
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
-  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .container-package-item .form-control {
   width: auto;
 }
 
-
 @media only screen and (max-width: 767px) {
-
   /* .box-container {
     margin-bottom: 80px;
   } */
@@ -437,7 +474,6 @@ input[type="number"] {
     margin-right: 10px;
     width: 350px;
     height: 450px;
-
   }
 
   .rest-info {
@@ -491,14 +527,13 @@ input[type="number"] {
 
   .exit-public {
     display: grid;
-    color: #8B008B;
+    color: #8b008b;
   }
 
   #exit-icon-public {
     display: grid;
-    color: #8B008B;
+    color: #8b008b;
     font-size: 40px;
-
   }
 
   .box-all-public {
@@ -507,7 +542,6 @@ input[type="number"] {
 }
 
 @media screen and (max-width: 1023px) {
-
   .box-container {
     display: flex;
     flex-direction: column;

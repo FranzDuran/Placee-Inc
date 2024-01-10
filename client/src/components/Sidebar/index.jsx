@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useDropzone } from "react-dropzone";
 import Autocomplete from "@mui/material/Autocomplete";
 import { createPost } from "../../redux/action";
-import "./styles.css";
+import "./styles.scss";
 import { Link, useNavigate } from "react-router-dom";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -35,6 +35,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { dataPersonal } from "../../redux/action";
 import { ButtonGroup } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import { dataIcons } from "./dataIcons";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -438,19 +439,19 @@ export default function FormStepper() {
 
   dayjs.locale("es");
   const handleDateSelect = (date) => {
-    console.log("1", date)
+    console.log("1", date);
     const updatedSelectedDates = [...show.reservedDates];
-    console.log("2", updatedSelectedDates)
+    console.log("2", updatedSelectedDates);
     const dateIndex = updatedSelectedDates.findIndex((d) =>
       dayjs(d).isSame(date, "day")
     );
-    console.log("3", dateIndex)
+    console.log("3", dateIndex);
     if (dateIndex !== -1) {
-      console.log("4")
+      console.log("4");
       // Si la fecha ya está seleccionada, la deselecciona
       updatedSelectedDates.splice(dateIndex, 1);
     } else {
-      console.log("5")
+      console.log("5");
       // Si la fecha no está seleccionada, la agrega
       updatedSelectedDates.push(date);
     }
@@ -459,9 +460,9 @@ export default function FormStepper() {
       ...show,
       reservedDates: updatedSelectedDates,
     });
-    console.log("final",show.reservedDates)
+    console.log("final", show.reservedDates);
   };
-  
+
   const toggleCalendar = () => {
     setCalendarOpen(!calendarOpen); // Invierte el estado del calendario (abrir/cerrar)
   };
@@ -1896,21 +1897,99 @@ export default function FormStepper() {
                             Agregar
                           </Button>
 
-                          <Modal show={showModal} onHide={handleCloseModal}>
+                          <Modal
+                            show={showModal}
+                            onHide={handleCloseModal}
+                            className="container-modal-public"
+                          >
                             <Modal.Header closeButton>
                               <Modal.Title>El lugas cuenta con:</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              {/* Add the checkboxes here */}
-                              {paqueteAlquiler.map((item, index) => (
-                                <Form.Check
-                                  key={index}
-                                  type="checkbox"
-                                  label={item}
-                                  checked={selectedCheckboxes.includes(item)}
-                                  onChange={() => handleCheckboxChange2(item)}
-                                />
-                              ))}
+                              <div className="container-boxs-checks">
+                                <div>
+                                  {dataIcons.slice(0, 10).map((item, index) => (
+                                    <div className="content-checkboxs-icons">
+                                      <Form.Check
+                                        key={index}
+                                        type="checkbox"
+                                        label={item.nombre}
+                                        checked={selectedCheckboxes.includes(
+                                          item.nombre
+                                        )}
+                                        onChange={() =>
+                                          handleCheckboxChange2(item.nombre)
+                                        }
+                                      />
+                                      <img
+                                        src={item.icon}
+                                        alt={item.nombre}
+                                        style={{
+                                          width: "15px",
+                                          height: "15px",
+                                          marginRight: "5px",
+                                        }}
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                                <div>
+                                  {dataIcons
+                                    .slice(10, 20)
+                                    .map((item, index) => (
+                                      <div className="content-checkboxs-icons">
+                                        <Form.Check
+                                          key={index}
+                                          type="checkbox"
+                                          label={item.nombre}
+                                          checked={selectedCheckboxes.includes(
+                                            item.nombre
+                                          )}
+                                          onChange={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
+                                        />
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                </div>
+                                <div>
+                                  {dataIcons
+                                    .slice(20, 28)
+                                    .map((item, index) => (
+                                      <div className="content-checkboxs-icons">
+                                        <Form.Check
+                                          key={index}
+                                          type="checkbox"
+                                          label={item.nombre}
+                                          checked={selectedCheckboxes.includes(
+                                            item.nombre
+                                          )}
+                                          onChange={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
+                                        />
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                </div>
+                              </div>
                               <Card>
                                 <Card.Body>
                                   {detailtotal.select.map((details, index) => (
@@ -1968,58 +2047,8 @@ export default function FormStepper() {
                               >
                                 Agregar todo
                               </Button>
-                              {/*  <Button
-                                variant="secondary"
-                                onClick={handleCloseModal}
-                              >
-                                Cerrar
-                              </Button> */}
                             </Modal.Footer>
                           </Modal>
-                          {/* <Card>
-                            <Card.Body>
-                              {show.listDetails.map((details, index) => (
-                                <span
-                                  key={index}
-                                  className="mr-2"
-                                  style={{
-                                    fontSize: "14px",
-                                    maxHeight: "80px",
-                                    background: "#DFDFDF",
-                                    padding: "5px",
-                                    borderRadius: "5px",
-                                    lineHeight: "30pt",
-                                  }}
-                                >
-                                  {details}
-                                  <button
-                                    onClick={() => handleDeleteDetail(index)}
-                                    size="sm"
-                                    className="ml-2"
-                                  >
-                                    X
-                                  </button>
-                                </span>
-                              ))}
-                            </Card.Body>
-                          </Card>
-                          <Form.Group className="d-flex">
-                            <Form.Control
-                              type="text"
-                              placeholder="Nuevo detalle"
-                              value={detail}
-                              onChange={handleDetailChange}
-                              className="flex-grow-1 mr-2"
-                              isInvalid={!show.listDetails && validated}
-                            />
-                            <Button variant="primary" onClick={handleAddDetail}>
-                              Agregar
-                            </Button>
-                            <Form.Control.Feedback type="invalid">
-                              Por favor seleccione una opción de capacidad de
-                              personas.
-                            </Form.Control.Feedback>
-                          </Form.Group> */}
                         </div>
                         <div>
                           <Form.Label
@@ -2084,21 +2113,99 @@ export default function FormStepper() {
                             Agregar
                           </Button>
 
-                          <Modal show={showModal} onHide={handleCloseModal}>
+                          <Modal
+                            show={showModal}
+                            onHide={handleCloseModal}
+                            className="container-modal-public"
+                          >
                             <Modal.Header closeButton>
                               <Modal.Title>El lugas cuenta con:</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                              {/* Add the checkboxes here */}
-                              {paqueteAlquiler.map((item, index) => (
-                                <Form.Check
-                                  key={index}
-                                  type="checkbox"
-                                  label={item}
-                                  checked={selectedCheckboxes.includes(item)}
-                                  onChange={() => handleCheckboxChange2(item)}
-                                />
-                              ))}
+                              <div className="container-boxs-checks">
+                                <div>
+                                  {dataIcons.slice(0, 10).map((item, index) => (
+                                    <div className="content-checkboxs-icons">
+                                      <Form.Check
+                                        key={index}
+                                        type="checkbox"
+                                        label={item.nombre}
+                                        checked={selectedCheckboxes.includes(
+                                          item.nombre
+                                        )}
+                                        onChange={() =>
+                                          handleCheckboxChange2(item.nombre)
+                                        }
+                                      />
+                                      <img
+                                        src={item.icon}
+                                        alt={item.nombre}
+                                        style={{
+                                          width: "15px",
+                                          height: "15px",
+                                          marginRight: "5px",
+                                        }}
+                                      />
+                                    </div>
+                                  ))}
+                                </div>
+                                <div>
+                                  {dataIcons
+                                    .slice(10, 20)
+                                    .map((item, index) => (
+                                      <div className="content-checkboxs-icons">
+                                        <Form.Check
+                                          key={index}
+                                          type="checkbox"
+                                          label={item.nombre}
+                                          checked={selectedCheckboxes.includes(
+                                            item.nombre
+                                          )}
+                                          onChange={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
+                                        />
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                </div>
+                                <div>
+                                  {dataIcons
+                                    .slice(20, 28)
+                                    .map((item, index) => (
+                                      <div className="content-checkboxs-icons">
+                                        <Form.Check
+                                          key={index}
+                                          type="checkbox"
+                                          label={item.nombre}
+                                          checked={selectedCheckboxes.includes(
+                                            item.nombre
+                                          )}
+                                          onChange={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
+                                        />
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
+                                      </div>
+                                    ))}
+                                </div>
+                              </div>
                               <Card>
                                 <Card.Body>
                                   {detailtotal.select.map((details, index) => (
@@ -2156,12 +2263,6 @@ export default function FormStepper() {
                               >
                                 Agregar todo
                               </Button>
-                              {/*  <Button
-                                variant="secondary"
-                                onClick={handleCloseModal}
-                              >
-                                Cerrar
-                              </Button> */}
                             </Modal.Footer>
                           </Modal>
                           <Form.Group
