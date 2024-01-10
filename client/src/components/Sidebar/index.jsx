@@ -1910,6 +1910,15 @@ export default function FormStepper() {
                                 <div>
                                   {dataIcons.slice(0, 10).map((item, index) => (
                                     <div className="content-checkboxs-icons">
+                                      <img
+                                        src={item.icon}
+                                        alt={item.nombre}
+                                        style={{
+                                          width: "15px",
+                                          height: "15px",
+                                          marginRight: "5px",
+                                        }}
+                                      />
                                       <Form.Check
                                         key={index}
                                         type="checkbox"
@@ -1921,15 +1930,7 @@ export default function FormStepper() {
                                           handleCheckboxChange2(item.nombre)
                                         }
                                       />
-                                      <img
-                                        src={item.icon}
-                                        alt={item.nombre}
-                                        style={{
-                                          width: "15px",
-                                          height: "15px",
-                                          marginRight: "5px",
-                                        }}
-                                      />
+                                
                                     </div>
                                   ))}
                                 </div>
@@ -1938,6 +1939,15 @@ export default function FormStepper() {
                                     .slice(10, 20)
                                     .map((item, index) => (
                                       <div className="content-checkboxs-icons">
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
                                         <Form.Check
                                           key={index}
                                           type="checkbox"
@@ -1949,15 +1959,7 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        <img
-                                          src={item.icon}
-                                          alt={item.nombre}
-                                          style={{
-                                            width: "15px",
-                                            height: "15px",
-                                            marginRight: "5px",
-                                          }}
-                                        />
+                                        
                                       </div>
                                     ))}
                                 </div>
@@ -1966,6 +1968,15 @@ export default function FormStepper() {
                                     .slice(20, 28)
                                     .map((item, index) => (
                                       <div className="content-checkboxs-icons">
+                                         <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
                                         <Form.Check
                                           key={index}
                                           type="checkbox"
@@ -1977,15 +1988,7 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        <img
-                                          src={item.icon}
-                                          alt={item.nombre}
-                                          style={{
-                                            width: "15px",
-                                            height: "15px",
-                                            marginRight: "5px",
-                                          }}
-                                        />
+                                       
                                       </div>
                                     ))}
                                 </div>
@@ -2126,6 +2129,15 @@ export default function FormStepper() {
                                 <div>
                                   {dataIcons.slice(0, 10).map((item, index) => (
                                     <div className="content-checkboxs-icons">
+                                       <img
+                                        src={item.icon}
+                                        alt={item.nombre}
+                                        style={{
+                                          width: "15px",
+                                          height: "15px",
+                                          marginRight: "5px",
+                                        }}
+                                      />
                                       <Form.Check
                                         key={index}
                                         type="checkbox"
@@ -2137,15 +2149,7 @@ export default function FormStepper() {
                                           handleCheckboxChange2(item.nombre)
                                         }
                                       />
-                                      <img
-                                        src={item.icon}
-                                        alt={item.nombre}
-                                        style={{
-                                          width: "15px",
-                                          height: "15px",
-                                          marginRight: "5px",
-                                        }}
-                                      />
+                                     
                                     </div>
                                   ))}
                                 </div>
@@ -2154,6 +2158,15 @@ export default function FormStepper() {
                                     .slice(10, 20)
                                     .map((item, index) => (
                                       <div className="content-checkboxs-icons">
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
                                         <Form.Check
                                           key={index}
                                           type="checkbox"
@@ -2165,15 +2178,7 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        <img
-                                          src={item.icon}
-                                          alt={item.nombre}
-                                          style={{
-                                            width: "15px",
-                                            height: "15px",
-                                            marginRight: "5px",
-                                          }}
-                                        />
+                                        
                                       </div>
                                     ))}
                                 </div>
@@ -2182,6 +2187,15 @@ export default function FormStepper() {
                                     .slice(20, 28)
                                     .map((item, index) => (
                                       <div className="content-checkboxs-icons">
+                                        <img
+                                          src={item.icon}
+                                          alt={item.nombre}
+                                          style={{
+                                            width: "15px",
+                                            height: "15px",
+                                            marginRight: "5px",
+                                          }}
+                                        />
                                         <Form.Check
                                           key={index}
                                           type="checkbox"
@@ -2193,15 +2207,7 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        <img
-                                          src={item.icon}
-                                          alt={item.nombre}
-                                          style={{
-                                            width: "15px",
-                                            height: "15px",
-                                            marginRight: "5px",
-                                          }}
-                                        />
+                                        
                                       </div>
                                     ))}
                                 </div>
