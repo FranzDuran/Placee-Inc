@@ -14,6 +14,8 @@ module.exports = {
           message: 'No existen usuarios'
         });
       }
+
+      ////*********************************************************** */
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
