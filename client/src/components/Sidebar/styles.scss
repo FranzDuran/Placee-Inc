@@ -45,10 +45,24 @@
       justify-content: center;
       gap: 30px;
       margin-bottom: 25px;
-      .content-checkboxs-icons {
+      max-height: 200px;
+      overflow-y: auto;
+      div{
         display: flex;
-        gap: 5px;
+        flex-direction: column;
+        gap: 20px;
+        .content-checkboxs-icons {
+          display: flex;
+          flex-direction: row;
+          gap: 5px;
+          .form-check{
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+          }
+        }
       }
+      
     }
   }
 
@@ -56,12 +70,7 @@
     max-width: none;
     width: 88%;
     padding-left: 0px !important;
-
     max-height: 100vh;
-
-    /* .container-modal-public::-webkit-scrollbar {
-    display: none; 
-  } */
 
     .modal-content {
       max-height: 96vh;
@@ -82,6 +91,16 @@
     }
   }
 }
+
+/* .container-card-modal{
+  .card-body{
+    span{
+      button{
+
+      }
+    }
+  }
+} */
 
 .back-next {
   display: block;
@@ -431,20 +450,7 @@ input[type="number"] {
   display: none;
 }
 
-.container-package-item {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 5px;
-  background-color: var(--bs-body-bg);
-  background-clip: padding-box;
-  border: var(--bs-border-width) solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
 
-.container-package-item .form-control {
-  width: auto;
-}
 
 @media only screen and (max-width: 767px) {
   /* .box-container {

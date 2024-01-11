@@ -1,0 +1,89 @@
+.card-container {
+  background-color: #ffffff;
+  margin-bottom: 10px;
+  .card-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    .card-span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #000;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #e5e7eb;
+      .card-span-btn {
+        padding: 3px;
+        color: #000;
+        background: transparent;
+        border-radius: 2px;
+        border: 1px solid #e5e7eb;
+      }
+    }
+  }
+}
+
+//----------------------------------------------
+
+.container-package-item {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 14px;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.container-package-item .form-control {
+  width: auto;
+}
+.card2-input-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  .card2-input {
+    font-size: 14px;
+    color: #000;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #e5e7eb;
+  }
+  .card2-btn {
+    padding: 3px;
+    color: #000;
+    background: transparent;
+    border-radius: 2px;
+    border: 1px solid #e5e7eb;
+    width: 30px;
+    span {
+      width: 10px;
+    }
+  }
+}
+
+//-------- CALENDAR ---------------------------------
+
+.calendario-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .calendarContent{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        .calendarBtn{
+            background: #000;
+            color: #fff;
+        }
+    }
+}

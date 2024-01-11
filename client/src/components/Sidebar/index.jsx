@@ -38,6 +38,8 @@ import Modal from "react-bootstrap/Modal";
 import { dataIcons } from "./dataIcons";
 import CalendarComponent from "./CalendarComponent";
 
+import styles from "./Sidebar.module.scss";
+
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
   let errors = {};
@@ -202,10 +204,12 @@ export default function FormStepper() {
 
     setShow((prevState) => ({
       ...prevState,
-      listDetails: [...prevState.listDetails, ...total],
+      listDetails: total,
     }));
+    // Close the modal or perform any other necessary actions
+    handleCloseModal();
   };
-
+  //console.log(show.listDetails)
   //---------------------------------------------------------------------------
 
   const handleInfoChange = (event) => {
@@ -484,7 +488,6 @@ export default function FormStepper() {
       reservedDates: selectedDates,
     });
   };
-
   const options = [
     "Sin limites",
     "1",
@@ -1009,22 +1012,6 @@ export default function FormStepper() {
                       <div></div>
                     )}
                   </Row>
-                  {/* <Row className="mb-3">
-                    <Form.Group as={Col}>
-                      <Form.Label className="label-title">Precio</Form.Label>
-                      <InputGroup className="mb-3">
-                        <InputGroup.Text>$</InputGroup.Text>
-                        <Form.Control
-                          aria-label="Amount (to the nearest dollar)"
-                          type="number"
-                          defaultValue={show.price}
-                          onChange={handlePrice}
-                          required={show.status === "Privado"}
-                        />
-                        <InputGroup.Text>.00</InputGroup.Text>
-                      </InputGroup>
-                    </Form.Group>
-                  </Row> */}
 
                   {show.status === "Privado" && (
                     <>
@@ -1060,54 +1047,6 @@ export default function FormStepper() {
                       {show.additionalExpenses && (
                         <div>
                           <h4>Agregar precio a</h4>
-                          {/* <Row className="mb-3">
-                            <Form.Group as={Col}>
-                              <Form.Label>Piscina</Form.Label>
-                              <InputGroup className="mb-3">
-                                <InputGroup.Text>$</InputGroup.Text>
-                                <Form.Control
-                                  type="number"
-                                  placeholder="Precio de Piscina"
-                                  value={show.poolPrice}
-                                  onChange={(e) =>
-                                    handlePriceChange("poolPrice", e)
-                                  }
-                                />
-                                <InputGroup.Text>.00</InputGroup.Text>
-                              </InputGroup>
-                            </Form.Group>
-                            <Form.Group as={Col} >
-                              <Form.Label>Parqueo</Form.Label>
-                              <InputGroup className="mb-3">
-                                <InputGroup.Text>$</InputGroup.Text>
-                                <Form.Control
-                                  type="number"
-                                  placeholder="Precio de Parqueo"
-                                  value={show.parkingPrice}
-                                  onChange={(e) =>
-                                    handlePriceChange("parkingPrice", e)
-                                  }
-                                />
-                                <InputGroup.Text>.00</InputGroup.Text>
-                              </InputGroup>
-                            </Form.Group>
-                            <Form.Group as={Col}>
-                              <Form.Label>Área de cocina</Form.Label>
-                              <InputGroup className="mb-3">
-                                <InputGroup.Text>$</InputGroup.Text>
-                                <Form.Control
-                                  type="number"
-                                  placeholder="Precio de Área de cocina"
-                                  value={show.kitchenPrice}
-                                  onChange={(e) =>
-                                    handlePriceChange("kitchenPrice", e)
-                                  }
-                                />
-                                <InputGroup.Text>.00</InputGroup.Text>
-                              </InputGroup>
-                            </Form.Group> 
-                          </Row> */}
-                          {/* Inside the JSX where you map over additionalPrices */}
                           {show.additionalPrices.length > 0 && (
                             <>
                               {show.additionalPrices.map((price, index) => (
@@ -1130,6 +1069,7 @@ export default function FormStepper() {
                                       <InputGroup.Text>$</InputGroup.Text>
                                       <Form.Control
                                         type="number"
+                                        name="value"
                                         placeholder={`50`}
                                         value={price.value}
                                         onChange={(e) =>
@@ -1175,28 +1115,6 @@ export default function FormStepper() {
                               id="yesSpecialPackage"
                               onChange={() => handleSpecialPackage(true)}
                             />
-                            {/* <ButtonGroup>
-                          <Button
-                            variant={
-                              show.hasSpecialPackage
-                                ? "success"
-                                : "outline-secondary"
-                            }
-                            onClick={() => handleSpecialPackage(true)}
-                          >
-                            SI
-                          </Button>
-                          <Button
-                            variant={
-                              !show.hasSpecialPackage
-                                ? "danger"
-                                : "outline-secondary"
-                            }
-                            onClick={() => handleSpecialPackage(false)}
-                          >
-                            NO
-                          </Button>
-                        </ButtonGroup> */}
                           </div>
                         </Form.Group>
                       </Row>
@@ -1205,7 +1123,9 @@ export default function FormStepper() {
                         <>
                           <Row className="mb-3">
                             <Form.Group as={Col}>
-                              <Form.Label>Nombre del pase o paquete</Form.Label>
+                              <Form.Label className="label-status">
+                                Nombre del pase o paquete
+                              </Form.Label>
                               <Form.Control
                                 type="text"
                                 placeholder="Nombre del pase o paquete"
@@ -1217,20 +1137,28 @@ export default function FormStepper() {
 
                           <Row className="mb-3">
                             <Form.Group as={Col}>
-                              <Form.Label>Incluye:</Form.Label>
-                              <div className="container-package-item">
+                              <Form.Label className="label-status">
+                                Incluye:
+                              </Form.Label>
+                              <div className={styles["container-package-item"]}>
                                 {show.specialPackageItems.map((item, index) => (
                                   <Row className="mb-3" key={index}>
                                     <Form.Group as={Col}>
-                                      <InputGroup>
+                                      <InputGroup
+                                        className={
+                                          styles["card2-input-content"]
+                                        }
+                                      >
                                         <Form.Control
                                           type="text"
                                           placeholder={`Elemento ${index + 1}`}
                                           value={item}
                                           readOnly
+                                          className={styles["card2-input"]}
                                         />
                                         <Button
-                                          variant="danger"
+                                          className={styles["card2-btn"]}
+                                          //variant="danger"
                                           onClick={() =>
                                             handleRemoveSpecialPackageItem(
                                               index
@@ -1255,16 +1183,18 @@ export default function FormStepper() {
                                   variant="success"
                                   onClick={handleAddSpecialPackageItem}
                                 >
-                                  Agregar +
+                                  Agregar
                                 </Button>
                               </InputGroup>
                             </Form.Group>
                           </Row>
 
-                          {/* New input for the total price */}
+                          {/* PRECIO TOTAL DEL PAQUETE */}
                           <Row className="mb-3">
                             <Form.Group as={Col}>
-                              <Form.Label>Total</Form.Label>
+                              <Form.Label className="label-status">
+                                Total
+                              </Form.Label>
                               <InputGroup className="mb-3">
                                 <InputGroup.Text>$</InputGroup.Text>
                                 <Form.Control
@@ -1296,6 +1226,7 @@ export default function FormStepper() {
                         required
                         defaultValue={show.summary}
                         onChange={handleSummary}
+                        style={{ resize: "none" }}
                       />
                       <Form.Control.Feedback type="invalid">
                         Por favor se requiere resumen.
@@ -1315,6 +1246,7 @@ export default function FormStepper() {
                         required
                         defaultValue={show.description}
                         onChange={handleDescription}
+                        style={{ resize: "none" }}
                       />
                       <Form.Control.Feedback type="invalid">
                         Por favor se requiere descripción.
@@ -1556,40 +1488,6 @@ export default function FormStepper() {
                         )}
                       </div>
                     )}
-
-                    {/* {show.status === "Privado" && (
-                      <Row className="mb-3">
-                        <Form.Group
-                          as={Col}
-                          className="mb-3"
-                          controlId="validationCustomContinent"
-                        >
-                          <Form.Label className="label-title">
-                            Dias y horarios de atención
-                          </Form.Label>
-                          <Form.Select
-                            defaultValue={show.daysAtentions}
-                            onChange={handleAttention}
-                            aria-label="daysAtentions"
-                            required
-                            isInvalid={!show.daysAtentions && validated}
-                            className="mb-3 form-control"
-                          >
-                            <option value="">Seleccione una opción</option>
-                            {daysatention.map((option) => (
-                              <option key={option} value={option}>
-                                {option}
-                              </option>
-                            ))}
-                          </Form.Select>
-                          <Form.Control.Feedback type="invalid">
-                            Por favor seleccione el horario de atencion al
-                            cliente.
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </Row>
-                    )}
- */}
                     {show.daysAtentions ? (
                       <Row className="mb-3">
                         <div className="hours-container">
@@ -1909,8 +1807,8 @@ export default function FormStepper() {
                                         src={item.icon}
                                         alt={item.nombre}
                                         style={{
-                                          width: "15px",
-                                          height: "15px",
+                                          width: "18px",
+                                          height: "18px",
                                           marginRight: "5px",
                                         }}
                                       />
@@ -1937,8 +1835,8 @@ export default function FormStepper() {
                                           src={item.icon}
                                           alt={item.nombre}
                                           style={{
-                                            width: "15px",
-                                            height: "15px",
+                                            width: "18px",
+                                            height: "18px",
                                             marginRight: "5px",
                                           }}
                                         />
@@ -1965,8 +1863,8 @@ export default function FormStepper() {
                                           src={item.icon}
                                           alt={item.nombre}
                                           style={{
-                                            width: "15px",
-                                            height: "15px",
+                                            width: "18px",
+                                            height: "18px",
                                             marginRight: "5px",
                                           }}
                                         />
@@ -1985,20 +1883,12 @@ export default function FormStepper() {
                                     ))}
                                 </div>
                               </div>
-                              <Card>
-                                <Card.Body>
+                              <Card className={styles["card-container"]}>
+                                <Card.Body className={styles["card-body"]}>
                                   {detailtotal.select.map((details, index) => (
                                     <span
                                       key={index}
-                                      className="mr-2"
-                                      style={{
-                                        fontSize: "14px",
-                                        maxHeight: "80px",
-                                        background: "#DFDFDF",
-                                        padding: "5px",
-                                        borderRadius: "5px",
-                                        lineHeight: "30pt",
-                                      }}
+                                      className={styles["card-span"]}
                                     >
                                       {details}
                                       <button
@@ -2006,7 +1896,7 @@ export default function FormStepper() {
                                           handleDeleteDetail(index)
                                         }
                                         size="sm"
-                                        className="ml-2"
+                                        className={styles["card-span-btn"]}
                                       >
                                         X
                                       </button>
@@ -2053,27 +1943,19 @@ export default function FormStepper() {
                           >
                             Informacion importante:
                           </Form.Label>
-                          <Card>
-                            <Card.Body>
+                          <Card className={styles["card-container"]}>
+                            <Card.Body className={styles["card-body"]}>
                               {show.infoImportant.map((important, index) => (
                                 <span
                                   key={index}
-                                  className="mr-2"
-                                  style={{
-                                    fontSize: "14px",
-                                    maxHeight: "80px",
-                                    background: "#DFDFDF",
-                                    padding: "5px",
-                                    borderRadius: "5px",
-                                    lineHeight: "30pt",
-                                  }}
+                                  className={styles["card-span"]}
                                 >
                                   {important}
                                   <button
                                     variant="danger"
                                     onClick={() => handleDeleteInfo(index)}
                                     size="sm"
-                                    className="ml-2"
+                                    className={styles["card-span-btn"]}
                                   >
                                     X
                                   </button>
@@ -2104,6 +1986,19 @@ export default function FormStepper() {
                           <span className="label-title">
                             El lugas cuenta con:
                           </span>
+                          <Card className={styles["card-container"]}>
+                            <Card.Body className={styles["card-body"]}>
+                              {show.listDetails &&
+                                show.listDetails.map((details, index) => (
+                                  <span
+                                    key={index}
+                                    className={styles["card-span"]}
+                                  >
+                                    {details}
+                                  </span>
+                                ))}
+                            </Card.Body>
+                          </Card>
                           <Button variant="secondary" onClick={handleOpenModal}>
                             Agregar
                           </Button>
@@ -2125,8 +2020,8 @@ export default function FormStepper() {
                                         src={item.icon}
                                         alt={item.nombre}
                                         style={{
-                                          width: "15px",
-                                          height: "15px",
+                                          width: "18px",
+                                          height: "18px",
                                           marginRight: "5px",
                                         }}
                                       />
@@ -2153,8 +2048,8 @@ export default function FormStepper() {
                                           src={item.icon}
                                           alt={item.nombre}
                                           style={{
-                                            width: "15px",
-                                            height: "15px",
+                                            width: "18px",
+                                            height: "18px",
                                             marginRight: "5px",
                                           }}
                                         />
@@ -2181,8 +2076,8 @@ export default function FormStepper() {
                                           src={item.icon}
                                           alt={item.nombre}
                                           style={{
-                                            width: "15px",
-                                            height: "15px",
+                                            width: "18px",
+                                            height: "18px",
                                             marginRight: "5px",
                                           }}
                                         />
@@ -2201,20 +2096,12 @@ export default function FormStepper() {
                                     ))}
                                 </div>
                               </div>
-                              <Card>
-                                <Card.Body>
+                              <Card className={styles["card-container"]}>
+                                <Card.Body className={styles["card-body"]}>
                                   {detailtotal.select.map((details, index) => (
                                     <span
                                       key={index}
-                                      className="mr-2"
-                                      style={{
-                                        fontSize: "14px",
-                                        maxHeight: "80px",
-                                        background: "#DFDFDF",
-                                        padding: "5px",
-                                        borderRadius: "5px",
-                                        lineHeight: "30pt",
-                                      }}
+                                      className={styles["card-span"]}
                                     >
                                       {details}
                                       <button
@@ -2222,7 +2109,7 @@ export default function FormStepper() {
                                           handleDeleteDetail(index)
                                         }
                                         size="sm"
-                                        className="ml-2"
+                                        className={styles["card-span-btn"]}
                                       >
                                         X
                                       </button>
@@ -2300,7 +2187,7 @@ export default function FormStepper() {
                   </Form.Group>
                 </div>
                 <div className={show.status === "Privado" ? "rest-info" : ""}>
-                  <Row className="mb-3 select-form-container">
+                  <Row className={styles["calendario-container"]}>
                     {show.status === "Privado" ? (
                       /* <Space
                         className="label-calendar"
@@ -2347,27 +2234,16 @@ export default function FormStepper() {
                         <span className="label-title">
                           Informacion importante:
                         </span>
-                        <Card>
-                          <Card.Body>
+                        <Card className={styles["card-container"]}>
+                          <Card.Body className={styles["card-body"]}>
                             {show.infoImportant.map((important, index) => (
-                              <span
-                                key={index}
-                                className="mr-2"
-                                style={{
-                                  fontSize: "14px",
-                                  maxHeight: "80px",
-                                  background: "#DFDFDF",
-                                  padding: "5px",
-                                  borderRadius: "5px",
-                                  lineHeight: "30pt",
-                                }}
-                              >
+                              <span key={index} className={styles["card-span"]}>
                                 {important}
                                 <button
                                   variant="danger"
                                   onClick={() => handleDeleteInfo(index)}
                                   size="sm"
-                                  className="ml-2"
+                                  className={styles["card-span-btn"]}
                                 >
                                   X
                                 </button>
