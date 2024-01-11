@@ -36,6 +36,7 @@ import { dataPersonal } from "../../redux/action";
 import { ButtonGroup } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { dataIcons } from "./dataIcons";
+import CalendarComponent from "./CalendarComponent";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -437,37 +438,35 @@ export default function FormStepper() {
     }));
   };
 
-  dayjs.locale("es");
-  const handleDateSelect = (date) => {
-    console.log("1", date);
-    const updatedSelectedDates = [...show.reservedDates];
-    console.log("2", updatedSelectedDates);
-    const dateIndex = updatedSelectedDates.findIndex((d) =>
-      dayjs(d).isSame(date, "day")
-    );
-    console.log("3", dateIndex);
-    if (dateIndex !== -1) {
-      console.log("4");
-      // Si la fecha ya está seleccionada, la deselecciona
-      updatedSelectedDates.splice(dateIndex, 1);
-    } else {
-      console.log("5");
-      // Si la fecha no está seleccionada, la agrega
-      updatedSelectedDates.push(date);
-    }
+  //dayjs.locale("es");
+  /* const handleDateSelect = (date) => {
+  const updatedSelectedDates = [...show.reservedDates];
+  const dateIndex = updatedSelectedDates.findIndex((d) =>
+    dayjs(d).isSame(date, "day")
+  );
 
-    setShow({
-      ...show,
-      reservedDates: updatedSelectedDates,
-    });
-    console.log("final", show.reservedDates);
-  };
+  if (dateIndex !== -1) {
+    // Si la fecha ya está seleccionada, la deselecciona
+    updatedSelectedDates.splice(dateIndex, 1);
+  } else {
+    // Si la fecha no está seleccionada, la agrega
+    updatedSelectedDates.push(date);
+  }
 
-  const toggleCalendar = () => {
+  setShow({
+    ...show,
+    reservedDates: updatedSelectedDates,
+  });
+
+  // Toggle the calendar after date selection/deselection
+  toggleCalendar();
+}; */
+
+  /* const toggleCalendar = () => {
     setCalendarOpen(!calendarOpen); // Invierte el estado del calendario (abrir/cerrar)
-  };
+  }; */
 
-  const disabledDate = (current) => {
+  /* const disabledDate = (current) => {
     // Comprueba si la fecha actual está deshabilitada
     const isDisabled = show.reservedDates.some((date) =>
       dayjs(date).isSame(current, "day")
@@ -475,6 +474,15 @@ export default function FormStepper() {
 
     // Invierte la deshabilitación (si está deshabilitada, se habilita, y viceversa)
     return isDisabled;
+  }; */
+
+  const handleSaveToDatabase = (selectedDates) => {
+    // Aquí puedes realizar la lógica para guardar las fechas en la base de datos
+    console.log("Guardando en la base de datos:", selectedDates);
+    setShow({
+      ...show,
+      reservedDates: selectedDates,
+    });
   };
 
   const options = [
@@ -745,19 +753,6 @@ export default function FormStepper() {
     "Tonga",
     "Tuvalu",
     "Vanuatu",
-  ];
-
-  const paqueteAlquiler = [
-    "Ropa de cama",
-    "Toallas",
-    "Artículos de baño",
-    "Cocina equipada",
-    "Cafetera",
-    "Wi-Fi",
-    "TV por cable",
-    "Mapa local",
-    "Secador",
-    "Productos de limpieza",
   ];
 
   const tipos = ["bosques", "playas", "montañas"];
@@ -1930,7 +1925,6 @@ export default function FormStepper() {
                                           handleCheckboxChange2(item.nombre)
                                         }
                                       />
-                                
                                     </div>
                                   ))}
                                 </div>
@@ -1959,7 +1953,6 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        
                                       </div>
                                     ))}
                                 </div>
@@ -1968,7 +1961,7 @@ export default function FormStepper() {
                                     .slice(20, 28)
                                     .map((item, index) => (
                                       <div className="content-checkboxs-icons">
-                                         <img
+                                        <img
                                           src={item.icon}
                                           alt={item.nombre}
                                           style={{
@@ -1988,7 +1981,6 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                       
                                       </div>
                                     ))}
                                 </div>
@@ -2129,7 +2121,7 @@ export default function FormStepper() {
                                 <div>
                                   {dataIcons.slice(0, 10).map((item, index) => (
                                     <div className="content-checkboxs-icons">
-                                       <img
+                                      <img
                                         src={item.icon}
                                         alt={item.nombre}
                                         style={{
@@ -2149,7 +2141,6 @@ export default function FormStepper() {
                                           handleCheckboxChange2(item.nombre)
                                         }
                                       />
-                                     
                                     </div>
                                   ))}
                                 </div>
@@ -2178,7 +2169,6 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        
                                       </div>
                                     ))}
                                 </div>
@@ -2207,7 +2197,6 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
-                                        
                                       </div>
                                     ))}
                                 </div>
@@ -2313,7 +2302,7 @@ export default function FormStepper() {
                 <div className={show.status === "Privado" ? "rest-info" : ""}>
                   <Row className="mb-3 select-form-container">
                     {show.status === "Privado" ? (
-                      <Space
+                      /* <Space
                         className="label-calendar"
                         direction="vertical"
                         size={12}
@@ -2330,13 +2319,25 @@ export default function FormStepper() {
                         </Button>
 
                         <DatePicker
-                          open={calendarOpen}
-                          onOpenChange={() => setCalendarOpen(true)}
-                          onChange={handleDateSelect}
-                          disabledDate={disabledDate}
-                          showToday={false}
+                          onChange={(dates) => handleDateSelection(dates)}
+                          dateRender={(current) => {
+                            const isSelected = selectedDates.some((date) =>
+                              dayjs(date).isSame(current, "day")
+                            );
+
+                            return (
+                              <div
+                                className={isSelected ? "selected-date" : ""}
+                              >
+                                {current.date()}
+                              </div>
+                            );
+                          }}
                         />
-                      </Space>
+                      </Space> */
+                      <CalendarComponent
+                        onSaveToDatabase={handleSaveToDatabase}
+                      />
                     ) : null}
                   </Row>
 
