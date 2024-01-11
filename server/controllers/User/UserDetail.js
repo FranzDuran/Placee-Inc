@@ -1,7 +1,7 @@
 const { User, Post, Comment } = require('../../database/models');
 
 module.exports = {
-  User: async (req, res) => {
+  UserDetail: async (req, res) => {
     const { idUser} = req.params; // Cambia el nombre del parámetro
     try {
       const UserDetails = await User.findByPk(idUser, {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
- export const setSelectedCardId = (id) => ({
+export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -317,6 +317,38 @@ export const paymentReserve = (idTuristic) => {
   };
 };
 
+export const loginWithGoogle = () => {
+  return async (dispatch) => {
+    try {
+      // Redirige al usuario a la página de inicio de sesión de Google
+      window.location.href = "https://placee-inc-production.up.railway.app/auth/google";
+    } catch (error) {
+      console.error('Error en la acción loginWithGoogle:', error);
+      dispatch({ type: "LOGIN_ERROR" });
+    }
+  };
+};
+
+
+
+
+export const dataGoogle = (token) => async (dispatch) => {
+  try {
+    const response = await axios.get('https://placee-inc-production.up.railway.app/profile', {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    dispatch({
+      type: 'FETCH_USER_PROFILE_SUCCESS',
+      payload: response.data.user,
+    });
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+  }
+};
+
 
 
 
@@ -463,6 +495,7 @@ export const UserLogin = (email, password) => {
   };
 };
 
+
 const checkServerStatus = async () => {
   try {
     const response = await axios.get(
@@ -607,4 +640,64 @@ export const paymentReserve = (idTuristic) => {
       // Puedes despachar otra acción de error si es necesario
     }
   };
+}; 
+
+export const ReportsPost = (payload, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/reports`,
+        payload,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      const createdPost = response.data.post;
+
+      dispatch({
+        type: "POST_REPORTS",
+        payload: createdPost,
+      });
+
+      return createdPost;
+    } catch (error) {
+      console.error("Error creating post:", error);
+      throw error;
+    }
+  };
+};
+
+export const loginWithGoogle = () => {
+  return async (dispatch) => {
+    try {
+      // Redirige al usuario a la página de inicio de sesión de Google
+      window.location.href = "http://localhost:4000/auth/google";
+    } catch (error) {
+      console.error('Error en la acción loginWithGoogle:', error);
+      dispatch({ type: "LOGIN_ERROR" });
+    }
+  };
+};
+
+
+
+
+export const dataGoogle = (token) => async (dispatch) => {
+  try {
+    const response = await axios.get('http://localhost:4000/profile', {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    dispatch({
+      type: 'FETCH_USER_PROFILE_SUCCESS',
+      payload: response.data.user,
+    });
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+  }
 }; */

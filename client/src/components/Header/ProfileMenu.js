@@ -30,7 +30,7 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import MenuItem from "@mui/material/MenuItem";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { DetailsPostTuristic } from "../../redux/action";
-import { UserPostDetails } from "../../redux/action";
+import { UserPostDetails, dataGoogle } from "../../redux/action";
 
 export default function BasicMenu() {
   const dispatch = useDispatch();
@@ -46,10 +46,18 @@ export default function BasicMenu() {
   const [fullscreen, setFullscreen] = React.useState(true);
   const [modalPublic, setModalPublic] = React.useState(false);
 
-  console.log(datapersonal.Posts);
+  console.log(datapersonal);
 
   React.useEffect(() => {
     dispatch(DetailsPostTuristic(datapersonal.id));
+    dispatch(dataGoogle());
+
+    
+  }, [dispatch]);
+  React.useEffect(() => {
+    dispatch(dataGoogle());
+
+    
   }, [dispatch]);
 
   function handleShow(breakpoint) {
