@@ -3,6 +3,7 @@ const initialState = {
   loginError: null,
   token: localStorage.getItem("token"),
   datapersonal: [],
+  datapersonalGoogle: [],
   posts: [],
   allPost: [],
   detailpost: [],
@@ -16,6 +17,7 @@ const initialState = {
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    
     case "SET_SELECTED_CARD_ID":
       return {
         ...state,
@@ -44,6 +46,12 @@ export const rootReducer = (state = initialState, action) => {
         loginError: true,
       };
 
+      case "DATA_GOOGLE":
+        return {
+          ...state,
+          datapersonalGoogle: action.payload,
+
+        };
     case "SET_DATA_PERSONAL":
       return {
         ...state,

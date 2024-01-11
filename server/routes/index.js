@@ -8,6 +8,7 @@ const paymentRoutes = require('./payment.routes')
 
 
 
+
 router.use('/', routerUser, postRouter, hostessRouter, statusRouter, paymentRoutes)
 
 

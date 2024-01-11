@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { UserLogin } from "../../redux/action";
+import { UserLogin, loginWithGoogle } from "../../redux/action";
 import "./LoginForms.scss";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../assets/logo/Logo.jpg";
@@ -74,6 +74,7 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
 
   const handleGoogleLogin = () => {
     // Implementa tu lógica de inicio de sesión con Google aquí
+    dispatch(loginWithGoogle())
     console.log("Inicio de sesión con Google");
   };
 
