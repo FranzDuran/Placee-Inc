@@ -15,6 +15,9 @@ module.exports = {
           message: 'No existen usuarios'
         });
       }
+      // Limpia el campo de entrada después de agregar
+      // Limpia el campo de entrada después de agregar
+      // Limpia el campo de entrada después de agregar
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error en el servidor' });
