@@ -16,7 +16,7 @@ cloudinary.config({
 });
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Cambia esto según el dominio y puerto de tu cliente
+  origin: 'https://placee-inc.vercel.app', // Cambia esto según el dominio y puerto de tu cliente
   credentials: true,
 }));
 app.use(session({
