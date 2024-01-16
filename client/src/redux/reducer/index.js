@@ -3,7 +3,6 @@ const initialState = {
   loginError: null,
   token: localStorage.getItem("token"),
   datapersonal: [],
-  datapersonalGoogle: [],
   posts: [],
   allPost: [],
   detailpost: [],
@@ -13,6 +12,7 @@ const initialState = {
   reservaEnProceso: false,
   reservaError: null,
   selectedCardId: null,
+
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -49,9 +49,9 @@ export const rootReducer = (state = initialState, action) => {
       case "DATA_GOOGLE":
         return {
           ...state,
-          datapersonalGoogle: action.payload,
-
+          datapersonal: action.payload,
         };
+      
     case "SET_DATA_PERSONAL":
       return {
         ...state,
@@ -137,6 +137,9 @@ export const rootReducer = (state = initialState, action) => {
         // Otro estado actualizado aquí según sea necesario
         payment: action.payload,
       };
+
+
+      
 
     default:
       return { ...state };

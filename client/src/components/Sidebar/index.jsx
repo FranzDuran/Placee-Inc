@@ -156,8 +156,8 @@ export default function FormStepper() {
   });
 
   React.useEffect(() => {
-    dispatch(dataPersonal(token));
-  }, [dispatch, token]);
+    dispatch(dataPersonal(token || datapersonal.token));
+  }, [dispatch, token, datapersonal.token]);
 
   const handleDetailChange = (event) => {
     setDetail(event.target.value);
@@ -312,7 +312,7 @@ export default function FormStepper() {
         formData.append("imageFile", image);
       });
       setIsLoading(true);
-      const createdPost = await dispatch(createPost(formData, token));
+      const createdPost = await dispatch(createPost(formData, token || datapersonal.token));
       console.log("Post creado exitosamente:", createdPost);
 
       const newErrors = validate(show); // Validar los campos

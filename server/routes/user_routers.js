@@ -10,7 +10,8 @@ const { UserDetail } = require('../controllers/User/UserDetail');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const { User } = require('../database/models')
+const { User, Post } = require('../database/models')
+require('dotenv').config();
 
 
 
@@ -22,73 +23,69 @@ const { User } = require('../database/models')
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 require('dotenv').config();
-passport.use("auth-google", new GoogleStrategy({
+passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:4000/auth/google/callback"
+  callbackURL: 'http://localhost:4000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
-  // Aquí puedes personalizar cómo manejar el perfil del usuario después de la autenticación
+  // Aquí puedes almacenar el perfil del usuario en tu base de datos si es necesario
   return done(null, profile);
 }));
 
-// Serialización y deserialización del usuario
+// Serialización y deserialización del usuario para almacenar en la sesión
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((obj, done) => done(null, obj));
 
 // Rutas de autenticación
-router.get('/auth/google', passport.authenticate("auth-google", {
-  scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email']
-}));
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', passport.authenticate('auth-google', {
-  successRedirect: '/profile',
-  failureRedirect: '/'
-}));
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+   
 
-// Ruta para cerrar sesión
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
+    // Redirigir a la ruta deseada con el token
+    res.redirect(`http://localhost:3000/`);
+  }
+);
 
 // Ruta protegida
 router.get('/profile', isAuthenticated, async (req, res) => {
   const user = req.user;
 
   try {
-    console.log('Iniciando /profile');
-    
-    let userGoogle = await User.findOne({ email: user.email });
-    console.log('Usuario encontrado en la base de datos:', userGoogle);
 
-    if (!userGoogle) {
-      console.log('Usuario no encontrado, creándolo...');
-      userGoogle = await User.create({
+    const existingUser = await User.findOne({
+      where: { email: user._json.email },
+      include: [{ model: Post }]
+    });
+
+
+
+    if (existingUser) {
+      console.log('Usuario Existente' );
+      res.json(existingUser);
+    } else {
+      const newUser = await User.create({
         name: user._json.given_name,
         lastName: user._json.family_name,
         email: user._json.email,
         avatar: user._json.picture,
       });
-      console.log('Creación del usuario exitosa:', userGoogle);
+
+      console.log('Nuevo Usuario Creado');
+      res.json(newUser);
     }
-
-    // Crear y firmar un token de acceso
-    const token = jwt.sign({ userId: userGoogle._id }, process.env.FIRMA_TOKEN, {
-      expiresIn: '1h', // Puedes ajustar la duración del token según tus necesidades
-    });
-
-    console.log('Inicio de sesión con google');
-
-    // Devolver el token y otros datos relevantes al cliente
-    res.json({ token });
   } catch (error) {
-    console.error('Error en la ruta /profile:', error.message);
-    res.status(500).send('Error interno del servidor');
+    console.error('Error al iniciar sesión con Google:', error);
+    res.status(500).json({ error: 'Error al iniciar sesión con Google' });
   }
 });
-  
 
-// Middleware para verificar la autenticación
+
+
+
+// Middleware para verificar autenticación
 function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -96,12 +93,17 @@ function isAuthenticated(req, res, next) {
   res.redirect('/');
 }
 
-// Ruta principal
-router.get('/', (req, res) => {
-  res.send('¡Bienvenido a tu aplicación!');
+
+router.get('/logout', (req, res) => {
+  req.logout(); // Este método es proporcionado por Passport para cerrar sesión
+  res.redirect('/'); // Redirige a la página de inicio o a donde desees después de cerrar sesión
 });
 
-
+// Otra forma de cerrar sesión y manejar la respuesta
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.json({ message: 'Sesión cerrada exitosamente' });
+});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

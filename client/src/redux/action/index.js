@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const setSelectedCardId = (id) => ({
+/* export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -329,31 +329,26 @@ export const loginWithGoogle = () => {
   };
 };
 
-
-
-
-export const dataGoogle = (token) => async (dispatch) => {
-  try {
-    const response = await axios.get('https://placee-inc-production.up.railway.app/profile', {
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
-
-    dispatch({
-      type: 'FETCH_USER_PROFILE_SUCCESS',
-      payload: response.data.user,
-    });
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-  }
-};
+export const dataGoogle = () => {
+  return async (dispatch) => {
+    try {
+      // Redirige al usuario a la página de inicio de sesión de Google
+      window.location.href = "https://placee-inc-production.up.railway.app/profile";
+    } catch (error) {
+      console.error('Error en la acción loginWithGoogle:', error);
+      dispatch({ type: "LOGIN_ERROR" });
+    }
+  };
+}; */
 
 
 
 
 
-/* export const setSelectedCardId = (id) => ({
+
+
+
+export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -670,34 +665,33 @@ export const ReportsPost = (payload, token) => {
   };
 };
 
-export const loginWithGoogle = () => {
-  return async (dispatch) => {
-    try {
-      // Redirige al usuario a la página de inicio de sesión de Google
-      window.location.href = "http://localhost:4000/auth/google";
-    } catch (error) {
-      console.error('Error en la acción loginWithGoogle:', error);
-      dispatch({ type: "LOGIN_ERROR" });
-    }
-  };
+export const loginWithGoogle = () => async (dispatch) => {
+  try {
+    // Redirige al usuario a la página de inicio de sesión de Google
+    window.location.href = 'http://localhost:4000/auth/google';
+  } catch (error) {
+    console.error('Error en la acción loginWithGoogle:', error);
+  }
+};
+
+export const fetchGoogleProfile = () => async (dispatch) => {
+  try {
+    const res = await axios.get('http://localhost:4000/profile', { withCredentials: true });
+    const data = res.data;
+
+    dispatch({
+      type: 'DATA_GOOGLE',
+      payload: data,
+    });
+  } catch (error) {
+    console.error('Error al obtener la información del perfil:', error);
+  }
 };
 
 
 
 
-export const dataGoogle = (token) => async (dispatch) => {
-  try {
-    const response = await axios.get('http://localhost:4000/profile', {
-      headers: {
-        Authorization: `${token}`,
-      },
-    });
 
-    dispatch({
-      type: 'FETCH_USER_PROFILE_SUCCESS',
-      payload: response.data.user,
-    });
-  } catch (error) {
-    console.error('Error fetching user profile:', error);
-  }
-}; */
+
+
+
