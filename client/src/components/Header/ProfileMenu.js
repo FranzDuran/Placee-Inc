@@ -30,12 +30,14 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import MenuItem from "@mui/material/MenuItem";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import { DetailsPostTuristic } from "../../redux/action";
-import { UserPostDetails, dataGoogle } from "../../redux/action";
+import { UserPostDetails, fetchGoogleProfile } from "../../redux/action";
 
 export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector((state) => state.datapersonal);
+  console.log(datapersonal);
+
   const [openPublic, setOpenPublic] = React.useState(false);
   const [openLogout, setOpenLogout] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -46,19 +48,20 @@ export default function BasicMenu() {
   const [fullscreen, setFullscreen] = React.useState(true);
   const [modalPublic, setModalPublic] = React.useState(false);
 
-  console.log(datapersonal);
 
   React.useEffect(() => {
     dispatch(DetailsPostTuristic(datapersonal.id));
-    dispatch(dataGoogle());
 
-    
+
   }, [dispatch]);
+
   React.useEffect(() => {
-    dispatch(dataGoogle());
+    dispatch(fetchGoogleProfile());
 
-    
+
   }, [dispatch]);
+
+
 
   function handleShow(breakpoint) {
     setFullscreen(breakpoint);
@@ -239,7 +242,8 @@ export default function BasicMenu() {
                 </div>
               ) : (
                 <div>
-                  {token ? (
+                  {datapersonal.id  ? (
+
                     datapersonal.avatar ? (
                       <Avatar
                         sx={{
@@ -262,22 +266,93 @@ export default function BasicMenu() {
                         }}
                       >
                         <div>
-                          {datapersonal.name &&
-                            datapersonal.name[0].toUpperCase()}
+                          {datapersonal.name && datapersonal.name[0].toUpperCase()}
                         </div>
                       </Avatar>
                     )
                   ) : (
-                    <Avatar sx={{ width: 32, height: 32 }}></Avatar>
+                    <Avatar
+                      sx={{
+                        width: 32,
+                        height: 32,
+                      }}
+                    >
+
+                    </Avatar>
                   )}
+
                 </div>
+
+
               )}
             </IconButton>
           </Tooltip>
         </Box>
       </div>
-      {!token ? (
-        <div className="container-lore">
+      <div>
+        {!datapersonal.id  ? (
+          <div className="container-lore">
+            <Menu
+              id="menu-not-personal"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+              sx={{
+                ".MuiPaper-root": {
+                  minWidth: "200px",
+                  borderRadius: "1rem",
+                  boxShadow:
+                    "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
+                },
+              }}
+            >
+              <MenuItem className="menu-items" onClick={showModal}>
+                Iniciar sesión
+              </MenuItem>
+              <MenuItem onClick={showModalRegister} className="menu-items">
+                Registrate
+              </MenuItem>
+              <MenuItem onClick={handleClickOpenPublic} className="menu-items">
+                Publicar
+              </MenuItem>
+              <div
+                style={{
+                  height: "1px",
+                  backgroundColor: "var(--grey)",
+                  width: "100%",
+                }}
+              />
+            </Menu>
+            <Modal
+              visible={isModalOpen}
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null} // Esto quita los botones "Ok" y "Cancel"
+              className="modal-login"
+            >
+              <LoginForms
+                setIsModalOpen={setIsModalOpen}
+                setIsModalOpenRegister={setIsModalOpenRegister}
+                isModalOpenRegister={isModalOpenRegister}
+              />
+            </Modal>
+            <Modal
+              visible={isModalOpenRegister}
+              onOk={handleOkRegister}
+              onCancel={handleCancelRegister}
+              footer={null} // Esto quita los botones "Ok" y "Cancel"
+              className="modal-card"
+            >
+              <RegisterForm
+                setIsModalOpen={setIsModalOpen}
+                setIsModalOpenRegister={setIsModalOpenRegister}
+              />
+            </Modal>
+          </div>
+        ) : (
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -289,25 +364,12 @@ export default function BasicMenu() {
             sx={{
               ".MuiPaper-root": {
                 minWidth: "200px",
-                //height: "100vh",
                 borderRadius: "1rem",
                 boxShadow:
                   "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
               },
             }}
           >
-            <MenuItem className="menu-items" onClick={showModal}>
-              Iniciar sesión
-            </MenuItem>
-
-            <MenuItem onClick={showModalRegister} className="menu-items">
-              Registrate
-            </MenuItem>
-
-            <MenuItem onClick={handleClickOpenPublic} className="menu-items">
-              Publicar
-            </MenuItem>
-
             <div
               style={{
                 height: "1px",
@@ -315,103 +377,50 @@ export default function BasicMenu() {
                 width: "100%",
               }}
             />
-          </Menu>
-          <Modal
-            visible={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={null} // Esto quita los botones "Ok" y "Cancel"
-            className="modal-login"
-          >
-            <LoginForms
-              setIsModalOpen={setIsModalOpen}
-              setIsModalOpenRegister={setIsModalOpenRegister}
-              isModalOpenRegister={isModalOpenRegister}
-            />
-          </Modal>
-          <Modal
-            visible={isModalOpenRegister}
-            onOk={handleOkRegister}
-            onCancel={handleCancelRegister}
-            footer={null} // Esto quita los botones "Ok" y "Cancel"
-            className="modal-card"
-          >
-            <RegisterForm
-              setIsModalOpen={setIsModalOpen}
-              setIsModalOpenRegister={setIsModalOpenRegister}
-            />
-          </Modal>
-        </div>
-      ) : (
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          sx={{
-            ".MuiPaper-root": {
-              minWidth: "200px",
-              borderRadius: "1rem",
-              boxShadow:
-                "0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%)",
-            },
-          }}
-        >
-          <div
-            style={{
-              height: "1px",
-              backgroundColor: "var(--grey)",
-              width: "100%",
-            }}
-          />
-          <Link to="/account-settings">
-            <MenuItem className="menu-items" onClick={handleClose}>
-              Cuenta
-            </MenuItem>
-          </Link>
-          {/*         <MenuItem className="menu-items" onClick={handleClose}>
-              Informacion Personal
-            </MenuItem> */}
-          {datapersonal.Posts && datapersonal.Posts.length > 0 ? (
-            <div>
-              <Link to="/anfitrion">
-                <MenuItem className="menu-items" onClick={handleClose}>
-                  Modo anfitrión
-                </MenuItem>
-              </Link>
-              <Link to="/public">
-                <MenuItem className="menu-items" onClick={handleClose}>
-                  Publicar
-                </MenuItem>
-              </Link>
-            </div>
-          ) : null}
-
-          {datapersonal.Posts && datapersonal.Posts.length < 1 ? (
-            <div>
-              {values.map((v, idx) => (
-                <MenuItem onClick={() => handleShow(v)} className="menu-items">
-                  Unase placee enc como anfitrion
-                </MenuItem>
-              ))}
-            </div>
-          ) : null}
-
-          <>
-            <Button variant="transparent" onClick={handleClickOpenLogout}>
-              <MenuItem className="content-menu-item-close" >
-                <ListItemIcon>
-                  <Logout fontSize="small" />
-                </ListItemIcon>
-                Cerrar sesión
+            <Link to="/account-settings">
+              <MenuItem className="menu-items" onClick={handleClose}>
+                Cuenta
               </MenuItem>
-            </Button>
-          </>
-        </Menu>
-      )}
+            </Link>
+            {datapersonal.Posts && datapersonal.Posts.length > 0 ? (
+              <div>
+                <Link to="/anfitrion">
+                  <MenuItem className="menu-items" onClick={handleClose}>
+                    Modo anfitrión
+                  </MenuItem>
+                </Link>
+                <Link to="/public">
+                  <MenuItem className="menu-items" onClick={handleClose}>
+                    Publicar
+                  </MenuItem>
+                </Link>
+              </div>
+            ) : null}
+
+            {datapersonal.Posts && datapersonal.Posts.length < 1 ? (
+              <div>
+                {values.map((v, idx) => (
+                  <MenuItem onClick={() => handleShow(v)} className="menu-items">
+                    Unase placee enc como anfitrion
+                  </MenuItem>
+                ))}
+              </div>
+            ) : null}
+
+            <>
+              <Button variant="transparent" onClick={handleClickOpenLogout}>
+                <MenuItem className="content-menu-item-close" >
+                  <ListItemIcon>
+                    <Logout fontSize="small" />
+                  </ListItemIcon>
+                  Cerrar sesión
+                </MenuItem>
+              </Button>
+            </>
+          </Menu>
+        )}
+      </div>
+
 
       <Dialog
         open={openLogout}
