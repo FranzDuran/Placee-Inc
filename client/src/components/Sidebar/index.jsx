@@ -1795,7 +1795,7 @@ export default function FormStepper() {
                             personas.
                           </Form.Control.Feedback>
                         </Form.Group>
-                        <div>holaaaaaa</div>
+                        {/* <div>holaaaaaa</div>
                         {show.status === "Publico" ? (<div>
                         <Button variant="secondary" onClick={handleOpenModalMaps}>
                             Agregar
@@ -1810,7 +1810,7 @@ export default function FormStepper() {
                           </Modal.Body>
                           <Modal.Footer></Modal.Footer>
                         </Modal>
-                        </div>) : ""}
+                        </div>) : ""} */}
 
                         <div>
                           <span
