@@ -192,12 +192,13 @@ export default function FormStepper() {
   const handlePlaceSelect = (place) => {
     setSelectedPlace(place);
   };
-
-  const handleSubmitMap = (e) => {
+  const handleOpenModalMaps = () => setShowModal(true);
+  const handleCloseModalMaps = () => setShowModal(false);
+/*   const handleSubmitMap = (e) => {
     e.preventDefault();
     // Puedes utilizar la dirección seleccionada (selectedPlace) como desees.
     console.log("Dirección seleccionada:", selectedPlace);
-  };
+  }; */
   //--------------------------------------------------------------------------
   const [showModal, setShowModal] = useState(false);
 
@@ -1794,8 +1795,13 @@ export default function FormStepper() {
                             personas.
                           </Form.Control.Feedback>
                         </Form.Group>
-
-                        <Modal>
+                        <div>holaaaaaa</div>
+                        {show.status === "Publico" ? (<div>
+                        <Button variant="secondary" onClick={handleOpenModalMaps}>
+                            Agregar
+                          </Button>
+                        <Modal show={showModal}
+                            onHide={handleCloseModalMaps}>
                           <Modal.Header></Modal.Header>
                           <Modal.Body>
                             <div className={styles.containerMaps}>
@@ -1804,6 +1810,7 @@ export default function FormStepper() {
                           </Modal.Body>
                           <Modal.Footer></Modal.Footer>
                         </Modal>
+                        </div>) : ""}
 
                         <div>
                           <span
