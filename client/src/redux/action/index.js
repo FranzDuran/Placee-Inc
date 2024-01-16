@@ -1,5 +1,5 @@
 import axios from "axios";
-export const setSelectedCardId = (id) => ({
+  export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
