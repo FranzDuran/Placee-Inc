@@ -1,0 +1,57 @@
+//--------- SEARCH BOX ------------------
+
+.containerSearch {
+  width: 300px;
+  position: absolute;
+  top: -35px;
+  left: 0px;
+  right: 0px;
+  margin: auto;
+  z-index: 100;
+
+  .contentInput{
+      width: 100%;
+      position: relative;
+    .input {
+        padding: 5px 10px;
+        width: 100%;
+        border-radius: 8px;
+        border: 1px solid #a0a3bd;
+        background: #fff;
+      }
+      .searchButton{
+          position: absolute;
+          right: 5px;
+          top: 0px;
+          bottom: 0px;
+          color: #FF4B0D;
+          background: transparent;
+          border: none;
+          font-size: 28px;
+          cursor: pointer;
+          padding: 0px;
+      }
+  }
+  
+  .results{
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+  }
+  .resultsNone{
+      display: none;
+  }
+}
+
+
+@media screen and (max-width: 767px) {
+    .containerSearch {
+      width: 90%;
+      .contentInput{
+          .input{
+              width: 86%;
+              padding: 12px 20px;
+          }
+      }
+    }
+  }

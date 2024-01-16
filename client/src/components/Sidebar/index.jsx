@@ -39,6 +39,10 @@ import { dataIcons } from "./dataIcons";
 import CalendarComponent from "./CalendarComponent";
 
 import styles from "./Sidebar.module.scss";
+import GoogleMaps from "./GoogleMaps/GoogleMaps";
+import SearchBox from "./GoogleMaps/SearchBox";
+import LocationSearchBox from "./LocationSearchBox";
+//import styles from "./GoogleMaps/GoogleMaps.module.scss";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -181,7 +185,19 @@ export default function FormStepper() {
       select: updatedDetails,
     }));
   };
+  //------------------------------------------------------------------------------
 
+  const [selectedPlace, setSelectedPlace] = useState(null);
+
+  const handlePlaceSelect = (place) => {
+    setSelectedPlace(place);
+  };
+
+  const handleSubmitMap = (e) => {
+    e.preventDefault();
+    // Puedes utilizar la dirección seleccionada (selectedPlace) como desees.
+    console.log("Dirección seleccionada:", selectedPlace);
+  };
   //--------------------------------------------------------------------------
   const [showModal, setShowModal] = useState(false);
 
@@ -1778,6 +1794,17 @@ export default function FormStepper() {
                             personas.
                           </Form.Control.Feedback>
                         </Form.Group>
+
+                        <Modal>
+                          <Modal.Header></Modal.Header>
+                          <Modal.Body>
+                            <div className={styles.containerMaps}>
+                              <GoogleMaps />
+                            </div>
+                          </Modal.Body>
+                          <Modal.Footer></Modal.Footer>
+                        </Modal>
+
                         <div>
                           <span
                             className={
