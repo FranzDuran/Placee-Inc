@@ -45,7 +45,7 @@ router.get('/auth/google/callback',
    
 
     // Redirigir a la ruta deseada con el token
-    res.redirect(`http://localhost:3000/`);
+    res.redirect(`https://placee-inc.vercel.app`);
   }
 );
 
