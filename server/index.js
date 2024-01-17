@@ -15,10 +15,12 @@ cloudinary.config({
   api_secret: '04JixT8UcmHYY-QfbwSTBzT-L7I'
 });
 
-app.use(cors());/* {
-  origin: 'http://localhost:3000', // Cambia esto según el dominio y puerto de tu cliente
+app.use(cors({
+
+  origin: 'https://placee-inc.vercel.app', 
   credentials: true,
-} */
+} 
+));
 app.use(session({
   secret: process.env.FIRMA_TOKEN, // Cambia esto con una cadena secreta real
   resave: false,
