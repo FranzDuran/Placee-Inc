@@ -8,7 +8,6 @@ const { DetailsPersonal } = require('../controllers/User/DetailsPersonal');
 const { Preregister } = require('../controllers/User/Preregister');
 const { UserDetail } = require('../controllers/User/UserDetail');
 const path = require('path');
-const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const { User, Post } = require('../database/models')
 require('dotenv').config();

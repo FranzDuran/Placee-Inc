@@ -17,7 +17,7 @@ cloudinary.config({
 
 app.use(cors({
 
-  origin: 'https://placee-inc.vercel.app', 
+  origin: ['http://localhost:3000', 'https://placee-inc.vercel.app'], 
   credentials: true,
 } 
 ));
