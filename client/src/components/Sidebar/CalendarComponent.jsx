@@ -41,6 +41,7 @@ const CalendarComponent = ({ onSaveToDatabase }) => {
 
   return (
     <div className={styles.calendarContent} >
+      <span>Selecione los dias cerrados:</span>
       <DatePicker
         selected={null}
         onChange={handleDateChange}
