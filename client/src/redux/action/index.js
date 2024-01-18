@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-/* export const setSelectedCardId = (id) => ({
+ export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -341,7 +341,6 @@ export const fetchGoogleProfile = () => async (dispatch) => {
   }
 }; 
 
- */
 
 
 
@@ -352,7 +351,7 @@ export const fetchGoogleProfile = () => async (dispatch) => {
 
 
  
- export const setSelectedCardId = (id) => ({
+/*  export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -696,3 +695,4 @@ export const fetchGoogleProfile = () => async (dispatch) => {
 
 
 
+ */
