@@ -16,9 +16,11 @@ cloudinary.config({
 });
 
 app.use(cors({
-  origin: 'https://placee-inc.vercel.app', // Cambia esto según el dominio y puerto de tu cliente
+
+  origin: 'https://placee-inc.vercel.app', 
   credentials: true,
-}));
+} 
+));
 app.use(session({
   secret: process.env.FIRMA_TOKEN, // Cambia esto con una cadena secreta real
   resave: false,
