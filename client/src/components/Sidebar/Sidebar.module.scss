@@ -111,11 +111,34 @@
     border: 1px solid #dee2e6;
   }
 }
+#containerModalMap{
+  max-width: 800px;
+    width: 100%;
+    .modal-content{
+      width: 100%;
+    }
+  
+}
 .containerMaps {
   position: relative;
   margin-top: 40px;
+  width: 100%;
+  height: 60vh;
 }
 
+@media screen and (max-width: 767px) {
+  #containerModalMap{
+    max-width: none;
+    min-width: 300px;
+      width: 95%;
+      .modal-content{
+        width: 100%;
+      }
+    
+  }
+}
+
+//----------------------------------------------------------------------
 #iconClose {
   font-size: 30px;
   padding: 0px;

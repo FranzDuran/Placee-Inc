@@ -158,7 +158,7 @@ export default function FormStepper() {
     specialPrecioTotal: "",
     addressMap: "",
   });
-  //console.log("Show:", show);
+  console.log("Show:", show);
 
   const [detail, setDetail] = useState(""); // Estado para el detalle que se está escribiendo
   const [info, setInfo] = useState(""); // Estado para el detalle que se está escribiendo
@@ -1872,6 +1872,7 @@ export default function FormStepper() {
                             <Modal
                               show={showModalMaps}
                               onHide={handleCloseModalMaps}
+                              id={styles.containerModalMap}
                             >
                               <Modal.Header>
                                 <Modal.Title>Compartir ubicacion</Modal.Title>
