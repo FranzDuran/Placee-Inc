@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -13,20 +13,20 @@ const mapContainerStyle = {
 };
 
 const defaultCenter = {
-  lat: -12.02577326193344, // Latitud inicial
-  lng: -77.31745482108892, // Longitud inicial
+  lat: -12.02577326193344,
+  lng: -77.31745482108892,
 };
 
 const GoogleMaps = ({ onAddressChange }) => {
-  const apiKey = 'AIzaSyAcXdSPbAYdJBp_1uV9aD6eFekk2yWivbk';
   const [map, setMap] = useState(null);
   const [markerPosition, setMarkerPosition] = useState(null);
   const [address, setAddress] = useState('');
 
   const [initialLocation, setInitialLocation] = useState(null);
+
   const onLoad = (map) => {
     setMap(map);
-  
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -44,11 +44,6 @@ const GoogleMaps = ({ onAddressChange }) => {
       console.error('Geolocation is not supported by this browser.');
     }
   };
-  
-
-  /* const onLoad = (map) => {
-    setMap(map);
-  }; */
 
   const onMarkerDragEnd = (e) => {
     setMarkerPosition({
@@ -58,9 +53,6 @@ const GoogleMaps = ({ onAddressChange }) => {
   };
 
   const onPlacesChanged = () => {
-    const places = new window.google.maps.places.PlacesService(map);
-    // Aquí puedes usar el objeto 'places' para buscar información adicional sobre el lugar seleccionado.
-    // Puedes acceder a la dirección utilizando places.getDetails()
     map && map.panTo(markerPosition);
   };
 
@@ -78,7 +70,7 @@ const GoogleMaps = ({ onAddressChange }) => {
   };
 
   return (
-    <LoadScript googleMapsApiKey={apiKey} libraries={['places']}>
+    <>
       <SearchBox onSelect={handleSelect} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -94,7 +86,7 @@ const GoogleMaps = ({ onAddressChange }) => {
           />
         )}
       </GoogleMap>
-    </LoadScript>
+    </>
   );
 };
 

@@ -44,6 +44,12 @@ import GoogleMaps from "./GoogleMaps/GoogleMaps";
 //import LocationSearchBox from "./LocationSearchBox";
 //import styles from "./GoogleMaps/GoogleMaps.module.scss";
 
+import { LoadScript } from '@react-google-maps/api';
+
+const apiKey = 'AIzaSyBFXi9VAlbvBsr1z0UxDO73R5kZSh6IQw0';
+
+
+
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
   let errors = {};
@@ -1116,7 +1122,11 @@ export default function FormStepper() {
                               ))}
                             </>
                           )}
-                          <Button id={styles.buttonBlack} variant="secondary" onClick={handleAddMore}>
+                          <Button
+                            id={styles.buttonBlack}
+                            variant="secondary"
+                            onClick={handleAddMore}
+                          >
                             Agregar
                           </Button>
                         </div>
@@ -1176,7 +1186,7 @@ export default function FormStepper() {
                                 Incluye:
                               </Form.Label>
                               {/* <div className={styles["container-package-item"]}> */}
-                                {/* {show.specialPackageItems.map((item, index) => (
+                              {/* {show.specialPackageItems.map((item, index) => (
                                   <Row className="mb-3" key={index}>
                                     <Form.Group as={Col}>
                                       <InputGroup
@@ -1206,7 +1216,7 @@ export default function FormStepper() {
                                     </Form.Group>
                                   </Row>
                                 ))} */}
-                                {show.specialPackageItems.length > 0 && (
+                              {show.specialPackageItems.length > 0 && (
                                 <Card className={styles["card-container"]}>
                                   <Card.Body className={styles["card-body"]}>
                                     {show.specialPackageItems.map(
@@ -1236,14 +1246,14 @@ export default function FormStepper() {
                               {/* </div> */}
                               <InputGroup className={styles.contentInputForm}>
                                 <Form.Control
-                                 className={styles.inputForm}
+                                  className={styles.inputForm}
                                   type="text"
                                   placeholder="Ingrese un elemento"
                                   value={show.specialPackageItem}
                                   onChange={handleSpecialPackageItem}
                                 />
                                 <Button
-                                id={styles.buttonBlack}
+                                  id={styles.buttonBlack}
                                   variant="success"
                                   onClick={handleAddSpecialPackageItem}
                                 >
@@ -1843,51 +1853,49 @@ export default function FormStepper() {
                           </Form.Control.Feedback>
                         </Form.Group>
 
-                        <div className={styles.containerBoxMap}>
-                        <span className="label-title">
-                            Ubicacion:
-                          </span>
-                        {show.addressMap && (
-                            <span className={styles.textDirectionMap}>
-                              Direccion: {show.addressMap}
-                            </span>
-                          )}
-                          <Button
-                            variant="secondary"
-                            id={styles.buttonBlack}
-                            onClick={handleOpenModalMaps}
-                          >
-                            Compartir ubicacion
-                          </Button>
-                          <Modal
-                            show={showModalMaps}
-                            onHide={handleCloseModalMaps}
-                          >
-                            <Modal.Header>
-                              <Modal.Title>Compartir ubicacion</Modal.Title>
-                              <Button
-                                variant="secondary"
-                                onClick={handleCloseModalMaps}
-                              >
-                                <i
-                                  className="ri-close-line"
-                                  id={styles.iconClose}
-                                ></i>
-                              </Button>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <div className={styles.containerMaps}>
-                                <GoogleMaps
-                                  onAddressChange={handleAddressChangeMaps}
-                                />
-                              </div>
-                            </Modal.Body>
-                            <Modal.Footer></Modal.Footer>
-                          </Modal>
-                          
-                        </div>
-
                         <div className={styles.containerBoxLugarCuenta}>
+                          <div className={styles.containerBoxMap}>
+                            <span className="label-title">Ubicacion:</span>
+                            {show.addressMap && (
+                              <span className={styles.textDirectionMap}>
+                                Direccion: {show.addressMap}
+                              </span>
+                            )}
+                            <Button
+                              variant="secondary"
+                              id={styles.buttonBlack}
+                              onClick={handleOpenModalMaps}
+                            >
+                              Compartir ubicacion
+                            </Button>
+                            <LoadScript googleMapsApiKey={apiKey} libraries={['places']}>
+                            <Modal
+                              show={showModalMaps}
+                              onHide={handleCloseModalMaps}
+                            >
+                              <Modal.Header>
+                                <Modal.Title>Compartir ubicacion</Modal.Title>
+                                <Button
+                                  variant="secondary"
+                                  onClick={handleCloseModalMaps}
+                                >
+                                  <i
+                                    className="ri-close-line"
+                                    id={styles.iconClose}
+                                  ></i>
+                                </Button>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <div className={styles.containerMaps}>
+                                  <GoogleMaps
+                                    onAddressChange={handleAddressChangeMaps}
+                                  />
+                                </div>
+                              </Modal.Body>
+                              <Modal.Footer></Modal.Footer>
+                            </Modal>
+                            </LoadScript>
+                          </div>
                           <span className="label-title">
                             El lugar cuenta con:
                           </span>
@@ -2165,6 +2173,46 @@ export default function FormStepper() {
                     <Row className="mb-3">
                       {show.status === "Privado" ? (
                         <div className={styles.containerBoxLugarCuenta}>
+                          <div className={styles.containerBoxMap}>
+                            <span className="label-title">Ubicacion:</span>
+                            {show.addressMap && (
+                              <span className={styles.textDirectionMap}>
+                                Direccion: {show.addressMap}
+                              </span>
+                            )}
+                            <Button
+                              variant="secondary"
+                              id={styles.buttonBlack}
+                              onClick={handleOpenModalMaps}
+                            >
+                              Compartir ubicacion
+                            </Button>
+                            <LoadScript googleMapsApiKey={apiKey} libraries={['places']}>
+                            <Modal
+                              show={showModalMaps}
+                              onHide={handleCloseModalMaps}
+                            >
+                              <Modal.Header>
+                                <Modal.Title>Compartir ubicacion</Modal.Title>
+                                <Button
+                                  variant="secondary"
+                                  onClick={handleCloseModalMaps}
+                                >
+                                  <i
+                                    className="ri-close-line"
+                                    id={styles.iconClose}
+                                  ></i>
+                                </Button>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <div className={styles.containerMaps}>
+                                {showModalMaps && <GoogleMaps onAddressChange={handleAddressChangeMaps} />}
+                                </div>
+                              </Modal.Body>
+                              <Modal.Footer></Modal.Footer>
+                            </Modal>
+                            </LoadScript>
+                          </div>
                           <span className="label-title">
                             El lugas cuenta con:
                           </span>
@@ -2182,7 +2230,11 @@ export default function FormStepper() {
                               </Card.Body>
                             </Card>
                           )}
-                          <Button id={styles.buttonBlack} variant="secondary" onClick={handleOpenModal}>
+                          <Button
+                            id={styles.buttonBlack}
+                            variant="secondary"
+                            onClick={handleOpenModal}
+                          >
                             Agregar
                           </Button>
 
@@ -2421,9 +2473,9 @@ export default function FormStepper() {
                     </Row>
                   </Form.Group>
                 </div>
-                <div className={show.status === "Privado" ? "rest-info" : ""}>
+                <div className={show.status === "Privado" || show.status === "Público" ? "rest-info" : ""}>
                   <Row className={styles["calendario-container"]}>
-                    {show.status === "Privado" ? (
+                    {show.status === "Privado" || show.status === "Público" ? (
                       /* <Space
                         className="label-calendar"
                         direction="vertical"
@@ -2464,35 +2516,36 @@ export default function FormStepper() {
                   </Row>
 
                   <Row className="mb-3">
-                    {show.status === "Privado" ? (
+                    {show.status === "Privado" || show.status === "Público" ? (
                       <div className={styles.containerBoxLugarCuenta}>
                         <span className="label-title">
                           Informacion importante:
                         </span>
-                        {
-                          show.infoImportant.length > 0 && (
-                            <Card className={styles["card-container"]}>
-                          <Card.Body className={styles["card-body"]}>
-                            {show.infoImportant.map((important, index) => (
-                              <span key={index} className={styles["card-span"]}>
-                                {important}
-                                <button
-                                  variant="danger"
-                                  onClick={() => handleDeleteInfo(index)}
-                                  size="sm"
-                                  className={styles["card-span-btn"]}
+                        {show.infoImportant.length > 0 && (
+                          <Card className={styles["card-container"]}>
+                            <Card.Body className={styles["card-body"]}>
+                              {show.infoImportant.map((important, index) => (
+                                <span
+                                  key={index}
+                                  className={styles["card-span"]}
                                 >
-                                  X
-                                </button>
-                              </span>
-                            ))}
-                          </Card.Body>
-                        </Card>
-                          )
-                        }
+                                  {important}
+                                  <button
+                                    variant="danger"
+                                    onClick={() => handleDeleteInfo(index)}
+                                    size="sm"
+                                    className={styles["card-span-btn"]}
+                                  >
+                                    X
+                                  </button>
+                                </span>
+                              ))}
+                            </Card.Body>
+                          </Card>
+                        )}
                         <Form.Group className={styles.contentInputForm}>
                           <Form.Control
-                          className={styles.inputForm}
+                            className={styles.inputForm}
                             type="text"
                             placeholder="Nuevo detalle"
                             value={info}
@@ -2500,7 +2553,11 @@ export default function FormStepper() {
                             required
                             isInvalid={!show.infoImportant && validated}
                           />
-                          <Button id={styles.buttonBlack} variant="primary" onClick={handleAddInfo}>
+                          <Button
+                            id={styles.buttonBlack}
+                            variant="primary"
+                            onClick={handleAddInfo}
+                          >
                             Agregar
                           </Button>
                         </Form.Group>
