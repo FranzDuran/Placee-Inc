@@ -36,7 +36,6 @@ export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector((state) => state.datapersonal);
-  console.log(datapersonal);
 
   const [openPublic, setOpenPublic] = React.useState(false);
   const [openLogout, setOpenLogout] = React.useState(false);
@@ -47,19 +46,21 @@ export default function BasicMenu() {
   const values = [true];
   const [fullscreen, setFullscreen] = React.useState(true);
   const [modalPublic, setModalPublic] = React.useState(false);
-
+  
 
   React.useEffect(() => {
     dispatch(DetailsPostTuristic(datapersonal.id));
 
 
-  }, [dispatch]);
+  }, [dispatch, datapersonal.id]);
 
   React.useEffect(() => {
+
     dispatch(fetchGoogleProfile());
 
-
   }, [dispatch]);
+
+
 
 
 
