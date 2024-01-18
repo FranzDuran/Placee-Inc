@@ -233,42 +233,33 @@ input[type="number"] {
   margin: 0 auto;
 }
 
-.rest-info::-webkit-scrollbar {
+/* .rest-info::-webkit-scrollbar {
   width: 0px;
-  /* Ajusta el ancho según tus necesidades */
-}
+} */
 
-.rest-info::-webkit-scrollbar-thumb {
+/* .rest-info::-webkit-scrollbar-thumb {
   background-color: transparent;
-  /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
   border: 2px solid transparent;
-  /* Hacer el borde del thumb transparente */
-  border-radius: 4px;
-  /* Añadir un borde redondeado al thumb */
-}
+  border-radius: 4px; 
+} */
 
 .rest-info::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.5);
   /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
 }
 
-.action-box::-webkit-scrollbar {
+/* .action-box::-webkit-scrollbar {
   width: 0px;
-  /* Ajusta el ancho según tus necesidades */
-}
+} */
 
-.action-box::-webkit-scrollbar-thumb {
-  background-color: transparent;
-  /* Hacer el thumb (el "mango" de la barra de desplazamiento) transparente */
-  border: 2px solid transparent;
-  /* Hacer el borde del thumb transparente */
-  border-radius: 4px;
-  /* Añadir un borde redondeado al thumb */
-}
+/* .action-box::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px; 
+} */
 
 .action-box::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.5);
-  /* Cambiar el color al pasar el mouse sobre la barra (puedes ajustar el valor alpha para hacerlo más o menos transparente) */
 }
 
 .rest-info {
@@ -302,7 +293,7 @@ input[type="number"] {
 }
 
 .label-status {
-  margin-top: 50px;
+  margin-top: 20px;
   font-weight: 700;
 }
 
@@ -554,6 +545,10 @@ input[type="number"] {
   .box-all-public {
     margin-top: 40px;
   }
+
+  .select-form-container{
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 1023px) {
@@ -565,7 +560,7 @@ input[type="number"] {
   }
 
   .action-box {
-    overflow-y: auto;
+    //overflow-y: auto;
   }
 
   .sidebar {

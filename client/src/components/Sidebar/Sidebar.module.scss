@@ -131,6 +131,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 0px;
 }
 
 
@@ -142,4 +143,15 @@
   .inputForm{
     width: 70%;
   }
+}
+
+
+
+/* Estilos personalizados para los radio buttons */
+.custom-radio input[type="radio"]:checked {
+  /* Establecer el color deseado para el radio button seleccionado */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-color: rgba(0, 0, 0, 0.5);
+  color: #fff; /* Cambiar el color del texto si es necesario */
+  box-shadow: none;
 }
