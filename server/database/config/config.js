@@ -18,9 +18,9 @@ module.exports = {
     password: 'Ca4fdc54ED3b42deECA31f651Ddg12dc',
     database: 'railway',
 
-  },   
+  },  
   
- /* development: {
+/* development: {
     dialect: 'postgres',
     host:  'localhost',
     port: 5432,
@@ -37,5 +37,5 @@ module.exports = {
     password: 'password',
     database: 'turistic',
    
-  },    */
+  },  */  
 }; 
