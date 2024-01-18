@@ -66,30 +66,80 @@
   }
 }
 
+//------------- MODAL FOOTER -----------------
+.modalFooter {
+  display: flex;
+  gap: 20px;
+}
+
 //-------- CALENDAR ---------------------------------
 
-.calendario-container{
+.calendario-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  .calendarContent {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 10px;
 
-    .calendarContent{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-
-        .calendarBtn{
-            background: #000;
-            color: #fff;
-        }
+    .calendarBtn {
+      background: #000;
+      color: #fff;
     }
+  }
 }
 
 //------------ MAPS--------------
-.containerMaps{
+
+.containerBoxMap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0px 0 20px;
+  .textDirectionMap {
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+  }
+}
+.containerMaps {
   position: relative;
   margin-top: 40px;
+}
+
+#iconClose {
+  font-size: 30px;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+#buttonBlack {
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+}
+
+//------------ BOX LUGAR CUENTA CON ----------------------------
+.containerBoxLugarCuenta {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+//------------ INPUT FORM -------------------------
+
+.contentInputForm{
+  display: flex;
+  gap: 5px;
+  .inputForm{
+    width: 70%;
+  }
 }

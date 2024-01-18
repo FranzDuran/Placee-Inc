@@ -31,118 +31,142 @@ import WIFI from "../../assets/iconsModal/WIFI.png";
 
 export const dataIcons = [
     {
+      id: 1,
       nombre: "AREAS LIBRES",
       icon: AREAS_LIBRES,
     },
     {
+      id: 2,
         nombre: "ARTESANIAS",
         icon: ARTESANIAS,
       },
       {
+        id: 3,
         nombre: "BAÑOS",
         icon: BAÑOS,
       },
       {
+        id: 4,
         nombre: "BAR",
         icon: BAR,
       },
       {
+        id: 5,
         nombre: "CAFETERIA",
         icon: CAFETERIA,
       },
       {
+        id: 6,
         nombre: "CANCHA",
         icon: CANCHA,
       },
       {
+        id: 7,
         nombre: "CASILLERO",
         icon: CASILLERO,
       },
       {
+        id: 8,
         nombre: "GUIA TURISTICO",
         icon: GUIA_TURISTICO,
       },
       {
+        id: 9,
         nombre: "HAMACAS",
         icon: HAMACAS,
       },
       {
+         id: 10,
         nombre: "HOSPEDAJE",
         icon: HOSPEDAJE,
       },
-      /* {
-        nombre: "ICONO PREDETERMINADO",
-        icon: ICONO_PREDETERMINADO,
-      }, */
       {
+        id: 11,
         nombre: "JUEGOS ACUATICOS",
         icon: JUEGOS_ACUATICOS,
       },
       {
+        id: 12,
         nombre: "JUEGOS MECANICOS",
         icon: JUEGOS_MECANICOS,
       },
       {
+        id: 13,
         nombre: "KIOSKO",
         icon: KIOSKO,
       },
       {
+        id: 14,
         nombre: "MAPA LOCAL",
         icon: MAPA_LOCAL,
       },
       {
+        id: 15,
         nombre: "MIRADOR",
         icon: MIRADOR,
       },
       {
+        id: 16,
         nombre: "MUSEO",
         icon: MUSEO,
       },
       {
+        id: 17,
         nombre: "PARACAIDAS",
         icon: PARACAIDAS,
       },
       {
+        id: 18,
         nombre: "PARQUEO",
         icon: PARQUEO,
       },
       {
+        id: 19,
         nombre: "PASEO BARCO",
         icon: PASEO_BARCO,
       },
       {
+        id: 20,
         nombre: "PISCINAS",
         icon: PISCINAS,
       },
       {
+        id: 21,
         nombre: "RESTAURANTE",
         icon: RESTAURANTE,
       },
       {
+        id: 22,
         nombre: "SALON DE EVENTOS",
         icon: SALON_DE_EVENTOS,
       },
       {
+        id: 23,
         nombre: "SEGURIDAD",
         icon: SEGURIDAD,
       },
       {
+        id: 24,
         nombre: "TEATRO",
         icon: TEATRO,
       },
       {
+        id: 25,
         nombre: "TIENDA",
         icon: TIENDA,
       },
       {
+        id: 26,
         nombre: "TRANSPORTE INTERNO",
         icon: TRANSPORTE_INTERNO,
       },
       {
+        id: 27,
         nombre: "VESTIDOR",
         icon: VESTIDOR,
       },
       {
+        id: 28,
         nombre: "WIFI",
         icon: WIFI,
       },

@@ -40,8 +40,8 @@ import CalendarComponent from "./CalendarComponent";
 
 import styles from "./Sidebar.module.scss";
 import GoogleMaps from "./GoogleMaps/GoogleMaps";
-import SearchBox from "./GoogleMaps/SearchBox";
-import LocationSearchBox from "./LocationSearchBox";
+//import SearchBox from "./GoogleMaps/SearchBox";
+//import LocationSearchBox from "./LocationSearchBox";
 //import styles from "./GoogleMaps/GoogleMaps.module.scss";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
@@ -150,6 +150,7 @@ export default function FormStepper() {
     additionalPrices: [],
     hasSpecialPackage: false,
     specialPrecioTotal: "",
+    addressMap: "",
   });
   //console.log("Show:", show);
 
@@ -185,20 +186,20 @@ export default function FormStepper() {
       select: updatedDetails,
     }));
   };
-  //------------------------------------------------------------------------------
+  //--------------- MAPS ---------------------------------------------------------------
 
-  const [selectedPlace, setSelectedPlace] = useState(null);
-
-  const handlePlaceSelect = (place) => {
-    setSelectedPlace(place);
+  const [showModalMaps, setShowModalMaps] = useState(false);
+  const handleOpenModalMaps = () => setShowModalMaps(true);
+  const handleCloseModalMaps = () => setShowModalMaps(false);
+  const handleAddressChangeMaps = (selectedAddress) => {
+    console.log("Dirección seleccionada:", selectedAddress);
+    setShow((prevState) => ({
+      ...prevState,
+      addressMap: selectedAddress,
+    }));
   };
-  const handleOpenModalMaps = () => setShowModal(true);
-  const handleCloseModalMaps = () => setShowModal(false);
-/*   const handleSubmitMap = (e) => {
-    e.preventDefault();
-    // Puedes utilizar la dirección seleccionada (selectedPlace) como desees.
-    console.log("Dirección seleccionada:", selectedPlace);
-  }; */
+  //console.log(show);
+
   //--------------------------------------------------------------------------
   const [showModal, setShowModal] = useState(false);
 
@@ -208,6 +209,7 @@ export default function FormStepper() {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
   const handleCheckboxChange2 = (itemName) => {
+    console.log(itemName);
     // Handle checkbox state change
     const updatedCheckboxes = selectedCheckboxes.includes(itemName)
       ? selectedCheckboxes.filter((item) => item !== itemName)
@@ -226,7 +228,17 @@ export default function FormStepper() {
     // Close the modal or perform any other necessary actions
     handleCloseModal();
   };
-  //console.log(show.listDetails)
+
+  const handleReset = () => {
+    // Reset the selected checkboxes
+    setSelectedCheckboxes([]);
+
+    // Reset the input values
+    setDetailtotal({
+      select: [],
+    }); // Assuming you have a state for the input value named 'detail'
+  };
+
   //---------------------------------------------------------------------------
 
   const handleInfoChange = (event) => {
@@ -329,7 +341,9 @@ export default function FormStepper() {
         formData.append("imageFile", image);
       });
       setIsLoading(true);
-      const createdPost = await dispatch(createPost(formData, token || datapersonal.token));
+      const createdPost = await dispatch(
+        createPost(formData, token || datapersonal.token)
+      );
       console.log("Post creado exitosamente:", createdPost);
 
       const newErrors = validate(show); // Validar los campos
@@ -1795,32 +1809,70 @@ export default function FormStepper() {
                             personas.
                           </Form.Control.Feedback>
                         </Form.Group>
-                        {/* <div>holaaaaaa</div>
-                        {show.status === "Publico" ? (<div>
-                        <Button variant="secondary" onClick={handleOpenModalMaps}>
-                            Agregar
-                          </Button>
-                        <Modal show={showModal}
-                            onHide={handleCloseModalMaps}>
-                          <Modal.Header></Modal.Header>
-                          <Modal.Body>
-                            <div className={styles.containerMaps}>
-                              <GoogleMaps />
-                            </div>
-                          </Modal.Body>
-                          <Modal.Footer></Modal.Footer>
-                        </Modal>
-                        </div>) : ""} */}
 
-                        <div>
-                          <span
-                            className={
-                              show.status === "Público" ? "label-status" : ""
-                            }
+                        <div className={styles.containerBoxMap}>
+                          <Button
+                            variant="secondary"
+                            id={styles.buttonBlack}
+                            onClick={handleOpenModalMaps}
                           >
-                            El lugas cuenta con:
+                            Compartir ubicacion
+                          </Button>
+                          <Modal
+                            show={showModalMaps}
+                            onHide={handleCloseModalMaps}
+                          >
+                            <Modal.Header>
+                              <Modal.Title>Compartir ubicacion</Modal.Title>
+                              <Button
+                                variant="secondary"
+                                onClick={handleCloseModalMaps}
+                              >
+                                <i
+                                  className="ri-close-line"
+                                  id={styles.iconClose}
+                                ></i>
+                              </Button>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <div className={styles.containerMaps}>
+                                <GoogleMaps
+                                  onAddressChange={handleAddressChangeMaps}
+                                />
+                              </div>
+                            </Modal.Body>
+                            <Modal.Footer></Modal.Footer>
+                          </Modal>
+                          {show.addressMap && (
+                            <span className={styles.textDirectionMap}>
+                              Direccion: {show.addressMap}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className={styles.containerBoxLugarCuenta}>
+                          <span className="label-title">
+                            El lugar cuenta con:
                           </span>
-                          <Button variant="secondary" onClick={handleOpenModal}>
+                          {show.listDetails.length > 0 && (
+                            <Card className={styles["card-container"]}>
+                              <Card.Body className={styles["card-body"]}>
+                                {show.listDetails.map((details, index) => (
+                                  <span
+                                    key={index}
+                                    className={styles["card-span"]}
+                                  >
+                                    {details}
+                                  </span>
+                                ))}
+                              </Card.Body>
+                            </Card>
+                          )}
+                          <Button
+                            id={styles.buttonBlack}
+                            variant="secondary"
+                            onClick={handleOpenModal}
+                          >
                             Agregar
                           </Button>
 
@@ -1836,7 +1888,10 @@ export default function FormStepper() {
                               <div className="container-boxs-checks">
                                 <div>
                                   {dataIcons.slice(0, 10).map((item, index) => (
-                                    <div className="content-checkboxs-icons">
+                                    <div
+                                      className="content-checkboxs-icons"
+                                      key={index}
+                                    >
                                       <img
                                         src={item.icon}
                                         alt={item.nombre}
@@ -1844,12 +1899,14 @@ export default function FormStepper() {
                                           width: "18px",
                                           height: "18px",
                                           marginRight: "5px",
+                                          cursor: "pointer",
                                         }}
+                                        onClick={() =>
+                                          handleCheckboxChange2(item.nombre)
+                                        }
                                       />
                                       <Form.Check
-                                        key={index}
                                         type="checkbox"
-                                        label={item.nombre}
                                         checked={selectedCheckboxes.includes(
                                           item.nombre
                                         )}
@@ -1857,6 +1914,14 @@ export default function FormStepper() {
                                           handleCheckboxChange2(item.nombre)
                                         }
                                       />
+                                      <label
+                                        onClick={() =>
+                                          handleCheckboxChange2(item.nombre)
+                                        }
+                                        style={{ cursor: "pointer" }}
+                                      >
+                                        {item.nombre}
+                                      </label>
                                     </div>
                                   ))}
                                 </div>
@@ -1864,7 +1929,10 @@ export default function FormStepper() {
                                   {dataIcons
                                     .slice(10, 20)
                                     .map((item, index) => (
-                                      <div className="content-checkboxs-icons">
+                                      <div
+                                        className="content-checkboxs-icons"
+                                        key={index}
+                                      >
                                         <img
                                           src={item.icon}
                                           alt={item.nombre}
@@ -1872,12 +1940,14 @@ export default function FormStepper() {
                                             width: "18px",
                                             height: "18px",
                                             marginRight: "5px",
+                                            cursor: "pointer",
                                           }}
+                                          onClick={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
                                         />
                                         <Form.Check
-                                          key={index}
                                           type="checkbox"
-                                          label={item.nombre}
                                           checked={selectedCheckboxes.includes(
                                             item.nombre
                                           )}
@@ -1885,6 +1955,14 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
+                                        <label
+                                          onClick={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          {item.nombre}
+                                        </label>
                                       </div>
                                     ))}
                                 </div>
@@ -1892,7 +1970,10 @@ export default function FormStepper() {
                                   {dataIcons
                                     .slice(20, 28)
                                     .map((item, index) => (
-                                      <div className="content-checkboxs-icons">
+                                      <div
+                                        className="content-checkboxs-icons"
+                                        key={index}
+                                      >
                                         <img
                                           src={item.icon}
                                           alt={item.nombre}
@@ -1900,12 +1981,14 @@ export default function FormStepper() {
                                             width: "18px",
                                             height: "18px",
                                             marginRight: "5px",
+                                            cursor: "pointer",
                                           }}
+                                          onClick={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
                                         />
                                         <Form.Check
-                                          key={index}
                                           type="checkbox"
-                                          label={item.nombre}
                                           checked={selectedCheckboxes.includes(
                                             item.nombre
                                           )}
@@ -1913,31 +1996,43 @@ export default function FormStepper() {
                                             handleCheckboxChange2(item.nombre)
                                           }
                                         />
+                                        <label
+                                          onClick={() =>
+                                            handleCheckboxChange2(item.nombre)
+                                          }
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          {item.nombre}
+                                        </label>
                                       </div>
                                     ))}
                                 </div>
                               </div>
-                              <Card className={styles["card-container"]}>
-                                <Card.Body className={styles["card-body"]}>
-                                  {detailtotal.select.map((details, index) => (
-                                    <span
-                                      key={index}
-                                      className={styles["card-span"]}
-                                    >
-                                      {details}
-                                      <button
-                                        onClick={() =>
-                                          handleDeleteDetail(index)
-                                        }
-                                        size="sm"
-                                        className={styles["card-span-btn"]}
-                                      >
-                                        X
-                                      </button>
-                                    </span>
-                                  ))}
-                                </Card.Body>
-                              </Card>
+                              {detailtotal.select.length > 0 && (
+                                <Card className={styles["card-container"]}>
+                                  <Card.Body className={styles["card-body"]}>
+                                    {detailtotal.select.map(
+                                      (details, index) => (
+                                        <span
+                                          key={index}
+                                          className={styles["card-span"]}
+                                        >
+                                          {details}
+                                          <button
+                                            onClick={() =>
+                                              handleDeleteDetail(index)
+                                            }
+                                            size="sm"
+                                            className={styles["card-span-btn"]}
+                                          >
+                                            X
+                                          </button>
+                                        </span>
+                                      )
+                                    )}
+                                  </Card.Body>
+                                </Card>
+                              )}
                               <Form.Group className="d-flex">
                                 <Form.Control
                                   type="text"
@@ -1948,6 +2043,7 @@ export default function FormStepper() {
                                   isInvalid={!show.listDetails && validated}
                                 />
                                 <Button
+                                  id={styles.buttonBlack}
                                   variant="primary"
                                   onClick={handleAddDetail}
                                 >
@@ -1959,8 +2055,16 @@ export default function FormStepper() {
                                 </Form.Control.Feedback>
                               </Form.Group>
                             </Modal.Body>
-                            <Modal.Footer>
+                            <Modal.Footer className={styles.modalFooter}>
                               <Button
+                                id={styles.buttonBlack}
+                                variant="secondary"
+                                onClick={handleReset}
+                              >
+                                Reset
+                              </Button>
+                              <Button
+                                id={styles.buttonBlack}
                                 variant="primary"
                                 onClick={handleSubirTodo}
                               >
@@ -1977,28 +2081,31 @@ export default function FormStepper() {
                           >
                             Informacion importante:
                           </Form.Label>
-                          <Card className={styles["card-container"]}>
-                            <Card.Body className={styles["card-body"]}>
-                              {show.infoImportant.map((important, index) => (
-                                <span
-                                  key={index}
-                                  className={styles["card-span"]}
-                                >
-                                  {important}
-                                  <button
-                                    variant="danger"
-                                    onClick={() => handleDeleteInfo(index)}
-                                    size="sm"
-                                    className={styles["card-span-btn"]}
+                          {show.infoImportant.length > 0 && (
+                            <Card className={styles["card-container"]}>
+                              <Card.Body className={styles["card-body"]}>
+                                {show.infoImportant.map((important, index) => (
+                                  <span
+                                    key={index}
+                                    className={styles["card-span"]}
                                   >
-                                    X
-                                  </button>
-                                </span>
-                              ))}
-                            </Card.Body>
-                          </Card>
-                          <Form.Group className="d-flex">
+                                    {important}
+                                    <button
+                                      variant="danger"
+                                      onClick={() => handleDeleteInfo(index)}
+                                      size="sm"
+                                      className={styles["card-span-btn"]}
+                                    >
+                                      X
+                                    </button>
+                                  </span>
+                                ))}
+                              </Card.Body>
+                            </Card>
+                          )}
+                          <Form.Group className={styles.contentInputForm}>
                             <Form.Control
+                              className={styles.inputForm}
                               type="text"
                               placeholder="Nuevo detalle"
                               value={info}
@@ -2006,7 +2113,11 @@ export default function FormStepper() {
                               required
                               isInvalid={!show.infoImportant && validated}
                             />
-                            <Button variant="primary" onClick={handleAddInfo}>
+                            <Button
+                              id={styles.buttonBlack}
+                              variant="primary"
+                              onClick={handleAddInfo}
+                            >
                               Agregar
                             </Button>
                           </Form.Group>
