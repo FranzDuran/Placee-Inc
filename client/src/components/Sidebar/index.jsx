@@ -2055,7 +2055,7 @@ export default function FormStepper() {
                                 </div>
                               </div>
                               {detailtotal.select.length > 0 && (
-                                <Card className={styles["card-container"]}>
+                                <Card className={styles["card-container"]} id={styles["card-maxheigth"]} >
                                   <Card.Body className={styles["card-body"]}>
                                     {detailtotal.select.map(
                                       (details, index) => (
@@ -2079,13 +2079,13 @@ export default function FormStepper() {
                                   </Card.Body>
                                 </Card>
                               )}
-                              <Form.Group className="d-flex">
+                              <Form.Group className={styles.contentInputForm} /* className="d-flex" */ >
                                 <Form.Control
                                   type="text"
                                   placeholder="Nuevo detalle"
                                   value={detail}
                                   onChange={handleDetailChange}
-                                  className="flex-grow-1 mr-2"
+                                  className={styles.inputForm}
                                   isInvalid={!show.listDetails && validated}
                                 />
                                 <Button
@@ -2372,7 +2372,7 @@ export default function FormStepper() {
                                 </div>
                               </div>
                               {detailtotal.select.length > 0 && (
-                                <Card className={styles["card-container"]}>
+                                <Card className={styles["card-container"]} id={styles["card-maxheigth"]} >
                                   <Card.Body className={styles["card-body"]}>
                                     {detailtotal.select.map(
                                       (details, index) => (
@@ -2396,13 +2396,13 @@ export default function FormStepper() {
                                   </Card.Body>
                                 </Card>
                               )}
-                              <Form.Group className="d-flex">
+                              <Form.Group className={styles.contentInputForm} /* className="d-flex" */ >
                                 <Form.Control
                                   type="text"
                                   placeholder="Nuevo detalle"
                                   value={detail}
                                   onChange={handleDetailChange}
-                                  className="flex-grow-1 mr-2"
+                                  className={styles.inputForm}
                                   isInvalid={!show.listDetails && validated}
                                 />
                                 <Button
@@ -2477,39 +2477,6 @@ export default function FormStepper() {
                 <div className={show.status === "Privado" || show.status === "Público" ? "rest-info" : ""}>
                   <Row className={styles["calendario-container"]}>
                     {show.status === "Privado" || show.status === "Público" ? (
-                      /* <Space
-                        className="label-calendar"
-                        direction="vertical"
-                        size={12}
-                      >
-                        <Button
-                          onClick={toggleCalendar}
-                          className="label-title"
-                        >
-                          <span className="btn-calendario">
-                            {calendarOpen
-                              ? "Cerrar Calendario"
-                              : "Abrir Calendario"}
-                          </span>
-                        </Button>
-
-                        <DatePicker
-                          onChange={(dates) => handleDateSelection(dates)}
-                          dateRender={(current) => {
-                            const isSelected = selectedDates.some((date) =>
-                              dayjs(date).isSame(current, "day")
-                            );
-
-                            return (
-                              <div
-                                className={isSelected ? "selected-date" : ""}
-                              >
-                                {current.date()}
-                              </div>
-                            );
-                          }}
-                        />
-                      </Space> */
                       <CalendarComponent
                         onSaveToDatabase={handleSaveToDatabase}
                       />

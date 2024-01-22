@@ -24,6 +24,17 @@
     }
   }
 }
+#card-maxheigth{
+  max-height: 116px;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 767px){
+  #card-maxheigth{
+    max-height: 61px;
+    overflow-y: auto;
+  }
+}
 
 //----------------------------------------------
 
@@ -168,6 +179,7 @@
 }
 
 
+
 //------------ INPUT FORM -------------------------
 
 .contentInputForm{
@@ -177,7 +189,11 @@
     width: 70%;
   }
 }
-
+@media screen and (max-width: 767px){
+  .contentInputForm{
+    width: 100%;
+  }
+}
 
 
 /* Estilos personalizados para los radio buttons */

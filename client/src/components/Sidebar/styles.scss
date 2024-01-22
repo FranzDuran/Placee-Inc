@@ -65,7 +65,7 @@
 
   @media screen and (max-width: 767px) {
     max-width: none;
-    width: 88%;
+    //width: 88%;
     padding-left: 0px !important;
     max-height: 100vh;
 
@@ -77,6 +77,8 @@
       .container-boxs-checks {
         flex-direction: column;
         gap: 0px;
+        width: 100%;
+        display: block;
         .content-checkboxs-icons {
           display: flex;
           gap: 10px;
