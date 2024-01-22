@@ -25,7 +25,7 @@ require('dotenv').config();
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'https://placee-inc-production.up.railway.app/auth/google/callback',
+  callbackURL: 'http://localhost:4000/auth/google/callback',
 }, (accessToken, refreshToken, profile, done) => {
   // Aquí puedes almacenar el perfil del usuario en tu base de datos si es necesario
   return done(null, profile);
@@ -43,8 +43,7 @@ router.get('/auth/google/callback',
   (req, res) => {
    
 
-    // Redirigir a la ruta deseada con el token
-    res.redirect(`https://placee-inc.vercel.app`);
+    res.redirect(`http://localhost:3000`);
   }
 );
 

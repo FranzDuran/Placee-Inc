@@ -57,7 +57,7 @@ module.exports = {
           return res.sendStatus(401);
         }
 
-        const { title, price, price_pool, price_parking, price_kitchen, specialPackageName,specialPackageItem, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
+        const { title, price,type, price_pool, price_parking, price_kitchen, specialPackageName,specialPackageItem, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
         const parsedReservedDates = typeof reservedDates === 'string' ? JSON.parse(reservedDates) : [];
         const parsedListDetails = typeof listDetails === 'string' ? JSON.parse(listDetails) : [];
         const parsedInfoImportant = typeof infoImportant === 'string' ? JSON.parse(infoImportant) : [];
@@ -72,6 +72,7 @@ module.exports = {
           const newPost = await Post.create({
             title: capitalizedTitle,
             price,
+            type,
             price_pool,
             price_parking,
             price_kitchen,
@@ -104,6 +105,7 @@ module.exports = {
             status,
             people,
             price,
+            type,
             price_pool,
             price_parking,
             price_kitchen,
