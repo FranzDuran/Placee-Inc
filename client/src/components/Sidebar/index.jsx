@@ -2517,7 +2517,7 @@ export default function FormStepper() {
                   </Row>
 
                   <Row className="mb-3">
-                    {show.status === "Privado" || show.status === "Público" ? (
+                    {show.status === "Privado" ? (
                       <div className={styles.containerBoxLugarCuenta}>
                         <span className="label-title">
                           Informacion importante:
