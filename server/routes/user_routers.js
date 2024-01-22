@@ -43,7 +43,7 @@ router.get('/auth/google/callback',
   (req, res) => {
    
 
-    res.redirect(`http://localhost:3000`);
+    res.redirect(`https://placee-inc.vercel.app`);
   }
 );
 
