@@ -243,15 +243,15 @@ console.log(datapersonal);
                 </div>
               ) : (
                 <div>
-                  {datapersonal.sub  ? (
+                  {datapersonal.id  ? (
 
-                    datapersonal.picture ? (
+                    datapersonal.avatar ? (
                       <Avatar
                         sx={{
                           width: 32,
                           height: 32,
-                          background: datapersonal.picture
-                            ? `url(${datapersonal.picture})`
+                          background: datapersonal.avatar
+                            ? `url(${datapersonal.avatar})`
                             : datapersonal.backgroundColor,
                           backgroundSize: "cover",
                         }}
@@ -291,7 +291,7 @@ console.log(datapersonal);
         </Box>
       </div>
       <div>
-        {!datapersonal.sub  ? (
+        {!datapersonal.id  ? (
           <div className="container-lore">
             <Menu
               id="menu-not-personal"
