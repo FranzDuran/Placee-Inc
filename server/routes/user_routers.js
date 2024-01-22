@@ -43,7 +43,6 @@ router.get('/auth/google/callback',
   (req, res) => {
    
 
-    // Redirigir a la ruta deseada con el token
     res.redirect(`https://placee-inc.vercel.app`);
   }
 );

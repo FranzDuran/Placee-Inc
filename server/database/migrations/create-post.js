@@ -17,6 +17,9 @@ module.exports = {
       price: {
         type: Sequelize.STRING,
       },
+      type: {
+        type: Sequelize.STRING,
+      },
       poolPrice: {
         type: Sequelize.STRING,
       },
