@@ -58,6 +58,12 @@
             flex-direction: row;
             gap: 10px;
           }
+          .form-checkk{
+            .form-check-input:checked {
+              background-color: #000;
+              border-color: #000;
+          }
+          }
         }
       }
     }

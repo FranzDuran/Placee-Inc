@@ -1953,6 +1953,7 @@ export default function FormStepper() {
                                       />
                                       <Form.Check
                                         type="checkbox"
+                                        className="form-checkk"
                                         checked={selectedCheckboxes.includes(
                                           item.nombre
                                         )}
@@ -1994,6 +1995,7 @@ export default function FormStepper() {
                                         />
                                         <Form.Check
                                           type="checkbox"
+                                          className="form-checkk"
                                           checked={selectedCheckboxes.includes(
                                             item.nombre
                                           )}
@@ -2035,6 +2037,7 @@ export default function FormStepper() {
                                         />
                                         <Form.Check
                                           type="checkbox"
+                                          className="form-checkk"
                                           checked={selectedCheckboxes.includes(
                                             item.nombre
                                           )}
@@ -2270,6 +2273,7 @@ export default function FormStepper() {
                                       />
                                       <Form.Check
                                         type="checkbox"
+                                        className="form-checkk"
                                         checked={selectedCheckboxes.includes(
                                           item.nombre
                                         )}
@@ -2311,6 +2315,7 @@ export default function FormStepper() {
                                         />
                                         <Form.Check
                                           type="checkbox"
+                                          className="form-checkk"
                                           checked={selectedCheckboxes.includes(
                                             item.nombre
                                           )}
@@ -2352,6 +2357,7 @@ export default function FormStepper() {
                                         />
                                         <Form.Check
                                           type="checkbox"
+                                          className="form-checkk"
                                           checked={selectedCheckboxes.includes(
                                             item.nombre
                                           )}
