@@ -36,7 +36,7 @@ export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector((state) => state.datapersonal);
-
+console.log(datapersonal);
   const [openPublic, setOpenPublic] = React.useState(false);
   const [openLogout, setOpenLogout] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -243,15 +243,15 @@ export default function BasicMenu() {
                 </div>
               ) : (
                 <div>
-                  {datapersonal.id  ? (
+                  {datapersonal.sub  ? (
 
-                    datapersonal.avatar ? (
+                    datapersonal.picture ? (
                       <Avatar
                         sx={{
                           width: 32,
                           height: 32,
-                          background: datapersonal.avatar
-                            ? `url(${datapersonal.avatar})`
+                          background: datapersonal.picture
+                            ? `url(${datapersonal.picture})`
                             : datapersonal.backgroundColor,
                           backgroundSize: "cover",
                         }}
@@ -291,7 +291,7 @@ export default function BasicMenu() {
         </Box>
       </div>
       <div>
-        {!datapersonal.id  ? (
+        {!datapersonal.sub  ? (
           <div className="container-lore">
             <Menu
               id="menu-not-personal"

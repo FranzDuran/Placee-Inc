@@ -49,18 +49,18 @@ router.get('/auth/google/callback',
 
 // Ruta protegida
 router.get('/profile', isAuthenticated, async (req, res) => {
-  const user = req.user;
+  const user = req.user._json;
 
   try {
 
-    const existingUser = await User.findOne({
+   /*  const existingUser = await User.findOne({
       where: { email: user._json.email },
       include: [{ model: Post }]
-    });
+    }); */
 
 
 
-    if (existingUser) {
+ /*    if (existingUser) {
       console.log('Usuario Existente' );
       res.json(existingUser);
     } else {
@@ -71,9 +71,9 @@ router.get('/profile', isAuthenticated, async (req, res) => {
         avatar: user._json.picture,
       });
 
-      console.log('Nuevo Usuario Creado');
-      res.json(newUser);
-    }
+    } */
+    console.log('Nuevo Usuario Creado');
+    res.json(user);
   } catch (error) {
     console.error('Error al iniciar sesión con Google:', error);
     res.status(500).json({ error: 'Error al iniciar sesión con Google' });
