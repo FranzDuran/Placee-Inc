@@ -44,11 +44,11 @@ import GoogleMaps from "./GoogleMaps/GoogleMaps";
 //import LocationSearchBox from "./LocationSearchBox";
 //import styles from "./GoogleMaps/GoogleMaps.module.scss";
 
-import { LoadScript } from '@react-google-maps/api';
+import { LoadScript } from "@react-google-maps/api";
+import { shouldForwardProp } from "@mui/system";
+import Horarios from "./Horarios";
 
-const apiKey = 'AIzaSyBFXi9VAlbvBsr1z0UxDO73R5kZSh6IQw0';
-
-
+const apiKey = "AIzaSyBFXi9VAlbvBsr1z0UxDO73R5kZSh6IQw0";
 
 const steps = ["Caracterisitcas", "Fotos", "Publicar"];
 const validate = (input) => {
@@ -138,6 +138,7 @@ export default function FormStepper() {
     kitchenPrice: "",
     specialPackageName: "",
     specialPackageItems: [],
+    specialPackageItem: [],
     people: "",
     imageFile: [],
     summary: "",
@@ -157,6 +158,7 @@ export default function FormStepper() {
     hasSpecialPackage: false,
     specialPrecioTotal: "",
     addressMap: "",
+    horarios:[],
   });
   console.log("Show:", show);
 
@@ -892,18 +894,20 @@ export default function FormStepper() {
 
   //---------------------------------------------------------
   const handleSpecialPackage = (value) => {
-    console.log(value);
+    console.log("boleano");
     setShow((prevState) => ({
       ...prevState,
       hasSpecialPackage: value,
-      specialPackageName: "",
+      /* specialPackageName: "nombre",
       specialPrecioTotal: "",
       specialPackageItem: "",
-      specialPackageItems: [],
+      specialPackageItems: [], */
     }));
   };
+  console.log("boleano", show);
 
   const handleSpecialPackageName = (e) => {
+    console.log("name");
     setShow((prevState) => ({
       ...prevState,
       specialPackageName: e.target.value,
@@ -918,6 +922,7 @@ export default function FormStepper() {
   };
 
   const handleSpecialPackageItem = (e) => {
+    console.log("items");
     setShow((prevState) => ({
       ...prevState,
       specialPackageItem: e.target.value,
@@ -925,7 +930,9 @@ export default function FormStepper() {
   };
 
   const handleAddSpecialPackageItem = () => {
+    console.log("add item");
     if (show.specialPackageItem.trim() !== "") {
+      console.log("add item 1");
       setShow((prevState) => ({
         ...prevState,
         specialPackageItems: [
@@ -943,6 +950,16 @@ export default function FormStepper() {
     setShow((prevState) => ({
       ...prevState,
       specialPackageItems: updatedItems,
+    }));
+  };
+
+  //-------------- HORARIOS -----------------------------
+  const handleGuardarClick = (nuevosHorarios) => {
+    // Aquí puedes realizar la lógica con los nuevos horarios
+    console.log('Nuevos Horarios:', nuevosHorarios);
+    setShow((prevState) => ({
+      ...prevState,
+      horarios: nuevosHorarios,
     }));
   };
 
@@ -1185,37 +1202,7 @@ export default function FormStepper() {
                               <Form.Label className="label-status">
                                 Incluye:
                               </Form.Label>
-                              {/* <div className={styles["container-package-item"]}> */}
-                              {/* {show.specialPackageItems.map((item, index) => (
-                                  <Row className="mb-3" key={index}>
-                                    <Form.Group as={Col}>
-                                      <InputGroup
-                                        className={
-                                          styles["card2-input-content"]
-                                        }
-                                      >
-                                        <Form.Control
-                                          type="text"
-                                          placeholder={`Elemento ${index + 1}`}
-                                          value={item}
-                                          readOnly
-                                          className={styles["card2-input"]}
-                                        />
-                                        <Button
-                                          className={styles["card2-btn"]}
-                                          variant="danger"
-                                          onClick={() =>
-                                            handleRemoveSpecialPackageItem(
-                                              index
-                                            )
-                                          }
-                                        >
-                                          x
-                                        </Button>
-                                      </InputGroup>
-                                    </Form.Group>
-                                  </Row>
-                                ))} */}
+
                               {show.specialPackageItems.length > 0 && (
                                 <Card className={styles["card-container"]}>
                                   <Card.Body className={styles["card-body"]}>
@@ -1868,33 +1855,36 @@ export default function FormStepper() {
                             >
                               Compartir ubicacion
                             </Button>
-                            <LoadScript googleMapsApiKey={apiKey} libraries={['places']}>
-                            <Modal
-                              show={showModalMaps}
-                              onHide={handleCloseModalMaps}
-                              id={styles.containerModalMap}
+                            <LoadScript
+                              googleMapsApiKey={apiKey}
+                              libraries={["places"]}
                             >
-                              <Modal.Header>
-                                <Modal.Title>Compartir ubicacion</Modal.Title>
-                                <Button
-                                  variant="secondary"
-                                  onClick={handleCloseModalMaps}
-                                >
-                                  <i
-                                    className="ri-close-line"
-                                    id={styles.iconClose}
-                                  ></i>
-                                </Button>
-                              </Modal.Header>
-                              <Modal.Body>
-                                <div className={styles.containerMaps}>
-                                  <GoogleMaps
-                                    onAddressChange={handleAddressChangeMaps}
-                                  />
-                                </div>
-                              </Modal.Body>
-                              <Modal.Footer></Modal.Footer>
-                            </Modal>
+                              <Modal
+                                show={showModalMaps}
+                                onHide={handleCloseModalMaps}
+                                id={styles.containerModalMap}
+                              >
+                                <Modal.Header>
+                                  <Modal.Title>Compartir ubicacion</Modal.Title>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={handleCloseModalMaps}
+                                  >
+                                    <i
+                                      className="ri-close-line"
+                                      id={styles.iconClose}
+                                    ></i>
+                                  </Button>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <div className={styles.containerMaps}>
+                                    <GoogleMaps
+                                      onAddressChange={handleAddressChangeMaps}
+                                    />
+                                  </div>
+                                </Modal.Body>
+                                <Modal.Footer></Modal.Footer>
+                              </Modal>
                             </LoadScript>
                           </div>
                           <span className="label-title">
@@ -2058,7 +2048,10 @@ export default function FormStepper() {
                                 </div>
                               </div>
                               {detailtotal.select.length > 0 && (
-                                <Card className={styles["card-container"]} id={styles["card-maxheigth"]} >
+                                <Card
+                                  className={styles["card-container"]}
+                                  id={styles["card-maxheigth"]}
+                                >
                                   <Card.Body className={styles["card-body"]}>
                                     {detailtotal.select.map(
                                       (details, index) => (
@@ -2082,7 +2075,11 @@ export default function FormStepper() {
                                   </Card.Body>
                                 </Card>
                               )}
-                              <Form.Group className={styles.contentInputForm} /* className="d-flex" */ >
+                              <Form.Group
+                                className={
+                                  styles.contentInputForm
+                                } /* className="d-flex" */
+                              >
                                 <Form.Control
                                   type="text"
                                   placeholder="Nuevo detalle"
@@ -2191,30 +2188,39 @@ export default function FormStepper() {
                             >
                               Compartir ubicacion
                             </Button>
-                            <LoadScript googleMapsApiKey={apiKey} libraries={['places']}>
-                            <Modal
-                              show={showModalMaps}
-                              onHide={handleCloseModalMaps}
+                            <LoadScript
+                              googleMapsApiKey={apiKey}
+                              libraries={["places"]}
                             >
-                              <Modal.Header>
-                                <Modal.Title>Compartir ubicacion</Modal.Title>
-                                <Button
-                                  variant="secondary"
-                                  onClick={handleCloseModalMaps}
-                                >
-                                  <i
-                                    className="ri-close-line"
-                                    id={styles.iconClose}
-                                  ></i>
-                                </Button>
-                              </Modal.Header>
-                              <Modal.Body>
-                                <div className={styles.containerMaps}>
-                                {showModalMaps && <GoogleMaps onAddressChange={handleAddressChangeMaps} />}
-                                </div>
-                              </Modal.Body>
-                              <Modal.Footer></Modal.Footer>
-                            </Modal>
+                              <Modal
+                                show={showModalMaps}
+                                onHide={handleCloseModalMaps}
+                              >
+                                <Modal.Header>
+                                  <Modal.Title>Compartir ubicacion</Modal.Title>
+                                  <Button
+                                    variant="secondary"
+                                    onClick={handleCloseModalMaps}
+                                  >
+                                    <i
+                                      className="ri-close-line"
+                                      id={styles.iconClose}
+                                    ></i>
+                                  </Button>
+                                </Modal.Header>
+                                <Modal.Body>
+                                  <div className={styles.containerMaps}>
+                                    {showModalMaps && (
+                                      <GoogleMaps
+                                        onAddressChange={
+                                          handleAddressChangeMaps
+                                        }
+                                      />
+                                    )}
+                                  </div>
+                                </Modal.Body>
+                                <Modal.Footer></Modal.Footer>
+                              </Modal>
                             </LoadScript>
                           </div>
                           <span className="label-title">
@@ -2378,7 +2384,10 @@ export default function FormStepper() {
                                 </div>
                               </div>
                               {detailtotal.select.length > 0 && (
-                                <Card className={styles["card-container"]} id={styles["card-maxheigth"]} >
+                                <Card
+                                  className={styles["card-container"]}
+                                  id={styles["card-maxheigth"]}
+                                >
                                   <Card.Body className={styles["card-body"]}>
                                     {detailtotal.select.map(
                                       (details, index) => (
@@ -2402,7 +2411,11 @@ export default function FormStepper() {
                                   </Card.Body>
                                 </Card>
                               )}
-                              <Form.Group className={styles.contentInputForm} /* className="d-flex" */ >
+                              <Form.Group
+                                className={
+                                  styles.contentInputForm
+                                } /* className="d-flex" */
+                              >
                                 <Form.Control
                                   type="text"
                                   placeholder="Nuevo detalle"
@@ -2480,12 +2493,21 @@ export default function FormStepper() {
                     </Row>
                   </Form.Group>
                 </div>
-                <div className={show.status === "Privado" || show.status === "Público" ? "rest-info" : ""}>
+                <div
+                  className={
+                    show.status === "Privado" || show.status === "Público"
+                      ? "rest-info"
+                      : ""
+                  }
+                >
                   <Row className={styles["calendario-container"]}>
                     {show.status === "Privado" || show.status === "Público" ? (
-                      <CalendarComponent
-                        onSaveToDatabase={handleSaveToDatabase}
-                      />
+                      <>
+                        <CalendarComponent
+                          onSaveToDatabase={handleSaveToDatabase}
+                        />
+                        <Horarios onGuardarClick={handleGuardarClick} />
+                      </>
                     ) : null}
                   </Row>
 
