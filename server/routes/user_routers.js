@@ -39,7 +39,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/error' }),
   (req, res) => {
    
 
@@ -53,14 +53,14 @@ router.get('/profile', isAuthenticated, async (req, res) => {
 
   try {
 
-    const existingUser = await User.findOne({
+  const existingUser = await User.findOne({
       where: { email: user._json.email },
       include: [{ model: Post }]
     });
 
 
 
-    if (existingUser) {
+  if (existingUser) {
       console.log('Usuario Existente' );
       res.json(existingUser);
     } else {
@@ -88,7 +88,7 @@ function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/');
+  res.redirect('/profile');
 }
 
 

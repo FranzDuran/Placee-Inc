@@ -33,6 +33,12 @@ module.exports = {
       people: {
         type: Sequelize.STRING,
       },
+      AddressMap: {
+        type: Sequelize.STRING,
+      },
+      specialPrecioTotal: {
+        type: Sequelize.STRING,
+      },
       summary: {
         type: Sequelize.STRING(10000),
       },
@@ -41,6 +47,12 @@ module.exports = {
       },
       imageFile: {
         type: Sequelize.ARRAY(Sequelize.STRING), // Almacena la ruta de la imagen en el sistema de archivos
+      },
+      additionalPrices: {
+        type: Sequelize.ARRAY(Sequelize.STRING), // Almacena la ruta de la imagen en el sistema de archivos
+      },
+      hasSpecialPackage: {
+        type: Sequelize.BOOLEAN, // Almacena la ruta de la imagen en el sistema de archivos
       },
       status: {
         type: Sequelize.STRING,
