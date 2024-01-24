@@ -10,41 +10,40 @@ const ModalReclamos = () => {
   const detailpost = useSelector((state) => state.detailpost);
 
   const [report, setReport] = useState("");
-
+  //console.log(report);
   const handleReportChange = (event) => {
+    console.log(event.target.value);
     setReport(event.target.value);
   };
 
   useEffect(() => {
     dispatch(DetailsPostTuristic(detailpost.id));
-  }, []);
+  }, [dispatch, detailpost.id]);
 
   useCallback(() => {}, []);
 
-  const handleReportsSubmit = (e) => {
-    e.preventDefault();
+  const handleReportsSubmit = () => {
+    console.log("datos", report);
+     //e.preventDefault();
     dispatch(ReportsPost({ text: report, postId: detailpost.id }, token));
   };
 
   return (
     <>
-      <form onSubmit={handleReportsSubmit}>
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <div className={styles.boxTwo}>
-              <h3 className={styles.title}>Escribe tu reclamo</h3>
-              <textarea
-                value={report}
-                onChange={handleReportChange}
-                placeholder="Escribe tu comentario aquí..."
-              />
-              <button type="submit" className={styles.btnComentar}>
-                Enviar reclamo
-              </button>
-            </div>
-          </div>
-        </div>
-      </form>
+      <div className={styles.boxTwo}>
+        <h3 className={styles.title}>Escribe tu reclamo</h3>
+        <textarea
+          value={report}
+          onChange={handleReportChange}
+          placeholder="Escribe tu comentario aquí..."
+        />
+        <button
+          className={styles.btnComentar}
+          onClick={handleReportsSubmit}
+        >
+          Enviar reclamo
+        </button>
+      </div>
     </>
   );
 };
