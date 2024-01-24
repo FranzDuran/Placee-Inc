@@ -78,7 +78,7 @@ module.exports = {
             price_kitchen,
             specialPackageName,
             specialPackageItem: parsedspecialPackageIteme,
-            people,
+            people,   
             summary: capitalizedSummary,
             description: capitalizedDescription,
             status,
