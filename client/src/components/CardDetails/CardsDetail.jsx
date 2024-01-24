@@ -60,6 +60,7 @@ export default function CardDetails() {
   const handleClose2 = () => setOpen2(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const detailpost = useSelector((state) => state.detailpost);
+  console.log(detailpost)
   const dispatch = useDispatch();
   const values = [true];
 

@@ -5,6 +5,7 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 import SearchBox from './SearchBox';
+import styles from "./GoogleMaps.module.scss"
 
 const mapContainerStyle = {
   width: '100%',
@@ -63,10 +64,14 @@ const GoogleMaps = ({ onAddressChange }) => {
       setAddress(selectedAddress);
       setMarkerPosition(latLng);
       onPlacesChanged();
-      onAddressChange(selectedAddress);
+      //onAddressChange(selectedAddress);
     } catch (error) {
       console.error('Error selecting address:', error);
     }
+  };
+
+  const handleAddressChange = () => {
+    onAddressChange(address);
   };
 
   return (
@@ -86,6 +91,7 @@ const GoogleMaps = ({ onAddressChange }) => {
           />
         )}
       </GoogleMap>
+      <button id={styles.btnMaps} onClick={handleAddressChange}>Guardar</button>
     </>
   );
 };

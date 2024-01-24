@@ -1,0 +1,45 @@
+/* Horarios.module.css */
+
+.container {
+  //max-width: 600px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.formGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.label {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.inputTime {
+  width: 80px;
+  margin-right: 5px;
+}
+
+.button {
+  background-color: #000;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+.cerradoText{
+  margin-right: 10px;
+}
+
+
+@media screen and (max-width:767px) {
+  .container {
+    width: 90%;
+ 
+  }
+  
+}
