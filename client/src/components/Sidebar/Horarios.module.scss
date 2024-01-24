@@ -31,3 +31,15 @@
   border: none;
   border-radius: 5px;
 }
+.cerradoText{
+  margin-right: 10px;
+}
+
+
+@media screen and (max-width:767px) {
+  .container {
+    width: 90%;
+ 
+  }
+  
+}

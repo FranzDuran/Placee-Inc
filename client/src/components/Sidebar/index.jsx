@@ -2195,6 +2195,7 @@ export default function FormStepper() {
                               <Modal
                                 show={showModalMaps}
                                 onHide={handleCloseModalMaps}
+                                id={styles.containerModalMap}
                               >
                                 <Modal.Header>
                                   <Modal.Title>Compartir ubicacion</Modal.Title>
@@ -2513,7 +2514,7 @@ export default function FormStepper() {
 
                   <Row className="mb-3">
                     {show.status === "Privado" ? (
-                      <div className={styles.containerBoxLugarCuenta}>
+                      <div className={styles.containerBoxLugarCuenta} id={styles.infoImport} >
                         <span className="label-title">
                           Informacion importante:
                         </span>
