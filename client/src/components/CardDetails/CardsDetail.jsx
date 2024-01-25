@@ -484,7 +484,7 @@ export default function CardDetails() {
               </div>
             </div>
 
-            {/* Options */}
+         
             <ModalReserva
               isOpen={modalOpenReserve}
               onClose={closeModalReserve}
@@ -496,7 +496,7 @@ export default function CardDetails() {
                   className="btn-close-card-reserve"
                   onClick={() => setCardReserve(false)}
                 >
-                  <i class="ri-close-line"></i>
+                 
                 </div>
 
                 <div className="content-card-reserve">
