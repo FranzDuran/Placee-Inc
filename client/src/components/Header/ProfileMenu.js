@@ -36,7 +36,7 @@ export default function BasicMenu() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const datapersonal = useSelector((state) => state.datapersonal);
-console.log(datapersonal);
+  //console.log(datapersonal);
   const [openPublic, setOpenPublic] = React.useState(false);
   const [openLogout, setOpenLogout] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -46,23 +46,14 @@ console.log(datapersonal);
   const values = [true];
   const [fullscreen, setFullscreen] = React.useState(true);
   const [modalPublic, setModalPublic] = React.useState(false);
-  
 
   React.useEffect(() => {
     dispatch(DetailsPostTuristic(datapersonal.id));
-
-
   }, [dispatch, datapersonal.id]);
 
   React.useEffect(() => {
-
     dispatch(fetchGoogleProfile());
-
   }, [dispatch]);
-
-
-
-
 
   function handleShow(breakpoint) {
     setFullscreen(breakpoint);
@@ -243,8 +234,7 @@ console.log(datapersonal);
                 </div>
               ) : (
                 <div>
-                  {datapersonal.id  ? (
-
+                  {datapersonal.id ? (
                     datapersonal.avatar ? (
                       <Avatar
                         sx={{
@@ -267,7 +257,8 @@ console.log(datapersonal);
                         }}
                       >
                         <div>
-                          {datapersonal.name && datapersonal.name[0].toUpperCase()}
+                          {datapersonal.name &&
+                            datapersonal.name[0].toUpperCase()}
                         </div>
                       </Avatar>
                     )
@@ -277,21 +268,16 @@ console.log(datapersonal);
                         width: 32,
                         height: 32,
                       }}
-                    >
-
-                    </Avatar>
+                    ></Avatar>
                   )}
-
                 </div>
-
-
               )}
             </IconButton>
           </Tooltip>
         </Box>
       </div>
       <div>
-        {!datapersonal.id  ? (
+        {!datapersonal.id ? (
           <div className="container-lore">
             <Menu
               id="menu-not-personal"
@@ -401,7 +387,10 @@ console.log(datapersonal);
             {datapersonal.Posts && datapersonal.Posts.length < 1 ? (
               <div>
                 {values.map((v, idx) => (
-                  <MenuItem onClick={() => handleShow(v)} className="menu-items">
+                  <MenuItem
+                    onClick={() => handleShow(v)}
+                    className="menu-items"
+                  >
                     Unase placee enc como anfitrion
                   </MenuItem>
                 ))}
@@ -410,7 +399,7 @@ console.log(datapersonal);
 
             <>
               <Button variant="transparent" onClick={handleClickOpenLogout}>
-                <MenuItem className="content-menu-item-close" >
+                <MenuItem className="content-menu-item-close">
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
@@ -421,7 +410,6 @@ console.log(datapersonal);
           </Menu>
         )}
       </div>
-
 
       <Dialog
         open={openLogout}

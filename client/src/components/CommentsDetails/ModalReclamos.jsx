@@ -18,7 +18,7 @@ const ModalReclamos = () => {
 
   useEffect(() => {
     dispatch(DetailsPostTuristic(detailpost.id));
-  }, [dispatch, detailpost.id]);
+  }, []);
 
   useCallback(() => {}, []);
 

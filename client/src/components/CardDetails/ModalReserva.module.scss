@@ -1,0 +1,246 @@
+/* Modal.module.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: flex-end;
+  border-bottom: 1px solid #ccc;
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    padding: 5px;
+  }
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #ccc;
+  padding-top: 5px;
+
+  .reservar-button {
+    background: #000;
+    border: 1px solid #000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 10px;
+  }
+}
+
+.modal-content {
+  height: 80%;
+  overflow-y: auto;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //max-width: 700px;
+  width: 100%;
+  gap: 10px;
+  border: 1px solid #8b008b;
+  //padding: 5px;
+}
+
+.contentFile {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  padding: 5px;
+  //border: 1px solid #8b008b;
+}
+#fileTitle {
+  border: 1px solid #8b008b;
+}
+.titleResult {
+  color: #000;
+}
+.numberResult {
+  padding: 5px 10px;
+  border-radius: 50px;
+  background-color: #ccc;
+  color: #000;
+}
+.leftColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  padding: 0px;
+  //border-right: 1px solid #ccc;
+  border: 1px solid #ccc;
+  .title {
+    font-size: 16px;
+    color: #000;
+  }
+}
+#leftColumnTitle {
+  border: none;
+}
+
+.rightColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  padding: 5px;
+  //border: 1px solid #8b008b;
+}
+
+.textContent {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  .text {
+    margin: 0px;
+    text-align: start;
+    color: #000;
+  }
+}
+.datePicker {
+  width: 100%;
+  padding: 10px;
+  //margin-top: 10px;
+}
+
+.priceSection {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+
+  .price {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+  }
+  .titlePrice {
+    width: 45%;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+  }
+  .quantitySection {
+    display: flex;
+    align-items: center;
+    width: 35%;
+
+    .btnDecrease,
+    .btnIncrease {
+      width: 50%;
+      padding: 0px;
+      margin: 0px;
+      cursor: pointer;
+      border-radius: 0px;
+      height: 100%;
+    }
+    .btnDecrease {
+      background: rgb(107, 107, 107);
+      color: #fff;
+    }
+    .btnIncrease {
+      background: #000;
+      color: #fff;
+    }
+  }
+}
+
+.containerBoxExclusivo {
+  width: 90%;
+  //padding: 10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(107, 107, 107);
+  margin-bottom: 20px;
+  .titleBoxExclusivo {
+    color: #000;
+    font-size: 16px;
+    border: 1px solid rgb(107, 107, 107);
+    padding: 10px;
+    margin: 0px;
+  }
+  .contentPriceExclusivo {
+    width: 100%;
+    border: 1px solid rgb(107, 107, 107);
+    margin-top: 15px;
+    color: #000;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    .textExclusivo{
+        margin: 0 0 0 10px;
+    }
+    .priceExclusivo {
+      width: 30%;
+      background: rgb(107, 107, 107);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+    }
+  }
+
+  .contentBoxExclusivo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px;
+    h4 {
+      font-size: 16px;
+      color: #000;
+    }
+    .containerServices {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      .servicesItem {
+        color: #000;
+        font-size: 16px;
+        padding: 5px 10px;
+        border: 1px solid rgb(107, 107, 107);
+      }
+    }
+  }
+}
