@@ -40,6 +40,7 @@ import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import ModalSeleccion from "../CommentsDetails/ModalSeleccion";
 import ModalReclamos from "../CommentsDetails/ModalReclamos";
+import ModalReserva from "./ModalReserva";
 //import SwipeableViews from 'react-swipeable-views';
 //import { autoPlay } from 'react-swipeable-views-utils';
 
@@ -60,7 +61,7 @@ export default function CardDetails() {
   const handleClose2 = () => setOpen2(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const detailpost = useSelector((state) => state.detailpost);
-  console.log(detailpost)
+  console.log(detailpost);
   const dispatch = useDispatch();
   const values = [true];
 
@@ -113,6 +114,15 @@ export default function CardDetails() {
 
   const OpenReserCard = () => {
     setCardReserve(true);
+  };
+  const [modalOpenReserve, setModalOpenReserve] = useState(false);
+
+  const openModalReserve = () => {
+    setModalOpenReserve(true);
+  };
+
+  const closeModalReserve = () => {
+    setModalOpenReserve(false);
   };
 
   React.useEffect(() => {
@@ -335,7 +345,7 @@ export default function CardDetails() {
                       <div>
                         <Fab size="small" id="icons-details" aria-label="add">
                           <AddIcon />
-                          {detailpost.imageFile.length -4}
+                          {detailpost.imageFile.length - 4}
                         </Fab>
                       </div>
                     </div>
@@ -475,31 +485,23 @@ export default function CardDetails() {
             </div>
 
             {/* Options */}
-
-            {cardReserve && (
-              <div
-              className="card-reserve"
-               /*  className={
-                  detailpost.status === "Privado" ? "card-reserve" : ""
-                } */
-              >
-                {/* {detailpost.status === "Privado" && ( */}
-                  <div
-                    /* className="absolute top-0 right-0 p-2" */
-                    className="btn-close-card-reserve"
-                    onClick={() => setCardReserve(false)}
-                  >
-                    <i class="ri-close-line"></i>
-                  </div>
-                {/* )} */}
-                <div /* className="mt-4 lg:row-span-3 lg:mt-0 " */
-                  className="content-card-reserve"
+            <ModalReserva
+              isOpen={modalOpenReserve}
+              onClose={closeModalReserve}
+              onChange={handlePayment}
+            />
+            {/* {cardReserve && (
+              <div className="card-reserve">
+                <div
+                  className="btn-close-card-reserve"
+                  onClick={() => setCardReserve(false)}
                 >
-                  {/* <h2 className="sr-only">Product information</h2> */}
+                  <i class="ri-close-line"></i>
+                </div>
+
+                <div className="content-card-reserve">
                   <div className="content-title-card-reserve">
-                    <p /* className="text-3xl tracking-tight text-gray-900" */
-                      className="title-card-reserve"
-                    >
+                    <p className="title-card-reserve">
                       Reservado en Panajachel
                       {detailpost.price ? (
                         <span>${detailpost.price}</span>
@@ -537,8 +539,8 @@ export default function CardDetails() {
                       <h3 className="title-masinfo">Fecha de llegada</h3>
                       <button className="btn-masinfo">v</button>
                     </div>
-                  </div>
-                  {/* <div>
+                  </div> */}
+            {/* <div>
                       <div className="space-y-6">
                         <h3 className="text-base text-gray-900">
                           {detailpost.people ? (
@@ -564,8 +566,7 @@ export default function CardDetails() {
                       ) : null}
                     </div> */}
 
-                  <button
-                    /* className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 btn-reserve" */
+            {/* <button
                     className="btn-reserve"
                     onClick={handlePayment}
                   >
@@ -573,7 +574,7 @@ export default function CardDetails() {
                   </button>
                 </div>
               </div>
-            )}
+            )} */}
 
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6 content-description-mobile">
               {/* Description and details */}
@@ -712,15 +713,17 @@ export default function CardDetails() {
                 )
             )}
           </div>
-          <div className="btn-footer-container">
-            <button
-              onClick={OpenReserCard}
-              type="submit"
-              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 footer-btn"
-            >
-              Reservar
-            </button>
-          </div>
+          {detailpost.status === "Privado" && (
+            <div className="btn-footer-container">
+              <button
+                onClick={openModalReserve}
+                type="submit"
+                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 footer-btn"
+              >
+                Reservar
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {/* )} */}
@@ -739,15 +742,17 @@ export default function CardDetails() {
           <ModalComponent onClose={closeModal} isModalOpen={isModalOpen} />
         )}
 
-        <div className="btn-footer-container">
-          <button
-            type="submit"
-            className="footer-btn"
-            onClick={() => handleShowMobile()}
-          >
-            Reservar
-          </button>
-        </div>
+        {detailpost.status === "Privado" && (
+          <div className="btn-footer-container">
+            <button
+              type="submit"
+              className="footer-btn"
+              onClick={() => handleShowMobile()}
+            >
+              Reservar mobile
+            </button>
+          </div>
+        )}
 
         <Modal
           show={detailsCardReserve}
