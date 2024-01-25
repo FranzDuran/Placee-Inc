@@ -140,6 +140,8 @@ export default function FormStepper() {
     specialPackageItems: [],
     specialPackageItem: [],
     people: "",
+    type: "",
+
     imageFile: [],
     summary: "",
     description: "",
@@ -338,12 +340,20 @@ export default function FormStepper() {
       formData.append("status", show.status);
       formData.append("continent", show.continent);
       formData.append("country", show.country);
+      formData.append("type", show.type);
       formData.append("daysAtentions", show.daysAtentions);
       formData.append("hoursAtetionsInitial", show.hoursAtetionsInitial);
       formData.append("hoursAtentionsFinally", show.hoursAtentionsFinally);
+      formData.append("addressMap", show.addressMap);
+      formData.append("specialPackageName", show.specialPackageName);
       formData.append("reservedDates", JSON.stringify(show.reservedDates));
       formData.append("listDetails", JSON.stringify(show.listDetails));
       formData.append("infoImportant", JSON.stringify(show.infoImportant));
+      formData.append("specialPackageItems", JSON.stringify(show.specialPackageItems));
+      formData.append("additionalPrices", JSON.stringify(show.additionalPrices));
+      formData.append("specialPrecioTotal", JSON.stringify(show.specialPrecioTotal));
+      formData.append("horarios", JSON.stringify(show.horarios));
+
 
       show.images.forEach((image, index) => {
         formData.append("imageFile", image);
@@ -914,6 +924,14 @@ export default function FormStepper() {
     }));
   };
 
+  
+  const handleType = (e) => {
+    setShow((prevState) => ({
+      ...prevState,
+      type: e.target.value,
+    }));
+  };
+
   const handlePrecioTotal = (e) => {
     setShow((prevState) => ({
       ...prevState,
@@ -1020,7 +1038,7 @@ export default function FormStepper() {
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
-                  {/* <Row className="mb-3">
+                <Row className="mb-3">
                     <Form.Group
                       as={Col}
                       className="mb-3"
@@ -1028,8 +1046,8 @@ export default function FormStepper() {
                     >
                       <Form.Label className="label-status">Tipo de:</Form.Label>
                       <Form.Select
-                        defaultValue={show.status}
-                        onChange={handleStatus}
+                        defaultValue={show.type}
+                        onChange={handleType}
                         aria-label="Estado"
                         required
                         className="select-estado"
@@ -1045,7 +1063,7 @@ export default function FormStepper() {
                         Por favor seleccione una opción.
                       </Form.Control.Feedback>
                     </Form.Group>
-                  </Row> */}
+                  </Row> 
                   <Row className="mb-3">
                     {show.status === "Privado" ? (
                       <Form.Group as={Col}>
