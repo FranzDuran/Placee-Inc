@@ -33,7 +33,7 @@ module.exports = {
       people: {
         type: Sequelize.STRING,
       },
-      AddressMap: {
+      addressMap: {
         type: Sequelize.STRING,
       },
       specialPrecioTotal: {
@@ -49,7 +49,7 @@ module.exports = {
         type: Sequelize.ARRAY(Sequelize.STRING), // Almacena la ruta de la imagen en el sistema de archivos
       },
       additionalPrices: {
-        type: Sequelize.ARRAY(Sequelize.STRING), // Almacena la ruta de la imagen en el sistema de archivos
+        type: Sequelize.ARRAY(Sequelize.JSON), // Almacena la ruta de la imagen en el sistema de archivos
       },
       hasSpecialPackage: {
         type: Sequelize.BOOLEAN, // Almacena la ruta de la imagen en el sistema de archivos
@@ -75,6 +75,10 @@ module.exports = {
       hoursAtentionsFinally: {
         type: Sequelize.STRING,
       },
+      horarios: {
+        type: Sequelize.ARRAY(Sequelize.JSON),
+      },
+      
       reservedDates: {
         type: Sequelize.ARRAY(Sequelize.STRING(10000)), 
 
@@ -83,7 +87,7 @@ module.exports = {
         type: Sequelize.ARRAY(Sequelize.STRING(3000)), 
 
       },
-      specialPackageItem: {
+      specialPackageItems: {
         type: Sequelize.ARRAY(Sequelize.STRING(3000)), 
 
       },

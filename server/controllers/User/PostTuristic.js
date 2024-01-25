@@ -57,12 +57,16 @@ module.exports = {
           return res.sendStatus(401);
         }
 
-        const { title, price,type, price_pool, price_parking, price_kitchen, specialPackageName,specialPackageItem, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country } = req.body;
+        const { title, price,type, addressMap, price_pool,specialPrecioTotal, horarios, price_parking, price_kitchen, specialPackageName,specialPackageItems, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country, additionalPrices } = req.body;
         const parsedReservedDates = typeof reservedDates === 'string' ? JSON.parse(reservedDates) : [];
         const parsedListDetails = typeof listDetails === 'string' ? JSON.parse(listDetails) : [];
         const parsedInfoImportant = typeof infoImportant === 'string' ? JSON.parse(infoImportant) : [];
-        const parsedspecialPackageIteme= typeof specialPackageItem === 'string' ? JSON.parse(specialPackageItem) : [];
+        const parsedspecialPackageItems= typeof specialPackageItems === 'string' ? JSON.parse(specialPackageItems) : [];
+        const parsedAdditionalPrices= typeof additionalPrices === 'string' ? JSON.parse(additionalPrices) : [];
+        const parsedHorarios= typeof horarios === 'string' ? JSON.parse(horarios) : [];
 
+
+        
         const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1);
         const capitalizedSummary = summary.charAt(0).toUpperCase() + summary.slice(1);
         const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
@@ -73,11 +77,13 @@ module.exports = {
             title: capitalizedTitle,
             price,
             type,
+            addressMap,
             price_pool,
+            specialPrecioTotal,
             price_parking,
             price_kitchen,
             specialPackageName,
-            specialPackageItem: parsedspecialPackageIteme,
+            specialPackageItems: parsedspecialPackageItems,
             people,   
             summary: capitalizedSummary,
             description: capitalizedDescription,
@@ -91,6 +97,8 @@ module.exports = {
             reservedDates: parsedReservedDates,
             listDetails: parsedListDetails,
             imageFile: uploadedImageUrls,
+            additionalPrices: parsedAdditionalPrices,
+            horarios: parsedHorarios
           });
 
           const userId = decoded.id;
