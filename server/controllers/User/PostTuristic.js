@@ -118,7 +118,7 @@ module.exports = {
             price_parking,
             price_kitchen,
             specialPackageName,
-            specialPackageItem: parsedspecialPackageIteme,
+            specialPackageItem: parsedspecialPackageItems,
             continent,
             country,
             infoImportant: parsedInfoImportant,
