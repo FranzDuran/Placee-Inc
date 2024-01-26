@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalReserva.module.scss";
+import { addDays, isSameDay } from 'date-fns';
+
 
 const servicios = [
   { servicio: "Piscinas", precio: 10 },
@@ -16,8 +18,15 @@ const reservas = [
   { reserva: "Menores", valor: 5 },
 ];
 
+const fechas = [
+  "2024-01-26T03:00:00.000Z",
+  "2024-01-27T03:00:00.000Z",
+  "2024-01-28T03:00:00.000Z",
+  "2024-01-30T03:00:00.000Z",
+  "2024-01-31T03:00:00.000Z",
+];
+
 const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
-  console.log(children.additionalPrices);
   const {
     title,
     specialPackageItems,
@@ -25,7 +34,12 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     specialPrecioTotal,
     horarios,
     additionalPrices,
+    reservedDates,
   } = children;
+
+  /* const newAddPrices = additionalPrices && additionalPrices.forEach((reserva) => {
+    reserva.value = parseInt(reserva.value, 10);
+  }); */
 
   const [modalOpen, setModalOpen] = useState(isOpen);
 
@@ -216,8 +230,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                 <p className={styles.text}>
                   Reservar un paquete exclusivo de servicios
                 </p>
-                <div className={styles.containerRadio} >
-                  <label className={styles.labelContent} >
+                <div className={styles.containerRadio}>
+                  <label className={styles.labelContent}>
                     <input
                       type="radio"
                       value="No"
