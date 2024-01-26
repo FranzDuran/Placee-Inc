@@ -489,6 +489,7 @@ export default function CardDetails() {
               isOpen={modalOpenReserve}
               onClose={closeModalReserve}
               onChange={handlePayment}
+              children={detailpost}
             />
             {/* {cardReserve && (
               <div className="card-reserve">
@@ -747,14 +748,15 @@ export default function CardDetails() {
             <button
               type="submit"
               className="footer-btn"
-              onClick={() => handleShowMobile()}
+              /* onClick={() => handleShowMobile()} */
+              onClick={openModalReserve}
             >
               Reservar mobile
             </button>
           </div>
         )}
 
-        <Modal
+        {/* <Modal
           show={detailsCardReserve}
           fullscreen={fullscreenMobile}
           onHide={() => setDetailsCardReserve(false)}
@@ -785,7 +787,7 @@ export default function CardDetails() {
                     </div>
 
                     {detailpost.status === "Privado" ? (
-                      <div /* style={wrapperStyle} */>
+                      <div >
                         <Space direction="vertical" size={12}>
                           <RangePicker
                             defaultValue={[
@@ -812,7 +814,7 @@ export default function CardDetails() {
               </div>
             </div>
           </Modal.Body>
-        </Modal>
+        </Modal> */}
       </div>
       {/* )} */}
     </div>

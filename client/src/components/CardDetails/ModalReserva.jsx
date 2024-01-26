@@ -11,13 +11,22 @@ const servicios = [
   { servicio: "Wifi", precio: 5 },
 ];
 
-const serviciosExclusivos = {
-  nombre: "Super pase de privilegios",
-  precio: 200,
-  servicios: ["Piscinas", "Discotecas", "Comedor", "Baño", "Wifi"],
-};
+const reservas = [
+  { reserva: "Adultos", valor: 10 },
+  { reserva: "Menores", valor: 5 },
+];
 
 const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
+  console.log(children.additionalPrices);
+  const {
+    title,
+    specialPackageItems,
+    specialPackageName,
+    specialPrecioTotal,
+    horarios,
+    additionalPrices,
+  } = children;
+
   const [modalOpen, setModalOpen] = useState(isOpen);
 
   const closeModal = () => {
@@ -32,37 +41,33 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [totalValue, setTotalValue] = useState(0);
 
-  const handleInputChange = (event) => {
-    // Lógica para actualizar el total según tus necesidades
-    // Puedes hacer cálculos aquí y luego llamar a setTotalValue con el nuevo valor
-  };
+  const handleInputChange = (event) => {};
 
-  const [adultQuantity, setAdultQuantity] = useState(0);
-  const handleIncreaseAdult = () => {
-    setAdultQuantity(adultQuantity + 1);
-    setTotalValue(totalValue + 20); // Precio definido por adulto
-  };
+  const [reservaQuantities, setReservaQuantities] = useState(
+    new Array(reservas.length).fill(0)
+  );
 
-  const handleDecreaseAdult = () => {
-    if (adultQuantity > 0) {
-      setAdultQuantity(adultQuantity - 1);
-      setTotalValue(totalValue - 20); // Precio definido por adulto
+  const handleReservaIncrease = (index) => {
+    const newQuantities = [...reservaQuantities];
+    newQuantities[index] += 1;
+    if (!isNaN(reservas[index].valor)) {
+      setReservaQuantities(newQuantities);
+      setTotalValue(totalValue + reservas[index].valor);
     }
   };
 
-  const [minorQuantity, setMinorQuantity] = useState(0);
-  const handleIncreaseMinor = () => {
-    setMinorQuantity(minorQuantity + 1);
-    setTotalValue(totalValue + 20); // Precio definido por adulto
-  };
-
-  const handleDecreaseMinor = () => {
-    if (minorQuantity > 0) {
-      setMinorQuantity(minorQuantity - 1);
-      setTotalValue(totalValue - 20); // Precio definido por adulto
+  const handleReservaDecrease = (index) => {
+    if (reservaQuantities[index] > 0) {
+      const newQuantities = [...reservaQuantities];
+      newQuantities[index] -= 1;
+      if (!isNaN(reservas[index].valor)) {
+        setReservaQuantities(newQuantities);
+        setTotalValue(totalValue - reservas[index].valor);
+      }
     }
   };
 
+  //--------------------------------------------------
   const [serviceQuantities, setServiceQuantities] = useState(
     new Array(servicios.length).fill(0)
   );
@@ -83,6 +88,19 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     }
   };
 
+  //--------------------------------------------------------
+  const [includeSpecialPackage, setIncludeSpecialPackage] = useState(false);
+
+  const handleIncludeSpecialPackageChange = (event) => {
+    setIncludeSpecialPackage(event.target.value === "Si");
+    // Update totalValue based on selection
+    setTotalValue(
+      event.target.value === "Si"
+        ? totalValue + parseFloat(specialPrecioTotal.replace(/"/g, ""))
+        : totalValue - parseFloat(specialPrecioTotal.replace(/"/g, ""))
+    );
+  };
+
   return (
     modalOpen && (
       <div className={styles["modal-overlay"]}>
@@ -96,7 +114,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
             <div className={styles.modalContainer}>
               <div className={styles.contentFile} id={styles.fileTitle}>
                 <div className={styles.leftColumn} id={styles.leftColumnTitle}>
-                  <h2 className={styles.title}>Reservado en IRTRA PETAPA</h2>
+                  <h2 className={styles.title}>Reservado en {title}</h2>
                 </div>
                 <div className={styles.rightColumn}>
                   <div className={styles.titleResult}>
@@ -122,69 +140,38 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                   </div>
                 </div>
               </div>
-
-              <div className={styles.contentFile}>
-                <div className={styles.leftColumn}>
-                  <div className={styles.priceSection}>
-                    <span className={styles.price}>$20</span>
-                    <span className={styles.titlePrice}>Adulto</span>
-                    <div className={styles.quantitySection}>
-                      <button
-                        className={styles.btnDecrease}
-                        onClick={handleDecreaseAdult}
-                      >
-                        -
-                      </button>
-                      <button
-                        className={styles.btnIncrease}
-                        onClick={handleIncreaseAdult}
-                      >
-                        +
-                      </button>
+              {reservas.map((item, index) => (
+                <div className={styles.contentFile} key={index}>
+                  <div className={styles.leftColumn}>
+                    <div className={styles.priceSection}>
+                      <span className={styles.price}>${item.valor}</span>
+                      <span className={styles.titlePrice}>{item.reserva}</span>
+                      <div className={styles.quantitySection}>
+                        <button
+                          className={styles.btnDecrease}
+                          onClick={() => handleReservaDecrease(index)}
+                        >
+                          -
+                        </button>
+                        <button
+                          className={styles.btnIncrease}
+                          onClick={() => handleReservaIncrease(index)}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className={styles.rightColumn}>
-                  <span className={styles.titleResult}>
-                    {" "}
-                    <span className={styles.numberResult}>
-                      {adultQuantity}
-                    </span>{" "}
-                    Reservaciones
-                  </span>
-                </div>
-              </div>
-              <div className={styles.contentFile}>
-                <div className={styles.leftColumn}>
-                  <div className={styles.priceSection}>
-                    <span className={styles.price}>$10</span>
-                    <span className={styles.titlePrice}>Menores</span>
-                    <div className={styles.quantitySection}>
-                      <button
-                        className={styles.btnDecrease}
-                        onClick={handleDecreaseMinor}
-                      >
-                        -
-                      </button>
-                      <button
-                        className={styles.btnIncrease}
-                        onClick={handleIncreaseMinor}
-                      >
-                        +
-                      </button>
-                    </div>
+                  <div className={styles.rightColumn}>
+                    <span className={styles.titleResult}>
+                      <span className={styles.numberResult}>
+                        {reservaQuantities[index]}
+                      </span>{" "}
+                      Reservas
+                    </span>
                   </div>
                 </div>
-                <div className={styles.rightColumn}>
-                  <span className={styles.titleResult}>
-                    {" "}
-                    <span className={styles.numberResult}>
-                      {minorQuantity}
-                    </span>{" "}
-                    Reservaciones
-                  </span>
-                </div>
-              </div>
+              ))}
 
               <div className={styles.textContent}>
                 <p className={styles.text}>
@@ -229,24 +216,48 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                 <p className={styles.text}>
                   Reservar un paquete exclusivo de servicios
                 </p>
+                <div className={styles.containerRadio} >
+                  <label className={styles.labelContent} >
+                    <input
+                      type="radio"
+                      value="No"
+                      checked={!includeSpecialPackage}
+                      onChange={handleIncludeSpecialPackageChange}
+                      className={styles.inputRadio}
+                    />
+                    No
+                  </label>
+                  <label className={styles.labelContent}>
+                    <input
+                      type="radio"
+                      value="Si"
+                      checked={includeSpecialPackage}
+                      onChange={handleIncludeSpecialPackageChange}
+                      className={styles.inputRadio}
+                    />
+                    Si
+                  </label>
+                </div>
               </div>
               <div className={styles.containerBoxExclusivo}>
                 <h3 className={styles.titleBoxExclusivo}>
-                  {serviciosExclusivos.nombre}
+                  {specialPackageName}
                 </h3>
                 <div className={styles.contentBoxExclusivo}>
                   <h4>Contiene:</h4>
                   <div className={styles.containerServices}>
-                    {serviciosExclusivos.servicios.map((item, index) => (
+                    {specialPackageItems.map((item, index) => (
                       <span className={styles.servicesItem} key={index}>
                         {item}
                       </span>
                     ))}
                   </div>
                 </div>
-                <div className={styles.contentPriceExclusivo} >
-                  <p className={styles.textExclusivo} >Reservar por:</p>
-                  <span className={styles.priceExclusivo} >${serviciosExclusivos.precio}</span>
+                <div className={styles.contentPriceExclusivo}>
+                  <p className={styles.textExclusivo}>Reservar por:</p>
+                  <span className={styles.priceExclusivo}>
+                    ${specialPrecioTotal.replace(/"/g, "")}
+                  </span>
                 </div>
               </div>
             </div>
