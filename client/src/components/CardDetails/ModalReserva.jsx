@@ -366,6 +366,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                             <div className={styles.contentOptions}>{selectedSubTransportation.map((option) => (
                               <span key={option} className={styles.selectedOption}>
                                 {option}
+                                <input type="number" defaultValue={1} className={styles.contador} />
                                 <button
                                   className={styles.removeOptionButton}
                                   onClick={() => handleRemoveSubTransportation(option)}
