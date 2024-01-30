@@ -160,7 +160,10 @@ export default function FormStepper() {
     hasSpecialPackage: false,
     specialPrecioTotal: "",
     addressMap: "",
-    horarios:[],
+    horarios: [],
+    priceMenores: "",
+    priceTransporte: "",
+    transportes: [],
   });
   console.log("Show:", show);
 
@@ -406,6 +409,44 @@ export default function FormStepper() {
       price: e.target.value,
     }));
   };
+  const handlePriceMenores = (e) => {
+    e.preventDefault();
+    setShow((prevState) => ({
+      ...prevState,
+      priceMenores: e.target.value,
+    }));
+  };
+  const handlePriceTransporte = (e) => {
+    e.preventDefault();
+    setShow((prevState) => ({
+      ...prevState,
+      priceTransporte: e.target.value,
+    }));
+  };
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const handleCheckboxTransporte = (itemName) => {
+    // Check if the item is already selected
+    if (selectedItems.includes(itemName)) {
+      // If selected, remove it from the array
+      setSelectedItems(selectedItems.filter(item => item !== itemName));
+    } else {
+      // If not selected, add it to the array
+      setSelectedItems([...selectedItems, itemName]);
+    }
+    setShow((prevState) => ({
+      ...prevState,
+      transportes: selectedItems,
+    }));
+  }
+  /* const handleTransportes = (e) => {
+    e.preventDefault();
+    setShow((prevState) => ({
+      ...prevState,
+      transportes: e.target.value,
+    }));
+  }; */
+
   const handleContinent = (e) => {
     e.preventDefault();
     setShow((prevState) => ({
@@ -413,6 +454,7 @@ export default function FormStepper() {
       continent: e.target.value,
     }));
   };
+
   const handleCountry = (e) => {
     e.preventDefault();
     setShow((prevState) => ({
@@ -924,7 +966,7 @@ export default function FormStepper() {
     }));
   };
 
-  
+
   const handleType = (e) => {
     setShow((prevState) => ({
       ...prevState,
@@ -1038,7 +1080,7 @@ export default function FormStepper() {
                       </Form.Control.Feedback>
                     </Form.Group>
                   </Row>
-                <Row className="mb-3">
+                  <Row className="mb-3">
                     <Form.Group
                       as={Col}
                       className="mb-3"
@@ -1063,11 +1105,11 @@ export default function FormStepper() {
                         Por favor seleccione una opción.
                       </Form.Control.Feedback>
                     </Form.Group>
-                  </Row> 
+                  </Row>
                   <Row className="mb-3">
                     {show.status === "Privado" ? (
                       <Form.Group as={Col}>
-                        <Form.Label className="label-title">Precio</Form.Label>
+                        <Form.Label className="label-title">Precio adultos</Form.Label>
                         <InputGroup className="mb-3">
                           <InputGroup.Text>$</InputGroup.Text>
                           <Form.Control
@@ -1084,6 +1126,85 @@ export default function FormStepper() {
                       <div></div>
                     )}
                   </Row>
+                  <Row className="mb-3">
+                    {show.status === "Privado" ? (
+                      <Form.Group as={Col}>
+                        <Form.Label className="label-title">Precio menores</Form.Label>
+                        <InputGroup className="mb-3">
+                          <InputGroup.Text>$</InputGroup.Text>
+                          <Form.Control
+                            aria-label="Amount (to the nearest dollar)"
+                            type="number"
+                            defaultValue={show.priceMenores}
+                            onChange={handlePriceMenores}
+                            required={show.status === "Privado"}
+                          />
+                          <InputGroup.Text>.00</InputGroup.Text>
+                        </InputGroup>
+                      </Form.Group>
+                    ) : (
+                      <div></div>
+                    )}
+                  </Row>
+                  <Row className="mb-3">
+                    {show.status === "Privado" ? (
+                      <Form.Group as={Col}>
+                        <Form.Label className="label-title">Precio transporte</Form.Label>
+                        <InputGroup className="mb-3">
+                          <InputGroup.Text>$</InputGroup.Text>
+                          <Form.Control
+                            aria-label="Amount (to the nearest dollar)"
+                            type="number"
+                            defaultValue={show.priceTransporte}
+                            onChange={handlePriceTransporte}
+                            required={show.status === "Privado"}
+                          />
+                          <InputGroup.Text>.00</InputGroup.Text>
+                        </InputGroup>
+                      </Form.Group>
+                    ) : (
+                      <div></div>
+                    )}
+                  </Row>
+                  {show.status === "Privado" && (
+                    <Row>
+                      <Form.Group>
+                        <Form.Label className="label-title">Seleccione los medios de transporte</Form.Label>
+                        <div>
+                          <Form.Check
+                            type="checkbox"
+                            label="Automovil"
+                            checked={selectedItems.includes("Automovil")}
+                            onChange={() => handleCheckboxTransporte("Automovil")}
+                          />
+                          <Form.Check
+                            type="checkbox"
+                            label="Moto"
+                            checked={selectedItems.includes("Moto")}
+                            onChange={() => handleCheckboxTransporte("Moto")}
+                          />
+                          <Form.Check
+                            type="checkbox"
+                            label="Bicicleta"
+                            checked={selectedItems.includes("Bicicleta")}
+                            onChange={() => handleCheckboxTransporte("Bicicleta")}
+                          />
+                          <Form.Check
+                            type="checkbox"
+                            label="Bus"
+                            checked={selectedItems.includes("Bus")}
+                            onChange={() => handleCheckboxTransporte("Bus")}
+                          />
+                          <Form.Check
+                            type="checkbox"
+                            label="Camion"
+                            checked={selectedItems.includes("Camion")}
+                            onChange={() => handleCheckboxTransporte("Camion")}
+                          />
+                        </div>
+                      </Form.Group>
+                    </Row>
+                  )}
 
                   {show.status === "Privado" && (
                     <>
