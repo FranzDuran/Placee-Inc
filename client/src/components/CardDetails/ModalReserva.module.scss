@@ -1,14 +1,18 @@
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  /* top: 0;
+  left: 0; */
+  /* width: 100%;
+  height: 100%; */
+  bottom: 10%;
+  right: 10%;
+  //background: rgba(0, 0, 0, 0.5);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  border-radius: 8px;
 }
 
 .modal {
@@ -16,12 +20,12 @@
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 80vh;
+  max-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   max-width: 500px;
-  width: 100%;
+  width: 500px;
 }
 
 .modal-header {
@@ -45,6 +49,7 @@
   justify-content: center;
   border-top: 1px solid #ccc;
   padding-top: 5px;
+  gap: 10px;
 
   .reservar-button {
     background: #000;
@@ -71,6 +76,10 @@
   gap: 10px;
   border: 1px solid #8b008b;
   //padding: 5px;
+  height: 100%;
+}
+#modalContainerId{
+  height: auto;
 }
 
 .contentFile {
@@ -83,7 +92,7 @@
 }
 
 #fileTitle {
-  border: 1px solid #8b008b;
+ // border: 1px solid #8b008b;
 }
 
 .titleResult {
@@ -95,6 +104,10 @@
   border-radius: 50px;
   background-color: #ccc;
   color: #000;
+}
+
+.btnSpecial{
+  margin: auto 0 15px 0;
 }
 
 .leftColumn {
@@ -277,8 +290,13 @@
   }
 }
 
+.priceSelect{
+  width:20%;
+  color: #000;
+  text-align: center;
+}
 .selectInput {
-  width: 100%;
+  width: 80%;
   color: #000;
 }
 
