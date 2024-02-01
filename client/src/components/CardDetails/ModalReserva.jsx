@@ -49,14 +49,9 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     value: parseInt(item.value, 10)  // Convertir el valor a número
   }));
 
-  console.log(modifiedPrices);
-  console.log(additionalPrices)
-  /* const newAddPrices = additionalPrices && additionalPrices.forEach((reserva) => {
-    reserva.value = parseInt(reserva.value, 10);
-  }); */
+  console.log(reservedDates);
 
   const [nextStep, setNextStep] = useState(false);
-
   const [modalOpen, setModalOpen] = useState(isOpen);
 
   const closeModal = () => {
@@ -191,6 +186,12 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     setTotalInputValues(sumOfInputValues);
   };
 
+  //------------------------------------------------------------
+  // Inhabilitar fechas en el calendario
+  const disabledDates = reservedDates && reservedDates.map(dateString => new Date(dateString));
+
+  //-------------------------------------------------
+
 
   return (
     modalOpen && (
@@ -292,6 +293,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                       dateFormat="dd/MM/yyyy"
                       className={styles.datePicker}
                       placeholderText="Fecha"
+                      excludeDates={disabledDates}
                     />
                   </div>
                   <div className={styles.rightColumn}>
@@ -418,7 +420,9 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                     )}
                   </>
                 )}
-                <button className={styles.btnSpecial} onClick={() => handleIncludeSpecialPackageChange()}>Reservar juegos adicionales</button>
+                {specialPackageItems ||
+                  specialPackageName ||
+                  specialPrecioTotal ? (<button className={styles.btnSpecial} onClick={() => handleIncludeSpecialPackageChange()}>Reservar juegos adicionales</button>) : ""}
               </div>
             </div>
           )}
