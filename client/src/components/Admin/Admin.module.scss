@@ -1,0 +1,43 @@
+.body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column !important;
+}
+
+.containerBody {
+  display: flex;
+  flex-direction: row;
+}
+.containerMenu {
+  width: 30%;
+  height: 100%;
+
+  .avatar-anfitrion {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 20px 15px;
+
+    .perfil-content{
+        position: relative;
+
+        .camera-hostess{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            /* width: 50px;
+            height: 50px; */
+            svg{
+               /*  width: 100%; */
+                font-size: 35px;
+            }
+        }
+    }
+  }
+}
+.menuItemContent {
+  overflow-y: auto;
+}
