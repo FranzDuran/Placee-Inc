@@ -16,6 +16,10 @@
   width: 25%;
   height: calc(100vh);
 
+  .avatar-anfitrion-ocultar{
+      display: flex;
+      justify-content: flex-end !important;
+  }
   .avatar-anfitrion {
     display: flex;
     flex-direction: row;
@@ -31,13 +35,20 @@
         position: absolute;
         bottom: 0px;
         right: 0px;
-        /* width: 50px;
-            height: 50px; */
         svg {
-          /*  width: 100%; */
           font-size: 35px;
         }
       }
+      .camera-hostess-ocultar{
+          svg{
+              font-size: 25px;
+          }
+      }
+    }
+    .dataPerfil{
+        display: flex;
+        flex-direction: column;
+
     }
   }
 }

@@ -69,12 +69,16 @@ const Admin = () => {
               <i class="ri-arrow-left-double-line"></i>
             )}
           </button>
-          <div className={styles["avatar-anfitrion"]}>
+          <div
+            className={`${styles["avatar-anfitrion"]}  ${
+              isMenuVisible ? styles["avatar-anfitrion-ocultar"] : ""
+            }`}
+          >
             <div className={styles["perfil-content"]}>
               <Avatar
                 sx={{
-                  width: 80,
-                  height: 80,
+                  width: isMenuVisible ? 50 :80,
+                  height: isMenuVisible ? 50 : 80,
                   //marginLeft: "2em",
                   background: datapersonal.avatar
                     ? `url(${datapersonal.avatar})`
@@ -91,15 +95,17 @@ const Admin = () => {
                   </div>
                 )}
               </Avatar>
-              <CameraOutlined className={styles["camera-hostess"]} />
+              <CameraOutlined className={`${styles["camera-hostess"]} ${isMenuVisible ? styles["camera-hostess-ocultar"] : ""}`}/>
             </div>
-            <div>
-              <p>
-                {datapersonal.name} {datapersonal.lastName}
-              </p>
-              <p>{datapersonal.email}</p>
-              <Button id="close-sesion">Cerrar sesión</Button>
-            </div>
+            {!isMenuVisible && (
+              <div className={styles.dataPerfil}>
+                <p>
+                  {datapersonal.name} {datapersonal.lastName}
+                </p>
+                <p>{datapersonal.email}</p>
+                <Button id="close-sesion">Cerrar sesión</Button>
+              </div>
+            )}
           </div>
           <div className={styles.menuItemContent}>
             <ul className="menu-anfitrion">
