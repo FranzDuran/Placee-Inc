@@ -32,6 +32,14 @@ const Admin = () => {
     setMyWebSite(true);
   };
 
+  //-----------------------------------
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuVisible(!isMenuVisible);
+    console.log(isMenuVisible);
+  };
+
   return (
     <Layout
       /* style={{
@@ -41,7 +49,11 @@ const Admin = () => {
     >
       <FooterMobileAdmin />
 
-      <div className={styles.containerBody}>
+      <div
+        className={` ${styles.containerBody}  ${
+          isMenuVisible ? styles.verticalMenu : styles.visible
+        }`}
+      >
         <Sider
           /*      trigger={null}
         collapsible
@@ -50,8 +62,15 @@ const Admin = () => {
           width={360}
           className={styles.containerMenu}
         >
+          <button className={styles["toggle-menu-btn"]} onClick={toggleMenu}>
+            {isMenuVisible ? (
+              <i class="ri-arrow-right-double-line"></i>
+            ) : (
+              <i class="ri-arrow-left-double-line"></i>
+            )}
+          </button>
           <div className={styles["avatar-anfitrion"]}>
-            <div  className={styles["perfil-content"]}>
+            <div className={styles["perfil-content"]}>
               <Avatar
                 sx={{
                   width: 80,
@@ -82,26 +101,26 @@ const Admin = () => {
               <Button id="close-sesion">Cerrar sesión</Button>
             </div>
           </div>
-          <div className={styles.menuItemContent} >
+          <div className={styles.menuItemContent}>
             <ul className="menu-anfitrion">
-              <Link to="/anfitrion/inicio">
+              <Link to="/admin/inicio">
                 <li className="items-anfitrion">Inicio</li>
               </Link>
-              <Link to="/anfitrion/mi sitio">
+              <Link to="/admin/mi sitio">
                 <li className="items-anfitrion">Mi sitio</li>
               </Link>
-              <Link to="/anfitrion/reservaciones">
+              <Link to="/admin/reservaciones">
                 <li className="items-anfitrion">Reservaciones</li>
               </Link>
 
-              <Link to="/anfitrion/historial de reservas">
+              <Link to="/admin/historial de reservas">
                 <li className="items-anfitrion">Historial de reservas</li>
               </Link>
-              <Link to="/anfitrion/reclamos">
+              <Link to="/admin/reclamos">
                 <li className="items-anfitrion">Reclamos</li>
               </Link>
 
-              <Link to="/anfitrion/reclamos">
+              <Link to="/admin/reclamos">
                 <li className="items-anfitrion">Comentarios</li>
               </Link>
             </ul>
