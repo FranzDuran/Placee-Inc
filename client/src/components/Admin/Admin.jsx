@@ -77,7 +77,7 @@ const Admin = () => {
             <div className={styles["perfil-content"]}>
               <Avatar
                 sx={{
-                  width: isMenuVisible ? 50 :80,
+                  width: isMenuVisible ? 50 : 80,
                   height: isMenuVisible ? 50 : 80,
                   //marginLeft: "2em",
                   background: datapersonal.avatar
@@ -95,7 +95,11 @@ const Admin = () => {
                   </div>
                 )}
               </Avatar>
-              <CameraOutlined className={`${styles["camera-hostess"]} ${isMenuVisible ? styles["camera-hostess-ocultar"] : ""}`}/>
+              <CameraOutlined
+                className={`${styles["camera-hostess"]} ${
+                  isMenuVisible ? styles["camera-hostess-ocultar"] : ""
+                }`}
+              />
             </div>
             {!isMenuVisible && (
               <div className={styles.dataPerfil}>
