@@ -73,7 +73,7 @@
   //padding: 5px;
   height: 100%;
 }
-#modalContainerId{
+#modalContainerId {
   height: auto;
 }
 
@@ -101,7 +101,7 @@
   color: #000;
 }
 
-.btnSpecial{
+.btnSpecial {
   margin: auto 0 15px 0;
 }
 
@@ -117,6 +117,17 @@
     font-size: 16px;
     color: #000;
   }
+  .checkboxContent {
+    display: flex;
+    gap: 10px;
+  }
+}
+#containerCheckboxs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5px 20px;
+  color: #000;
 }
 
 #leftColumnTitle {
@@ -142,6 +153,22 @@
     margin: 0px;
     text-align: start;
     color: #000;
+  }
+}
+
+.counter {
+  display: flex;
+  border: 1px solid #333;
+  border-radius: 1px;
+
+  .counterButton {
+    padding: 0px;
+    color: #fff;
+    background: #333;
+    border-radius: 1px;
+  }
+  .counterValue{
+    padding: 0px 5px;
   }
 }
 
@@ -285,8 +312,8 @@
   }
 }
 
-.priceSelect{
-  width:20%;
+.priceSelect {
+  width: 20%;
   color: #000;
   text-align: center;
 }
@@ -307,22 +334,22 @@
     border: 1px solid rgb(107, 107, 107);
     border-radius: 2px;
     color: #000;
+    display: flex;
+    gap: 10px;
 
-    .removeOptionButton{
+    .removeOptionButton {
       padding: 0px;
-      margin-left: 5px;
       background: #000;
       color: #fff;
       padding: 0px;
       border-radius: 2px;
     }
-    .contador{
+    .contador {
       width: 20px;
       border: 1px solid #000;
       margin-left: 5px;
       border-radius: 4px;
       text-align: center;
-      
     }
   }
 }
@@ -337,6 +364,5 @@
   .textContent {
     flex-direction: column;
     gap: 15px;
-
   }
 }

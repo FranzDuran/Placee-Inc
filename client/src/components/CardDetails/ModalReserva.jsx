@@ -114,10 +114,9 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   };
 
   //--------------------------------------------------------
-  
+
   const [precio, setPrecio] = useState(false);
   const handleIncludeSpecialPackageChange = (para) => {
-
     if (!precio) {
       // Sumar el valor del paquete especial al totalValue
       setTotalValue(
@@ -129,7 +128,6 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
         totalValue - parseFloat(specialPrecioTotal.replace(/"/g, ""))
       );
     }
-
   };
 
   //--------------------------------------------------------------------------------
@@ -146,6 +144,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   };
 
   // Handler for changing the second select
+  // Modificar la función handleSubTransportationChange
   const handleSubTransportationChange = (event) => {
     const selectedOption = event.target.value;
     if (!selectedSubTransportation.includes(selectedOption)) {
@@ -153,15 +152,32 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
         ...selectedSubTransportation,
         selectedOption,
       ]);
+    } else {
+      setSelectedSubTransportation(
+        selectedSubTransportation.filter((option) => option !== selectedOption)
+      );
+      // Además, restar el valor del input del totalValue al desmarcar la opción
+      const removedValue =
+        inputValues[selectedSubTransportation.indexOf(selectedOption)] * 10; // Precio fijo
+      setTotalValue(totalValue - removedValue);
+
+      // Resetear el valor del input cuando se desmarca la opción
+      const newInputValues = [...inputValues];
+      newInputValues.splice(
+        selectedSubTransportation.indexOf(selectedOption),
+        1
+      );
+      setInputValues(newInputValues);
     }
   };
 
   // Handler for removing a selected option in the second select
+  // Modificar la función handleRemoveSubTransportation
   const handleRemoveSubTransportation = (optionToRemove, indexToRemove) => {
     setSelectedSubTransportation(
       selectedSubTransportation.filter((option, index) => {
         if (index === indexToRemove) {
-          // Restar el valor del input del totalValue antes de eliminar la opción
+          // Además, restar el valor del input del totalValue antes de eliminar la opción
           const removedValue = inputValues[index] * 10; // Precio fijo
           setTotalValue(totalValue - removedValue);
 
@@ -173,6 +189,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
         return option !== optionToRemove;
       })
     );
+
+    // Aquí puedes agregar la lógica para desmarcar el checkbox correspondiente
   };
 
   //-----------------------------------------------------
@@ -194,6 +212,30 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
       0
     );
     setTotalInputValues(sumOfInputValues);
+  };
+
+  // Añadir estas funciones al componente ModalReserva
+
+  const handleIncreaseQuantity = (index) => {
+    const newInputValues = [...inputValues];
+    newInputValues[index] = (newInputValues[index] || 1) + 1;
+    setInputValues(newInputValues);
+
+    // Actualizar totalValue sumando el precio correspondiente
+    const subtotal = 10; // Precio fijo, podrías hacerlo dinámico si es necesario
+    setTotalValue(totalValue + subtotal);
+  };
+
+  const handleDecreaseQuantity = (index) => {
+    if (inputValues[index] > 1) {
+      const newInputValues = [...inputValues];
+      newInputValues[index] -= 1;
+      setInputValues(newInputValues);
+
+      // Actualizar totalValue restando el precio correspondiente
+      const subtotal = 10; // Precio fijo, podrías hacerlo dinámico si es necesario
+      setTotalValue(totalValue - subtotal);
+    }
   };
 
   //------------------------------------------------------------
@@ -290,10 +332,11 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                     <p className={styles.textExclusivo}>Reservar por:</p>
                     <button
                       className={styles.priceExclusivo}
-                      onClick={()=> handleIncludeSpecialPackageChange(setPrecio(!precio))}
+                      onClick={() =>
+                        handleIncludeSpecialPackageChange(setPrecio(!precio))
+                      }
                     >
-                     $
-                      {specialPrecioTotal.replace(/"/g, "")}
+                      ${specialPrecioTotal.replace(/"/g, "")}
                     </button>
                   </div>
                 </div>
@@ -387,23 +430,32 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                     {selectedTransportation && (
                       <>
                         <div className={styles.contentFile}>
-                          <div className={styles.leftColumn}>
-                            <select
-                              value={""} // This should be an empty string to reset the select
-                              onChange={handleSubTransportationChange}
-                              //multiple
-                              className={styles.selectInput}
-                            >
-                              <option value="">Selecciona una opcion</option>
-                              {transportationOptions[
-                                selectedTransportation
-                              ].map((option) => (
-                                <option key={option} value={option}>
-                                  {option}
-                                </option>
-                              ))}
-                            </select>
+                          <div
+                            className={styles.leftColumn}
+                            id={styles.containerCheckboxs}
+                          >
+                            {transportationOptions[selectedTransportation].map(
+                              (option) => (
+                                <div
+                                  key={option}
+                                  className={styles.checkboxContent}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    id={option}
+                                    value={option}
+                                    checked={selectedSubTransportation.includes(
+                                      option
+                                    )}
+                                    onChange={handleSubTransportationChange}
+                                    className={styles.checkboxInput}
+                                  />
+                                  <label htmlFor={option}>{option}</label>
+                                </div>
+                              )
+                            )}
                           </div>
+
                           <div className={styles.rightColumn}>
                             <div className={styles.titleResult}></div>
                           </div>
@@ -413,19 +465,32 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                             <div className={styles.contentOptions}>
                               {selectedSubTransportation.map(
                                 (option, index) => (
-                                  <span
+                                  <div
                                     key={option}
                                     className={styles.selectedOption}
                                   >
                                     {option}
-                                    <input
-                                      type="number"
-                                      className={styles.contador}
-                                      value={inputValues[index] || ""}
-                                      onChange={(e) =>
-                                        handleInputChange(index, e.target.value)
-                                      }
-                                    />
+                                    <div className={styles.counter}>
+                                      <button
+                                        className={styles.counterButton}
+                                        onClick={() =>
+                                          handleDecreaseQuantity(index)
+                                        }
+                                      >
+                                        <i class="ri-subtract-line"></i>
+                                      </button>
+                                      <span className={styles.counterValue}>
+                                        Cant. {inputValues[index] || 1}
+                                      </span>
+                                      <button
+                                        className={styles.counterButton}
+                                        onClick={() =>
+                                          handleIncreaseQuantity(index)
+                                        }
+                                      >
+                                        <i class="ri-add-line"></i>
+                                      </button>
+                                    </div>
                                     <button
                                       className={styles.removeOptionButton}
                                       onClick={() =>
@@ -437,7 +502,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                                     >
                                       <i className="ri-close-line"></i>
                                     </button>
-                                  </span>
+                                  </div>
                                 )
                               )}
                             </div>
