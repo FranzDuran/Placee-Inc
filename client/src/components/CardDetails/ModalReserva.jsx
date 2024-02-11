@@ -4,30 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalReserva.module.scss";
 import { addDays, isSameDay } from "date-fns";
 
-const servicios = [
-  { servicio: "Piscinas", precio: 10 },
-  { servicio: "Discotecas", precio: 20 },
-  { servicio: "Comedor", precio: 15 },
-  { servicio: "Baño", precio: 15 },
-  { servicio: "Wifi", precio: 5 },
+const transportationOptions = [
+  "Automóvil",
+  "Moto",
+  "Bus",
+  "Bicicleta",
+  "Camión",
 ];
-
-const reservas = [
-  { reserva: "Adultos", valor: 10 },
-  { reserva: "Menores", valor: 5 },
-];
-
-const fechas = [
-  "2024-01-26T03:00:00.000Z",
-  "2024-01-27T03:00:00.000Z",
-  "2024-01-28T03:00:00.000Z",
-  "2024-01-30T03:00:00.000Z",
-  "2024-01-31T03:00:00.000Z",
-];
-
-const transportationOptions = {
-  Transporte: ["Automóvil", "Moto", "Bus", "Bicicleta", "Camión"],
-};
 
 const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   const {
@@ -35,11 +18,21 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     specialPackageItems,
     specialPackageName,
     specialPrecioTotal,
-    horarios,
     additionalPrices,
     reservedDates,
+    price,
   } = children;
+  console.log(additionalPrices);
+  //-----------------------------------------------------
+  const priceMenores = 5;
+  const priceTransporte = 10;
 
+  //----------------------------------------------------
+
+  const modifiedPricess = [
+    { label: "aaaa", value: 10 },
+    { label: "bbbb", value: 15 },
+  ];
   // Modificar los objetos en el array
   const modifiedPrices =
     additionalPrices &&
@@ -47,8 +40,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
       label: item.label,
       value: parseInt(item.value, 10), // Convertir el valor a número
     }));
-
-  console.log(reservedDates);
+  console.log(modifiedPrices);
+  console.log(modifiedPricess);
 
   const [nextStep, setNextStep] = useState(false);
   const [modalOpen, setModalOpen] = useState(isOpen);
@@ -62,42 +55,139 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     setModalOpen(isOpen);
   }, [isOpen]);
 
-  const [selectedDate, setSelectedDate] = useState(null);
   const [totalValue, setTotalValue] = useState(0);
 
-  //const handleInputChange = (event) => { };
+  //------------- RESERVA ADULTO / MENORES ------------------------
+  const [reservaQuantities, setReservaQuantities] = useState({
+    adult: 0,
+    menores: 0,
+  });
 
-  const [reservaQuantities, setReservaQuantities] = useState(
-    new Array(reservas.length).fill(0)
-  );
+  const handleReservaIncrease = (type) => {
+    setReservaQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [type]: prevQuantities[type] + 1,
+    }));
 
-  const handleReservaIncrease = (index) => {
-    const newQuantities = [...reservaQuantities];
-    newQuantities[index] += 1;
-    if (!isNaN(reservas[index].valor)) {
-      setReservaQuantities(newQuantities);
-      setTotalValue(totalValue + reservas[index].valor);
+    // Update total value based on the type of reservation
+    if (type === "adult") {
+      setTotalValue(totalValue + parseFloat(price.replace(/"/g, "")));
+    } else if (type === "menores") {
+      setTotalValue(totalValue + priceMenores);
     }
   };
 
-  const handleReservaDecrease = (index) => {
-    if (reservaQuantities[index] > 0) {
-      const newQuantities = [...reservaQuantities];
-      newQuantities[index] -= 1;
-      if (!isNaN(reservas[index].valor)) {
-        setReservaQuantities(newQuantities);
-        setTotalValue(totalValue - reservas[index].valor);
+  const handleReservaDecrease = (type) => {
+    if (reservaQuantities[type] > 0) {
+      setReservaQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [type]: prevQuantities[type] - 1,
+      }));
+
+      // Update total value based on the type of reservation
+      if (type === "adult") {
+        setTotalValue(totalValue - price);
+      } else if (type === "menores") {
+        setTotalValue(totalValue - priceMenores);
       }
     }
   };
 
-  //--------------------------------------------------
-  const [serviceQuantities, setServiceQuantities] = useState(
-    new Array(modifiedPrices && modifiedPrices.length).fill(0)
+  //----------------- TRANSPORTE ---------------------------------
+
+  const [selectedTransportation, setSelectedTransportation] = useState(false);
+  const [selectedSubTransportation, setSelectedSubTransportation] = useState(
+    []
   );
+
+  // Handler for changing the first select
+  const handleTransportationChange = () => {
+    setSelectedTransportation(true);
+    setSelectedSubTransportation([]);
+    setInputValues([]);
+  };
+
+  // Handler for changing sub-transportation options
+  const handleSubTransportationChange = (event) => {
+    const selectedOption = event.target.value;
+    if (!selectedSubTransportation.includes(selectedOption)) {
+      setSelectedSubTransportation([
+        ...selectedSubTransportation,
+        selectedOption,
+      ]);
+      setInputValues([...inputValues, 0]); // Initialize quantity to 0 for new option
+    }
+  };
+
+  // Handler for removing a sub-transportation option
+  const handleRemoveSubTransportation = (optionToRemove, indexToRemove) => {
+    setSelectedSubTransportation(
+      selectedSubTransportation.filter((option, index) => {
+        if (index === indexToRemove) {
+          const removedValue = inputValues[indexToRemove] * priceTransporte;
+          setTotalValue(totalValue - removedValue);
+
+          // Eliminar el valor correspondiente del totalInputValues
+          const newTotalInputValues =
+            totalInputValues - inputValues[indexToRemove];
+          setTotalInputValues(newTotalInputValues);
+
+          const newInputValues = [...inputValues];
+          newInputValues.splice(indexToRemove, 1);
+          setInputValues(newInputValues);
+        }
+        return option !== optionToRemove;
+      })
+    );
+  };
+
+  const [inputValues, setInputValues] = useState([]);
+  const [totalInputValues, setTotalInputValues] = useState(0);
+
+  const handleInputChange = (index, value) => {
+    const newInputValues = [...inputValues];
+    newInputValues[index] = value;
+    setInputValues(newInputValues);
+    // Actualizar totalInputValues sumando todos los valores de inputValues
+    const sumOfInputValues = newInputValues.reduce(
+      (sum, inputValue) => sum + parseFloat(inputValue) || 0,
+      0
+    );
+    setTotalInputValues(sumOfInputValues);
+  };
+
+  // Handler for increasing quantity of a sub-transportation option
+  const handleIncreaseQuantity = (index) => {
+    //console.log(index);
+    const newInputValues = [...inputValues];
+    newInputValues[index] += 1;
+    setInputValues(newInputValues);
+    setTotalValue(totalValue + priceTransporte);
+    handleInputChange(index, newInputValues[index]);
+  };
+
+  // Handler for decreasing quantity of a sub-transportation option
+  const handleDecreaseQuantity = (index) => {
+    if (inputValues[index] > 0) {
+      const newInputValues = [...inputValues];
+      newInputValues[index] -= 1;
+      setInputValues(newInputValues);
+      setTotalValue(totalValue - priceTransporte);
+      handleInputChange(index, newInputValues[index]);
+    }
+  };
+
+  //-----------------------------------------------------
+  const [serviceQuantities, setServiceQuantities] = useState(
+    modifiedPrices ? new Array(modifiedPrices.length).fill(0) : []
+  );
+
+  //console.log(modifiedPrices);
   console.log(serviceQuantities);
 
   const handleServiceIncrease = (index) => {
+    console.log("1");
+    console.log(index);
     const newQuantities = [...serviceQuantities];
     newQuantities[index] += 1;
     setServiceQuantities(newQuantities);
@@ -130,120 +220,11 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     }
   };
 
-  //--------------------------------------------------------------------------------
-  // State for the first and second selects
-  const [selectedTransportation, setSelectedTransportation] = useState(null);
-  const [selectedSubTransportation, setSelectedSubTransportation] = useState(
-    []
-  );
-
-  // Handler for changing the first select
-  const handleTransportationChange = (event) => {
-    setSelectedTransportation(event.target.value);
-    setSelectedSubTransportation([]);
-  };
-
-  // Handler for changing the second select
-  // Modificar la función handleSubTransportationChange
-  const handleSubTransportationChange = (event) => {
-    const selectedOption = event.target.value;
-    if (!selectedSubTransportation.includes(selectedOption)) {
-      setSelectedSubTransportation([
-        ...selectedSubTransportation,
-        selectedOption,
-      ]);
-    } else {
-      setSelectedSubTransportation(
-        selectedSubTransportation.filter((option) => option !== selectedOption)
-      );
-      // Además, restar el valor del input del totalValue al desmarcar la opción
-      const removedValue =
-        inputValues[selectedSubTransportation.indexOf(selectedOption)] * 10; // Precio fijo
-      setTotalValue(totalValue - removedValue);
-
-      // Resetear el valor del input cuando se desmarca la opción
-      const newInputValues = [...inputValues];
-      newInputValues.splice(
-        selectedSubTransportation.indexOf(selectedOption),
-        1
-      );
-      setInputValues(newInputValues);
-    }
-  };
-
-  // Handler for removing a selected option in the second select
-  // Modificar la función handleRemoveSubTransportation
-  const handleRemoveSubTransportation = (optionToRemove, indexToRemove) => {
-    setSelectedSubTransportation(
-      selectedSubTransportation.filter((option, index) => {
-        if (index === indexToRemove) {
-          // Además, restar el valor del input del totalValue antes de eliminar la opción
-          const removedValue = inputValues[index] * 10; // Precio fijo
-          setTotalValue(totalValue - removedValue);
-
-          // Resetear el valor del input cuando se elimina la opción
-          const newInputValues = [...inputValues];
-          newInputValues.splice(index, 1);
-          setInputValues(newInputValues);
-        }
-        return option !== optionToRemove;
-      })
-    );
-
-    // Aquí puedes agregar la lógica para desmarcar el checkbox correspondiente
-  };
-
-  //-----------------------------------------------------
-  const [inputValues, setInputValues] = useState([]);
-  const [totalInputValues, setTotalInputValues] = useState(0);
-
-  const handleInputChange = (index, value) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = value;
-    setInputValues(newInputValues);
-
-    // Actualizar totalValue multiplicando el valor del input por el precio correspondiente
-    const subtotal = value * 10; // Precio fijo, podrías hacerlo dinámico si es necesario
-    setTotalValue(totalValue + subtotal);
-
-    // Actualizar totalInputValues sumando todos los valores de inputValues
-    const sumOfInputValues = newInputValues.reduce(
-      (sum, inputValue) => sum + parseFloat(inputValue) || 0,
-      0
-    );
-    setTotalInputValues(sumOfInputValues);
-  };
-
-  // Añadir estas funciones al componente ModalReserva
-
-  const handleIncreaseQuantity = (index) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = (newInputValues[index] || 1) + 1;
-    setInputValues(newInputValues);
-
-    // Actualizar totalValue sumando el precio correspondiente
-    const subtotal = 10; // Precio fijo, podrías hacerlo dinámico si es necesario
-    setTotalValue(totalValue + subtotal);
-  };
-
-  const handleDecreaseQuantity = (index) => {
-    if (inputValues[index] > 1) {
-      const newInputValues = [...inputValues];
-      newInputValues[index] -= 1;
-      setInputValues(newInputValues);
-
-      // Actualizar totalValue restando el precio correspondiente
-      const subtotal = 10; // Precio fijo, podrías hacerlo dinámico si es necesario
-      setTotalValue(totalValue - subtotal);
-    }
-  };
-
-  //------------------------------------------------------------
+  //-------------- CALENDARIO ----------------------------------------------
+  const [selectedDate, setSelectedDate] = useState(null);
   // Inhabilitar fechas en el calendario
   const disabledDates =
     reservedDates && reservedDates.map((dateString) => new Date(dateString));
-
-  //-------------------------------------------------
 
   return (
     modalOpen && (
@@ -253,8 +234,6 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
             <div className={styles.contentFile} id={styles.fileTitle}>
               <div className={styles.leftColumn} id={styles.leftColumnTitle}>
                 <h2 className={styles.title}>Reservado en {title}</h2>
-              </div>
-              <div className={styles.rightColumn}>
                 <div className={styles.titleResult}>
                   Total: <span>${totalValue}</span>{" "}
                 </div>
@@ -277,38 +256,36 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                   </p>
                   <p className={styles.text}>Reserva un servicio adicional</p>
                 </div>
-                {additionalPrices.map((item, index) => (
-                  <div className={styles.contentFile} key={index}>
-                    <div className={styles.leftColumn}>
-                      <div className={styles.priceSection}>
-                        <span className={styles.price}>${item.value}</span>
-                        <span className={styles.titlePrice}>{item.label}</span>
-                        <div className={styles.quantitySection}>
-                          <button
-                            className={styles.btnDecrease}
-                            onClick={() => handleServiceDecrease(index)}
-                          >
-                            -
-                          </button>
-                          <button
-                            className={styles.btnIncrease}
-                            onClick={() => handleServiceIncrease(index)}
-                          >
-                            +
-                          </button>
+                {modifiedPrices &&
+                  modifiedPrices.map((item, index) => (
+                    <div className={styles.contentFile} key={index}>
+                      <div className={styles.leftColumn}>
+                        <div className={styles.priceSection}>
+                          <span className={styles.price}>${item.value}</span>
+                          <span className={styles.titlePrice}>
+                            {item.label}
+                          </span>
+                          <div className={styles.quantitySection}>
+                            <button
+                              className={styles.btnDecrease}
+                              onClick={() => handleServiceDecrease(index)}
+                            >
+                              -
+                            </button>
+                            <span className={styles.numberResult}>
+                              {serviceQuantities[index]}
+                            </span>
+                            <button
+                              className={styles.btnIncrease}
+                              onClick={() => handleServiceIncrease(index)}
+                            >
+                              +
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className={styles.rightColumn}>
-                      <span className={styles.titleResult}>
-                        <span className={styles.numberResult}>
-                          {serviceQuantities[index]}
-                        </span>{" "}
-                        Entradas
-                      </span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
                 <div className={styles.textContent}>
                   <p className={styles.text}>
                     Reservar un paquete exclusivo de servicios
@@ -356,73 +333,75 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                       excludeDates={disabledDates}
                     />
                   </div>
-                  <div className={styles.rightColumn}>
-                    <div className={styles.titleResult}>
-                      {selectedDate
-                        ? selectedDate.toLocaleDateString()
-                        : "Ninguna"}
+                </div>
+
+                <div className={styles.contentFile}>
+                  <div className={styles.leftColumn}>
+                    <div className={styles.priceSection}>
+                      <span className={styles.price}>$ {price}</span>
+                      <span className={styles.titlePrice}>Adulto</span>
+                      <div className={styles.quantitySection}>
+                        <button
+                          className={styles.btnDecrease}
+                          onClick={() => handleReservaDecrease("adult")}
+                        >
+                          -
+                        </button>
+                        <span className={styles.numberResult}>
+                          {reservaQuantities?.adult || 0}
+                        </span>
+                        <button
+                          className={styles.btnIncrease}
+                          onClick={() => handleReservaIncrease("adult")}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-                {reservas.map((item, index) => (
-                  <div className={styles.contentFile} key={index}>
-                    <div className={styles.leftColumn}>
-                      <div className={styles.priceSection}>
-                        <span className={styles.price}>${item.valor}</span>
-                        <span className={styles.titlePrice}>
-                          {item.reserva}
+                <div className={styles.contentFile}>
+                  <div className={styles.leftColumn}>
+                    <div className={styles.priceSection}>
+                      <span className={styles.price}>$ {priceMenores}</span>
+                      <span className={styles.titlePrice}>Menores</span>
+                      <div className={styles.quantitySection}>
+                        <button
+                          className={styles.btnDecrease}
+                          onClick={() => handleReservaDecrease("menores")}
+                        >
+                          -
+                        </button>
+                        <span className={styles.numberResult}>
+                          {reservaQuantities?.menores || 0}
                         </span>
-                        <div className={styles.quantitySection}>
-                          <button
-                            className={styles.btnDecrease}
-                            onClick={() => handleReservaDecrease(index)}
-                          >
-                            -
-                          </button>
-                          <button
-                            className={styles.btnIncrease}
-                            onClick={() => handleReservaIncrease(index)}
-                          >
-                            +
-                          </button>
-                        </div>
+                        <button
+                          className={styles.btnIncrease}
+                          onClick={() => handleReservaIncrease("menores")}
+                        >
+                          +
+                        </button>
                       </div>
                     </div>
-                    <div className={styles.rightColumn}>
-                      <span className={styles.titleResult}>
-                        <span className={styles.numberResult}>
-                          {reservaQuantities[index]}
-                        </span>{" "}
-                        Reservas
-                      </span>
-                    </div>
                   </div>
-                ))}
+                </div>
+
                 {!nextStep && (
                   <>
                     {/* First select for transportation */}
                     <div className={styles.contentFile}>
                       <div className={styles.leftColumn}>
-                        <span className={styles.priceSelect}>$10</span>
-                        <select
-                          value={selectedTransportation}
-                          onChange={handleTransportationChange}
-                          className={styles.selectInput}
+                        <span className={styles.priceSelect}>
+                          $ {priceTransporte}
+                        </span>
+                        <button
+                          className={styles.btnTransporte}
+                          onClick={handleTransportationChange}
                         >
-                          <option value="">Selecciona un transporte</option>
-                          {Object.keys(transportationOptions).map((option) => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className={styles.rightColumn}>
+                          Transporte
+                        </button>
                         <div className={styles.titleResult}>
-                          <span className={styles.numberResult}>
-                            {totalInputValues}
-                          </span>{" "}
-                          Tickets
+                          {totalInputValues} Tickets
                         </div>
                       </div>
                     </div>
@@ -434,30 +413,24 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                             className={styles.leftColumn}
                             id={styles.containerCheckboxs}
                           >
-                            {transportationOptions[selectedTransportation].map(
-                              (option) => (
-                                <div
-                                  key={option}
-                                  className={styles.checkboxContent}
-                                >
-                                  <input
-                                    type="checkbox"
-                                    id={option}
-                                    value={option}
-                                    checked={selectedSubTransportation.includes(
-                                      option
-                                    )}
-                                    onChange={handleSubTransportationChange}
-                                    className={styles.checkboxInput}
-                                  />
-                                  <label htmlFor={option}>{option}</label>
-                                </div>
-                              )
-                            )}
-                          </div>
-
-                          <div className={styles.rightColumn}>
-                            <div className={styles.titleResult}></div>
+                            {transportationOptions.map((option) => (
+                              <div
+                                key={option}
+                                className={styles.checkboxContent}
+                              >
+                                <input
+                                  type="checkbox"
+                                  id={option}
+                                  value={option}
+                                  checked={selectedSubTransportation.includes(
+                                    option
+                                  )}
+                                  onChange={handleSubTransportationChange}
+                                  className={styles.checkboxInput}
+                                />
+                                <label htmlFor={option}>{option}</label>
+                              </div>
+                            ))}
                           </div>
                         </div>
                         <div className={styles.contentFile}>
@@ -477,10 +450,10 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                                           handleDecreaseQuantity(index)
                                         }
                                       >
-                                        <i class="ri-subtract-line"></i>
+                                        <i className="ri-subtract-line"></i>
                                       </button>
                                       <span className={styles.counterValue}>
-                                        Cant. {inputValues[index] || 1}
+                                        {inputValues[index]}
                                       </span>
                                       <button
                                         className={styles.counterButton}
@@ -488,7 +461,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                                           handleIncreaseQuantity(index)
                                         }
                                       >
-                                        <i class="ri-add-line"></i>
+                                        <i className="ri-add-line"></i>
                                       </button>
                                     </div>
                                     <button
@@ -506,9 +479,6 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                                 )
                               )}
                             </div>
-                          </div>
-                          <div className={styles.rightColumn}>
-                            <div className={styles.titleResult}></div>
                           </div>
                         </div>
                       </>
@@ -532,7 +502,12 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
           )}
           <div className={styles["modal-footer"]}>
             {nextStep && (
-              <button onClick={() => setNextStep(false)}>Atras</button>
+              <button
+                onClick={() => setNextStep(false)}
+                className={styles.btnAtras}
+              >
+                Atras
+              </button>
             )}
             <button className={styles["reservar-button"]} onClick={onChange}>
               Reservar

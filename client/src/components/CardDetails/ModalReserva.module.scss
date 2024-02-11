@@ -1,7 +1,7 @@
 .modal-overlay {
   position: fixed;
   bottom: 10%;
-  right: 10%;
+  right: 5%;
   background: transparent;
   display: flex;
   align-items: center;
@@ -15,27 +15,34 @@
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-height: 80vh;
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 500px;
+  max-width: 350px;
   width: 500px;
 }
 
 .modal-header {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   border-bottom: 1px solid #ccc;
 
   .close-button {
-    background: none;
+    background: rgba(155, 155, 155, 0.151);
     border: none;
     cursor: pointer;
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    padding: 5px;
+    border-radius: 50px;
+    padding: 3px 5px;
+    width: fit-content;
+    height: fit-content;
+  }
+  .close-button:hover{
+    color: #000;
   }
 }
 
@@ -49,11 +56,30 @@
   .reservar-button {
     background: #000;
     border: 1px solid #000;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
     color: #fff;
     padding: 5px 10px;
+    transition: all .4s ease-in-out;
+  }
+  .reservar-button:hover{
+    background: transparent;
+    color: #000;
+  }
+
+  .btnAtras{
+    background: transparent;
+    color: #000;
+    border-radius: 4px;
+    border: 1px solid #000;
+    transition: all .4s ease-in-out;
+  }
+  .btnAtras:hover{
+    background: #000;
+    color: #fff;
+
   }
 }
 
@@ -66,11 +92,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  //max-width: 700px;
   width: 100%;
   gap: 10px;
-  border: 1px solid #8b008b;
-  //padding: 5px;
   height: 100%;
 }
 #modalContainerId {
@@ -83,43 +106,62 @@
   gap: 10px;
   width: 100%;
   padding: 5px;
-  //border: 1px solid #8b008b;
 }
-
-/* #fileTitle {
- border: 1px solid #8b008b;
-} */
 
 .titleResult {
   color: #000;
+  padding: 5px 10px;
+  width: 35%;
+  text-align: center;
 }
 
 .numberResult {
   padding: 5px 10px;
-  border-radius: 50px;
-  background-color: #ccc;
   color: #000;
 }
 
 .btnSpecial {
   margin: auto 0 15px 0;
+  background: #8b008b;
+  color: #fff;
+  border: 1px solid #8b008b;
+  border-radius: 8px;
+  transition: all .4s ease-in-out;
+}
+.btnSpecial:hover{
+  background: #fff;
+  color: #8b008b;
 }
 
 .leftColumn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60%;
+  width: 100%;
   padding: 0px;
   border: 1px solid #ccc;
 
   .title {
     font-size: 16px;
     color: #000;
+    text-align: center;
+    margin: 0px;
   }
   .checkboxContent {
     display: flex;
     gap: 10px;
+  }
+
+  .btnTransporte{
+    background: rgb(107, 107, 107);
+    color: #fff;
+    border-radius: 0px;
+    border: none;
+    width: 45%;
+    transition: all .4s ease-in-out;
+  }
+  .btnTransporte:hover{
+    background: #000;
   }
 }
 #containerCheckboxs {
@@ -138,16 +180,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
   padding: 5px;
 }
 
 .textContent {
-  width: 90%;
+  width: 96%;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  padding: 10px;
+  padding-top: 10px;
 
   .text {
     margin: 0px;
@@ -175,7 +216,8 @@
 .datePicker {
   width: 100%;
   padding: 10px;
-  //margin-top: 10px;
+  text-align: center;
+  color: #000;
 }
 
 .priceSection {
@@ -200,6 +242,7 @@
     justify-content: center;
     align-items: center;
     color: #000;
+    padding: 5px 0;
   }
 
   .quantitySection {
@@ -230,7 +273,7 @@
 }
 
 .containerBoxExclusivo {
-  width: 90%;
+  width: 97%;
   //padding: 10px;
   display: flex;
   flex-direction: column;
@@ -243,6 +286,7 @@
     border: 1px solid rgb(107, 107, 107);
     padding: 10px;
     margin: 0px;
+    text-align: center;
   }
 
   .contentPriceExclusivo {
@@ -266,6 +310,12 @@
       justify-content: center;
       align-items: center;
       padding: 10px 0;
+      border-radius: 0px;
+      transition: all .4s ease-in-out;
+    }
+    .priceExclusivo:hover{
+      background: #000;
+      color: #fff;
     }
   }
 
@@ -354,6 +404,12 @@
   }
 }
 
+.checkboxContent input[type="checkbox"] {
+  accent-color: #000;
+}
+
+
+
 @media screen and (max-width: 767px) {
   .modal {
     border-radius: 0px;
@@ -366,3 +422,20 @@
     gap: 15px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
