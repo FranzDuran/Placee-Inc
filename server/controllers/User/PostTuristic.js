@@ -57,14 +57,14 @@ module.exports = {
           return res.sendStatus(401);
         }
 
-        const { title, price,type, addressMap, price_pool,specialPrecioTotal, horarios, price_parking, price_kitchen, specialPackageName,specialPackageItems, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country, additionalPrices } = req.body;
+        const { title, price,type, addressMap, price_pool,specialPrecioTotal, horarios, price_parking, price_kitchen, specialPackageName,specialPackageItems, people, summary, description, status, continent, infoImportant, daysAtentions, reservedDates, listDetails, hoursAtetionsInitial, hoursAtentionsFinally, country, additionalPrices, priceMenores, priceTransporte, transportes } = req.body;
         const parsedReservedDates = typeof reservedDates === 'string' ? JSON.parse(reservedDates) : [];
         const parsedListDetails = typeof listDetails === 'string' ? JSON.parse(listDetails) : [];
         const parsedInfoImportant = typeof infoImportant === 'string' ? JSON.parse(infoImportant) : [];
         const parsedspecialPackageItems= typeof specialPackageItems === 'string' ? JSON.parse(specialPackageItems) : [];
         const parsedAdditionalPrices= typeof additionalPrices === 'string' ? JSON.parse(additionalPrices) : [];
         const parsedHorarios= typeof horarios === 'string' ? JSON.parse(horarios) : [];
-
+        const parsedTransportes= typeof transportes === 'string' ? JSON.parse(transportes) : [];
 
         
         const capitalizedTitle = title.charAt(0).toUpperCase() + title.slice(1);
@@ -98,7 +98,10 @@ module.exports = {
             listDetails: parsedListDetails,
             imageFile: uploadedImageUrls,
             additionalPrices: parsedAdditionalPrices,
-            horarios: parsedHorarios
+            horarios: parsedHorarios,
+            priceMenores, 
+            priceTransporte,
+             transportes: parsedTransportes
           });
 
           const userId = decoded.id;

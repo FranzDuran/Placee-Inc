@@ -15,16 +15,16 @@ module.exports = {
         type: Sequelize.STRING(500),
       },
       price: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       type: {
         type: Sequelize.STRING,
       },
       poolPrice: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       parkingPrice: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       kitchenPrice: {
         type: Sequelize.STRING,
@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       specialPrecioTotal: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       summary: {
         type: Sequelize.STRING(10000),
@@ -94,7 +94,16 @@ module.exports = {
       specialPackageName: {
         type: Sequelize.STRING,
       },
-      
+      priceMenores: {
+        type: Sequelize.INTEGER,
+      },
+
+      priceTransporte: {
+        type: Sequelize.INTEGER,
+      },
+      transportes: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
       
       createdAt: {
         allowNull: false,

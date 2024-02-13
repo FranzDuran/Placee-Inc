@@ -1,7 +1,6 @@
 const { Post,  } = require('../../database/models'); // Asegúrate de tener el modelo Transaction importado
 const Stripe = require('stripe');
-const stripe = new Stripe('sk_test_51ONdk7AlajpyxreyoVzwpdS62OV4Z6p2G0OrtXhxbF8gGAd8IbIfxIv92gBQbXNU9JEI3LZFan9Za4aD2F4eLNyz00ZVVB8TRz');
-
+const stripe = new Stripe('sk_test_51OdyLLJbEYAmlcVRVseiJSfnW7JuQKk7p619XFlEgI0dZpq8WKhMNXQWRqJOXiEC8bV0jCsHux9TgUxK3Q5vIL1t00G302tfnw');
 module.exports = {
     createSession: async (req, res) => {
         const { postId } = req.params;
