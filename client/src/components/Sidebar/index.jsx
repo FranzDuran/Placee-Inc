@@ -132,10 +132,8 @@ export default function FormStepper() {
   const dateFormat = "YYYY/MM/DD";
   const [show, setShow] = useState({
     title: "",
-    price: "",
-    poolPrice: "",
-    parkingPrice: "",
-    kitchenPrice: "",
+    price: null,
+
     specialPackageName: "",
     specialPackageItems: [],
     specialPackageItem: [],
@@ -158,7 +156,7 @@ export default function FormStepper() {
     infoImportant: [],
     additionalPrices: [],
     hasSpecialPackage: false,
-    specialPrecioTotal: "",
+    specialPrecioTotal: null,
     addressMap: "",
     horarios: [],
     priceMenores: "",
@@ -354,7 +352,7 @@ export default function FormStepper() {
       formData.append("infoImportant", JSON.stringify(show.infoImportant));
       formData.append("specialPackageItems", JSON.stringify(show.specialPackageItems));
       formData.append("additionalPrices", JSON.stringify(show.additionalPrices));
-      formData.append("specialPrecioTotal", JSON.stringify(show.specialPrecioTotal));
+      formData.append("specialPrecioTotal", show.specialPrecioTotal);
       formData.append("horarios", JSON.stringify(show.horarios));
 
 

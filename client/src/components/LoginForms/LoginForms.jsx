@@ -22,11 +22,9 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = useSelector((state) => state.token);
   const [open, setOpen] = React.useState(false);
+  const [loginLoading, setLoginLoading] = React.useState(false);
 
-  const loginError = useSelector((state) => state.loginError);
-  const [fullscreen, setFullscreen] = React.useState(true);
 
   //const [isModalOpenRegister, setIsModalOpenRegister] = React.useState(false);
 
@@ -52,6 +50,9 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoginLoading(true)
+    try {
+      
     if (email && password) {
       // Aquí deberías tener la lógica de autenticación, por ejemplo, una llamada a la API para verificar las credenciales
 
@@ -64,6 +65,11 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
         // Si la autenticación falla, muestra una alerta
         setOpen(true);
       }
+    }
+    setLoginLoading(false)
+  }catch (error) {
+    console.log('error en la autenticacion');
+      
     }
   };
 
@@ -170,7 +176,7 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
                   type="submit"
                   className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  button-color-iniciar"
                 >
-                  Iniciar sesión
+                {loginLoading ? "Iniciando...": "Iniciar sesión"}  
                 </Button>
               </div>
             </form>
@@ -187,7 +193,7 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
           </div>
         </div>
         <Stack spacing={2} sx={{ width: "100%" }}>
-          <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
             <Alert
               onClose={handleClose}
               severity="error"

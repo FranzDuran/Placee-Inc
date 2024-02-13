@@ -20,15 +20,7 @@ module.exports = {
       type: {
         type: Sequelize.STRING,
       },
-      poolPrice: {
-        type: Sequelize.INTEGER,
-      },
-      parkingPrice: {
-        type: Sequelize.INTEGER,
-      },
-      kitchenPrice: {
-        type: Sequelize.STRING,
-      },
+    
        
       people: {
         type: Sequelize.STRING,
@@ -63,18 +55,11 @@ module.exports = {
       country: {
         type: Sequelize.STRING,
       },
-      daysAtentions: {
-        type: Sequelize.STRING
-      },
+   
       infoImportant: {
         type: Sequelize.ARRAY(Sequelize.STRING(10000)), 
       },
-      hoursAtetionsInitial: {
-        type: Sequelize.STRING,
-      },
-      hoursAtentionsFinally: {
-        type: Sequelize.STRING,
-      },
+   
       horarios: {
         type: Sequelize.ARRAY(Sequelize.JSON),
       },
