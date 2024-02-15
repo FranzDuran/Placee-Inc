@@ -158,11 +158,11 @@ export default function FormStepper() {
     infoImportant: [],
     additionalPrices: [],
     hasSpecialPackage: false,
-    specialPrecioTotal: "",
+    specialPrecioTotal: null,
     addressMap: "",
     horarios: [],
-    priceMenores: "",
-    priceTransporte: "",
+    priceMenores: null,
+    priceTransporte: null,
     transportes: [],
   });
   console.log("Show:", show);
@@ -920,7 +920,7 @@ export default function FormStepper() {
       ...prevState,
       additionalPrices: [
         ...prevState.additionalPrices,
-        { label: "", value: "" },
+        { label: "", value: null },
       ],
     }));
   };

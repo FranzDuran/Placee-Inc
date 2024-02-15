@@ -22,7 +22,9 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     reservedDates,
     price,
   } = children;
-  console.log(additionalPrices);
+  console.log(specialPackageItems);
+  console.log(specialPackageName);
+  console.log(specialPrecioTotal);
   //-----------------------------------------------------
   const priceMenores = 5;
   const priceTransporte = 10;
@@ -40,8 +42,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
       label: item.label,
       value: parseInt(item.value, 10), // Convertir el valor a número
     }));
-  console.log(modifiedPrices);
-  console.log(modifiedPricess);
+  //console.log(modifiedPrices);
+  //console.log(modifiedPricess);
 
   const [nextStep, setNextStep] = useState(false);
   const [modalOpen, setModalOpen] = useState(isOpen);
@@ -249,14 +251,16 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                 className={styles.modalContainer}
                 id={styles.modalContainerId}
               >
-                <div className={styles.textContent}>
-                  <p className={styles.text}>
-                    IRTRA cuenta con servicios adicionales y paquetes
-                    exclusivos, los cuales puedes reservar.
-                  </p>
-                  <p className={styles.text}>Reserva un servicio adicional</p>
-                </div>
-                {modifiedPrices &&
+                {modifiedPrices.length > 0 && (
+                  <div className={styles.textContent}>
+                    <p className={styles.text}>
+                      IRTRA cuenta con servicios adicionales y paquetes
+                      exclusivos, los cuales puedes reservar.
+                    </p>
+                    <p className={styles.text}>Reserva un servicio adicional</p>
+                  </div>
+                )}
+                {modifiedPrices.length > 0 &&
                   modifiedPrices.map((item, index) => (
                     <div className={styles.contentFile} key={index}>
                       <div className={styles.leftColumn}>
@@ -286,11 +290,13 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                       </div>
                     </div>
                   ))}
-                <div className={styles.textContent}>
-                  <p className={styles.text}>
-                    Reservar un paquete exclusivo de servicios
-                  </p>
-                </div>
+                {specialPackageName && (
+                  <div className={styles.textContent}>
+                    <p className={styles.text}>
+                      Reservar un paquete exclusivo de servicios
+                    </p>
+                  </div>
+                )}
                 <div className={styles.containerBoxExclusivo}>
                   <h3 className={styles.titleBoxExclusivo}>
                     {specialPackageName}
@@ -313,7 +319,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                         handleIncludeSpecialPackageChange(setPrecio(!precio))
                       }
                     >
-                      ${specialPrecioTotal.replace(/"/g, "")}
+                      ${specialPrecioTotal /* .replace(/"/g, "") */}
                     </button>
                   </div>
                 </div>
@@ -485,7 +491,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                     )}
                   </>
                 )}
-                {specialPackageItems ||
+                {specialPackageItems.length > 0 ||
                 specialPackageName ||
                 specialPrecioTotal ? (
                   <button
