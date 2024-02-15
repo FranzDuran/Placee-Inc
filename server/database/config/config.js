@@ -3,24 +3,24 @@ require('dotenv').config();
 module.exports = {
  development: {
      dialect: 'postgres',
-    host: 'viaduct.proxy.rlwy.net',
-    port: 18555,
+    host: 'monorail.proxy.rlwy.net',
+    port: 51173,
     username: 'postgres',
-    password: 'Ca4fdc54ED3b42deECA31f651Ddg12dc',
+    password: '36AdcD5dCfbcDBCFA-Dbf6gFGDeA2C-e',
     database: 'railway',
 
   },
   production: {
     dialect: 'postgres',
-    host: 'viaduct.proxy.rlwy.net',
-    port: 18555,
+    host: 'monorail.proxy.rlwy.net',
+    port: 51173,
     username: 'postgres',
-    password: 'Ca4fdc54ED3b42deECA31f651Ddg12dc',
+    password: '36AdcD5dCfbcDBCFA-Dbf6gFGDeA2C-e',
     database: 'railway',
 
   },   
    
-/*  development: {
+/* development: {
     dialect: 'postgres',
     host:  'localhost',
     port: 5432,
@@ -37,5 +37,5 @@ module.exports = {
     password: 'password',
     database: 'turistic',
    
-  },   */
+  },  */ 
 }; 

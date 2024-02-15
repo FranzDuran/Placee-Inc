@@ -46,6 +46,8 @@ export default function BasicMenu() {
   const values = [true];
   const [fullscreen, setFullscreen] = React.useState(true);
   const [modalPublic, setModalPublic] = React.useState(false);
+  const [loadingLogin, setLoadingLogin] = React.useState(false);
+
 
   React.useEffect(() => {
     dispatch(DetailsPostTuristic(datapersonal.id));
@@ -135,11 +137,12 @@ export default function BasicMenu() {
   const handleLogout = () => {
     // Realizar el cierre de sesión en Redux
     dispatch(logoutUser());
-
-    setOpenLogout(false);
     localStorage.removeItem("token");
 
+    setOpenLogout(false);
+
     // Limpiar token en Local Storage
+
     navigate("/");
     // Redirigir al usuario a la página de inicio de sesión
   };
@@ -234,7 +237,7 @@ export default function BasicMenu() {
                 </div>
               ) : (
                 <div>
-                  {datapersonal.id ? (
+                  {token ? (
                     datapersonal.avatar ? (
                       <Avatar
                         sx={{
@@ -277,7 +280,7 @@ export default function BasicMenu() {
         </Box>
       </div>
       <div>
-        {!datapersonal.id ? (
+        {!token ? (
           <div className="container-lore">
             <Menu
               id="menu-not-personal"
