@@ -335,6 +335,8 @@ export default function FormStepper() {
       const formData = new FormData();
       formData.append("title", show.title);
       formData.append("price", show.price);
+      formData.append("priceMenores", show.priceMenores);
+      formData.append("priceTransporte", show.priceTransporte);
       formData.append("people", show.people);
       formData.append("summary", show.summary);
       formData.append("description", show.description);
@@ -351,6 +353,7 @@ export default function FormStepper() {
       formData.append("listDetails", JSON.stringify(show.listDetails));
       formData.append("infoImportant", JSON.stringify(show.infoImportant));
       formData.append("specialPackageItems", JSON.stringify(show.specialPackageItems));
+      formData.append("transportes", JSON.stringify(show.transportes));
       formData.append("additionalPrices", JSON.stringify(show.additionalPrices));
       formData.append("specialPrecioTotal", show.specialPrecioTotal);
       formData.append("horarios", JSON.stringify(show.horarios));
@@ -404,21 +407,21 @@ export default function FormStepper() {
     e.preventDefault();
     setShow((prevState) => ({
       ...prevState,
-      price: e.target.value,
+      price: parseInt(e.target.value, 10),
     }));
   };
   const handlePriceMenores = (e) => {
     e.preventDefault();
     setShow((prevState) => ({
       ...prevState,
-      priceMenores: e.target.value,
+      priceMenores: parseInt(e.target.value, 10),
     }));
   };
   const handlePriceTransporte = (e) => {
     e.preventDefault();
     setShow((prevState) => ({
       ...prevState,
-      priceTransporte: e.target.value,
+      priceTransporte: parseInt(e.target.value, 10),
     }));
   };
   const [selectedItems, setSelectedItems] = useState([]);
@@ -925,10 +928,12 @@ export default function FormStepper() {
 
   const handleAdditionalPriceChange = (index, event) => {
     const { name, value } = event.target;
+    console.log(value)
+    console.log(name)
     setShow((prevState) => ({
       ...prevState,
       additionalPrices: prevState.additionalPrices.map((price, i) =>
-        i === index ? { ...price, [name]: value } : price
+        i === index ? { ...price, [name]: parseInt(value, 10) } : price
       ),
     }));
   };

@@ -4,13 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalReserva.module.scss";
 import { addDays, isSameDay } from "date-fns";
 
-const transportationOptions = [
-  "Automóvil",
-  "Moto",
-  "Bus",
-  "Bicicleta",
-  "Camión",
-];
 
 const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   const {
@@ -21,29 +14,29 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     additionalPrices,
     reservedDates,
     price,
+    priceMenores,
+    priceTransporte,
+    transportes,
   } = children;
-  console.log(specialPackageItems);
-  console.log(specialPackageName);
-  console.log(specialPrecioTotal);
-  //-----------------------------------------------------
-  const priceMenores = 5;
-  const priceTransporte = 10;
+
+  //console.log(additionalPrices);
+
+
 
   //----------------------------------------------------
 
-  const modifiedPricess = [
-    { label: "aaaa", value: 10 },
-    { label: "bbbb", value: 15 },
-  ];
+ /*  const additionalPrices = [
+    { label: "piscina", value: 10 },
+    { label: "cocina", value: 15 },
+    { label: "bar", value: 20 },
+  ]; */
   // Modificar los objetos en el array
-  const modifiedPrices =
-    additionalPrices &&
-    additionalPrices.map((item) => ({
-      label: item.label,
-      value: parseInt(item.value, 10), // Convertir el valor a número
-    }));
-  //console.log(modifiedPrices);
-  //console.log(modifiedPricess);
+  /*  const modifiedPrices =
+     additionalPrices &&
+     additionalPrices.map((item) => ({
+       label: item.label,
+       value: parseInt(item.value, 10), // Convertir el valor a número
+     })); */
 
   const [nextStep, setNextStep] = useState(false);
   const [modalOpen, setModalOpen] = useState(isOpen);
@@ -73,7 +66,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
 
     // Update total value based on the type of reservation
     if (type === "adult") {
-      setTotalValue(totalValue + parseFloat(price.replace(/"/g, "")));
+      setTotalValue(totalValue + parseFloat(price));
     } else if (type === "menores") {
       setTotalValue(totalValue + priceMenores);
     }
@@ -179,31 +172,34 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     }
   };
 
-  //-----------------------------------------------------
-  const [serviceQuantities, setServiceQuantities] = useState(
-    modifiedPrices ? new Array(modifiedPrices.length).fill(0) : []
-  );
+  //---------------- SERVICIOS -------------------------------------
+// Inicializar el estado de serviceQuantities
+const [serviceQuantities, setServiceQuantities] = useState(
+  additionalPrices && additionalPrices.map(() => 0)
+);
 
-  //console.log(modifiedPrices);
-  console.log(serviceQuantities);
+// Función para aumentar la cantidad de un servicio adicional
+const handleServiceIncrease = (index) => {
+  const updatedQuantities = [...serviceQuantities];
+  updatedQuantities[index] += 1;
+  setServiceQuantities(updatedQuantities);
 
-  const handleServiceIncrease = (index) => {
-    console.log("1");
-    console.log(index);
-    const newQuantities = [...serviceQuantities];
-    newQuantities[index] += 1;
-    setServiceQuantities(newQuantities);
-    setTotalValue(totalValue + modifiedPrices[index].value);
-  };
+  const servicePrice = additionalPrices[index].value;
+  setTotalValue(totalValue + servicePrice);
+};
 
-  const handleServiceDecrease = (index) => {
-    if (serviceQuantities[index] > 0) {
-      const newQuantities = [...serviceQuantities];
-      newQuantities[index] -= 1;
-      setServiceQuantities(newQuantities);
-      setTotalValue(totalValue - modifiedPrices[index].value);
-    }
-  };
+// Función para disminuir la cantidad de un servicio adicional
+const handleServiceDecrease = (index) => {
+  if (serviceQuantities[index] > 0) {
+    const updatedQuantities = [...serviceQuantities];
+    updatedQuantities[index] -= 1;
+    setServiceQuantities(updatedQuantities);
+
+    const servicePrice = additionalPrices[index].value;
+    setTotalValue(totalValue - servicePrice);
+  }
+};
+
 
   //--------------------------------------------------------
 
@@ -212,12 +208,12 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     if (!precio) {
       // Sumar el valor del paquete especial al totalValue
       setTotalValue(
-        totalValue + parseFloat(specialPrecioTotal.replace(/"/g, ""))
+        totalValue + specialPrecioTotal
       );
     } else {
       // Restar el valor del paquete especial del totalValue
       setTotalValue(
-        totalValue - parseFloat(specialPrecioTotal.replace(/"/g, ""))
+        totalValue - specialPrecioTotal
       );
     }
   };
@@ -251,7 +247,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                 className={styles.modalContainer}
                 id={styles.modalContainerId}
               >
-                {modifiedPrices.length > 0 && (
+                {additionalPrices.length > 0 && (
                   <div className={styles.textContent}>
                     <p className={styles.text}>
                       IRTRA cuenta con servicios adicionales y paquetes
@@ -260,8 +256,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                     <p className={styles.text}>Reserva un servicio adicional</p>
                   </div>
                 )}
-                {modifiedPrices.length > 0 &&
-                  modifiedPrices.map((item, index) => (
+                {additionalPrices.length > 0 &&
+                  additionalPrices.map((item, index) => (
                     <div className={styles.contentFile} key={index}>
                       <div className={styles.leftColumn}>
                         <div className={styles.priceSection}>
@@ -277,7 +273,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                               -
                             </button>
                             <span className={styles.numberResult}>
-                              {serviceQuantities[index]}
+                            {serviceQuantities && serviceQuantities[index]}
                             </span>
                             <button
                               className={styles.btnIncrease}
@@ -419,7 +415,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                             className={styles.leftColumn}
                             id={styles.containerCheckboxs}
                           >
-                            {transportationOptions.map((option) => (
+                            {transportes.map((option) => (
                               <div
                                 key={option}
                                 className={styles.checkboxContent}
@@ -492,8 +488,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                   </>
                 )}
                 {specialPackageItems.length > 0 ||
-                specialPackageName ||
-                specialPrecioTotal ? (
+                  specialPackageName ||
+                  specialPrecioTotal ? (
                   <button
                     className={styles.btnSpecial}
                     onClick={() => setNextStep(true)}
