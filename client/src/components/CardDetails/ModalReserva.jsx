@@ -21,22 +21,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
 
   //console.log(additionalPrices);
 
-
-
   //----------------------------------------------------
-
- /*  const additionalPrices = [
-    { label: "piscina", value: 10 },
-    { label: "cocina", value: 15 },
-    { label: "bar", value: 20 },
-  ]; */
-  // Modificar los objetos en el array
-  /*  const modifiedPrices =
-     additionalPrices &&
-     additionalPrices.map((item) => ({
-       label: item.label,
-       value: parseInt(item.value, 10), // Convertir el valor a número
-     })); */
 
   const [nextStep, setNextStep] = useState(false);
   const [modalOpen, setModalOpen] = useState(isOpen);
@@ -173,33 +158,34 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   };
 
   //---------------- SERVICIOS -------------------------------------
-// Inicializar el estado de serviceQuantities
-const [serviceQuantities, setServiceQuantities] = useState(
-  additionalPrices && additionalPrices.map(() => 0)
-);
+  const [serviceQuantities, setServiceQuantities] = useState(Array(additionalPrices && additionalPrices.length).fill(0));
 
-// Función para aumentar la cantidad de un servicio adicional
-const handleServiceIncrease = (index) => {
-  const updatedQuantities = [...serviceQuantities];
-  updatedQuantities[index] += 1;
-  setServiceQuantities(updatedQuantities);
 
-  const servicePrice = additionalPrices[index].value;
-  setTotalValue(totalValue + servicePrice);
-};
-
-// Función para disminuir la cantidad de un servicio adicional
-const handleServiceDecrease = (index) => {
-  if (serviceQuantities[index] > 0) {
-    const updatedQuantities = [...serviceQuantities];
-    updatedQuantities[index] -= 1;
-    setServiceQuantities(updatedQuantities);
-
-    const servicePrice = additionalPrices[index].value;
-    setTotalValue(totalValue - servicePrice);
-  }
-};
-
+  const handleServiceIncrease = (index) => {
+    if (additionalPrices && additionalPrices.length > index) {
+      setServiceQuantities((prevQuantities) => {
+        const newQuantities = [...prevQuantities];
+        newQuantities[index] = (newQuantities[index] || 0) + 1;
+        return newQuantities;
+      });
+      // Actualizar el valor total sumando el valor del servicio
+      setTotalValue(totalValue + additionalPrices[index].value);
+    }
+  };
+  
+  const handleServiceDecrease = (index) => {
+    if (additionalPrices && additionalPrices.length > index && serviceQuantities[index] > 0) {
+      setServiceQuantities((prevQuantities) => {
+        const newQuantities = [...prevQuantities];
+        newQuantities[index] = newQuantities[index] - 1;
+        return newQuantities;
+      });
+      // Actualizar el valor total restando el valor del servicio
+      setTotalValue(totalValue - additionalPrices[index].value);
+    }
+  };
+  
+  
 
   //--------------------------------------------------------
 
@@ -273,7 +259,7 @@ const handleServiceDecrease = (index) => {
                               -
                             </button>
                             <span className={styles.numberResult}>
-                            {serviceQuantities && serviceQuantities[index]}
+                              {serviceQuantities && serviceQuantities[index] || 0}
                             </span>
                             <button
                               className={styles.btnIncrease}

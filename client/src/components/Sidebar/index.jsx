@@ -3222,3 +3222,21 @@ export default function FormStepper() {
     </Box>
   );
 }
+
+
+
+
+
+const additionalPrices = [
+  { label: "piscina", value: 10 },
+  { label: "cocina", value: 15 },
+  { label: "bar", value: 20 },
+];
+
+  // Modificar los objetos en el array
+  /*  const modifiedPrices =
+     additionalPrices &&
+     additionalPrices.map((item) => ({
+       label: item.label,
+       value: parseInt(item.value, 10), // Convertir el valor a número
+     })); */
