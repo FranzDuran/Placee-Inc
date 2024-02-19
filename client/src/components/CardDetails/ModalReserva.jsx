@@ -376,7 +376,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                               //multiple
                               className={styles.selectInput}
                             >
-                              <option value="">Selecciona una opcion</option>
+                             {/*  <option value="">Selecciona una opcion</option> */}
                               {transportationOptions[selectedTransportation].map((option) => (
                                 <option key={option} value={option}>
                                   {option}
