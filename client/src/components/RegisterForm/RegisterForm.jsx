@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import { Switch } from "@headlessui/react";
 import "./RegisterForm.scss";
 import { UserRegister } from "../../redux/action";
@@ -8,15 +9,28 @@ import Swal from "sweetalert2/dist/sweetalert2.js";
 //import '@sweetalert2/theme-bulma/bulma.scss';
 import { Modal } from "antd";
 import LoginForms from "../LoginForms/LoginForms";
+import MuiAlert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import { useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) {
   const [agreed, setAgreed] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [selectedCountry, setSelectedCountry] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [loadingRegister, setLoadingRegister] = useState(false);
+
+
   const [register, setRegister] = useState({
     name: "",
     lastName: "",
@@ -40,15 +54,16 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
     setIsModalOpen(false);
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoadingRegister(true)
     dispatch(UserRegister(register));
-    Swal.fire({
-      icon: "success",
-      title: "Registrado con exito",
-      confirmButtonText: '<a href="/" class="swal-btn">Iniciar sesión</a>',
-      confirmButtonColor: "#05A1A1",
-    });
+    setSuccess(true);
+    navigate('/')
+    setLoadingRegister(false)
+
+    
   };
 
   const handleChange = (e) => {
@@ -76,7 +91,9 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
       phone: `+${selectedCountryCode}${" "}`,
     }));
   };
-
+  const handleCloseSuccess = () => {
+    setSuccess(false);
+  };
   return (
     <div>
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 responsive-register">
@@ -261,9 +278,21 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
               type="submit"
               className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 button-color"
             >
-              Registrarse
+                           {loadingRegister ? 'Registrando..' :  'Registrarse'}
+
             </button>
           </div>
+          <Stack spacing={2} sx={{ width: "100%" }}>
+          <Snackbar open={success} autoHideDuration={2000} onClose={handleCloseSuccess}>
+            <Alert
+              onClose={handleCloseSuccess}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+             Usuario creado Inicie sesión
+            </Alert>
+          </Snackbar>
+        </Stack>
         </form>
       </div>
     </div>

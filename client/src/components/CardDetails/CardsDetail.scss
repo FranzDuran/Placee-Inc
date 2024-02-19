@@ -3,6 +3,7 @@
   /* Estilos específicos de Ant Design */
   z-index: 5000;
 }
+
 .detail-container {
   display: flex;
   flex-direction: column;
@@ -20,6 +21,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
+        background-color: #fff;
         .section1-content {
           .title-continent {
             font-size: 30px;

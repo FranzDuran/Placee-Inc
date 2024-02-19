@@ -15,20 +15,12 @@ module.exports = {
         type: Sequelize.STRING(500),
       },
       price: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       type: {
         type: Sequelize.STRING,
       },
-      poolPrice: {
-        type: Sequelize.STRING,
-      },
-      parkingPrice: {
-        type: Sequelize.STRING,
-      },
-      kitchenPrice: {
-        type: Sequelize.STRING,
-      },
+    
        
       people: {
         type: Sequelize.STRING,
@@ -37,7 +29,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       specialPrecioTotal: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       summary: {
         type: Sequelize.STRING(10000),
@@ -63,18 +55,11 @@ module.exports = {
       country: {
         type: Sequelize.STRING,
       },
-      daysAtentions: {
-        type: Sequelize.STRING
-      },
+   
       infoImportant: {
         type: Sequelize.ARRAY(Sequelize.STRING(10000)), 
       },
-      hoursAtetionsInitial: {
-        type: Sequelize.STRING,
-      },
-      hoursAtentionsFinally: {
-        type: Sequelize.STRING,
-      },
+   
       horarios: {
         type: Sequelize.ARRAY(Sequelize.JSON),
       },
@@ -94,7 +79,16 @@ module.exports = {
       specialPackageName: {
         type: Sequelize.STRING,
       },
-      
+      priceMenores: {
+        type: Sequelize.INTEGER,
+      },
+
+      priceTransporte: {
+        type: Sequelize.INTEGER,
+      },
+      transportes: {
+        type: Sequelize.ARRAY(Sequelize.STRING),
+      },
       
       createdAt: {
         allowNull: false,

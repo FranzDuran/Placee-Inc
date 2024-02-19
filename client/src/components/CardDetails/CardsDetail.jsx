@@ -41,8 +41,6 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import ModalSeleccion from "../CommentsDetails/ModalSeleccion";
 import ModalReclamos from "../CommentsDetails/ModalReclamos";
 import ModalReserva from "./ModalReserva";
-//import SwipeableViews from 'react-swipeable-views';
-//import { autoPlay } from 'react-swipeable-views-utils';
 
 dayjs.extend(customParseFormat);
 const { RangePicker } = DatePicker;
@@ -268,6 +266,10 @@ export default function CardDetails() {
     dispatch(paymentReserve(idTuristic));
     window.location.href = payment.url && payment.url;
   };
+
+  //-----------------------------------------------
+
+
   return (
     <div className="detail-container">
       <Header />
@@ -483,14 +485,14 @@ export default function CardDetails() {
                 <div className="line"></div> {/* Línea a la izquierda */}
               </div>
             </div>
-
-         
-            <ModalReserva
-              isOpen={modalOpenReserve}
-              onClose={closeModalReserve}
-              onChange={handlePayment}
-              children={detailpost}
-            />
+            <div>
+              <ModalReserva
+                isOpen={modalOpenReserve}
+                onClose={closeModalReserve}
+                onChange={handlePayment}
+                children={detailpost}
+              />
+            </div>
             {/* {cardReserve && (
               <div className="card-reserve">
                 <div
@@ -714,7 +716,7 @@ export default function CardDetails() {
                 )
             )}
           </div>
-          {detailpost.status === "Privado" && (
+          {detailpost.status === "Privado" && !modalOpenReserve && (
             <div className="btn-footer-container">
               <button
                 onClick={openModalReserve}

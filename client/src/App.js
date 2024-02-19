@@ -23,12 +23,13 @@ import Admin from "./components/Admin/Admin";
 import Comentarios from "./components/Hostess/Comentarios/Comentarios";
 import AllComments from "./pages/AllCommtens";
 import CheckoutContainer from "./pages/test.jsx";
-
+import Hola from "./components/CardDetails/app"
 function App() {
   return (
     <Router>
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/app" element={<Hola />} />
         <Route exact path="/rooms/:idTuristic" element={<CardDetails />} />
         <Route exact path="/account-settings" element={<AccountSettings />} />
         <Route exact path="/all-comments" element={<AllComments/> } />
