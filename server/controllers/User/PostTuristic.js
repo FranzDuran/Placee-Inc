@@ -79,7 +79,6 @@ module.exports = {
           const capitalizedSummary = summary.charAt(0).toUpperCase() + summary.slice(1);
           const capitalizedDescription = description.charAt(0).toUpperCase() + description.slice(1);
 
-          if (status === "Privado") {
             const newPost = await Post.create({
               title: capitalizedTitle,
               price,
@@ -115,42 +114,7 @@ module.exports = {
             await newPost.addUser(userId);
             console.log('Post creado correctamente');
             res.status(201).json({ message: 'Post creado exitosamente' });
-          } else if (status === "Público") {
-            const newPostPublic = await Post.create({
-              title: capitalizedTitle,
-              price,
-              type,
-              addressMap,
-              price_pool,
-              specialPrecioTotal,
-              price_parking,
-              price_kitchen,
-              specialPackageName,
-              specialPackageItems: parsedspecialPackageItems,
-              people,   
-              summary: capitalizedSummary,
-              description: capitalizedDescription,
-              status,
-              continent,
-              country,
-              daysAtentions,
-              hoursAtetionsInitial,
-              hoursAtentionsFinally,
-              infoImportant: parsedInfoImportant,
-              reservedDates: parsedReservedDates,
-              listDetails: parsedListDetails,
-              imageFile: uploadedImageUrls,
-              additionalPrices: parsedAdditionalPrices,
-              horarios: parsedHorarios,
-              priceMenores, 
-              priceTransporte,
-              transportes: parsedTransportes
-            });
-            const userId = decoded.id;
-            await newPostPublic.addUser(userId);
-            console.log('Post creado correctamente');
-            res.status(201).json({ message: 'Post creado exitosamente' });
-          }
+           
         } else {
           res.status(400).json({ error: 'title, summary, or description is not a valid string' });
         }
