@@ -118,22 +118,33 @@ module.exports = {
           } else if (status === "Público") {
             const newPostPublic = await Post.create({
               title: capitalizedTitle,
-              summary: capitalizedSummary,
-              description: capitalizedDescription,
-              status,
-              people,
               price,
               type,
+              addressMap,
               price_pool,
+              specialPrecioTotal,
               price_parking,
               price_kitchen,
               specialPackageName,
-              specialPackageItem: parsedspecialPackageItems,
+              specialPackageItems: parsedspecialPackageItems,
+              people,   
+              summary: capitalizedSummary,
+              description: capitalizedDescription,
+              status,
               continent,
               country,
+              daysAtentions,
+              hoursAtetionsInitial,
+              hoursAtentionsFinally,
               infoImportant: parsedInfoImportant,
+              reservedDates: parsedReservedDates,
               listDetails: parsedListDetails,
               imageFile: uploadedImageUrls,
+              additionalPrices: parsedAdditionalPrices,
+              horarios: parsedHorarios,
+              priceMenores, 
+              priceTransporte,
+              transportes: parsedTransportes
             });
             const userId = decoded.id;
             await newPostPublic.addUser(userId);
