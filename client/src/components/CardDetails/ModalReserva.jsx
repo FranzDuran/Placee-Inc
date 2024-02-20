@@ -18,9 +18,6 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     priceTransporte,
     transportes,
   } = children;
-
-  //console.log(additionalPrices);
-
   //----------------------------------------------------
 
   const [nextStep, setNextStep] = useState(false);
@@ -301,7 +298,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                         handleIncludeSpecialPackageChange(setPrecio(!precio))
                       }
                     >
-                      ${specialPrecioTotal /* .replace(/"/g, "") */}
+                      ${specialPrecioTotal}
                     </button>
                   </div>
                 </div>
