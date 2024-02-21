@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { Input, Space } from "antd";
 const { Search } = Input;
-export default function SearchMobile() {
+export default function Searchs() {
   const [state, setState] = useState({
     top: false,
   });

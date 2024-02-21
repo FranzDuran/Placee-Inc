@@ -4,7 +4,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import BasicMenu from "./ProfileMenu";
 import SimpleBottomNavigation from "./BottomNav";
 import { Link } from "react-router-dom";
-import Search from "../Search/Search";
+import Search from "../Search/Searchs";
 import Nudo from '../../assets/logo/Nudo.png';
 
 function Header() {
@@ -19,8 +19,7 @@ function Header() {
 
       </div>
       <div className="profile-container">
-        <Link to="/public">
-        </Link>
+  
         <div className="airbnb-your-home">
           <LanguageIcon sx={{ fontSize: "1.3rem" }} id='icons-lenguage' />
         </div>

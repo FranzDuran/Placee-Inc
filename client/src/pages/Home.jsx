@@ -6,14 +6,16 @@ import Cards from "../components/Cards/Card";
 import styles from "./Home.module.scss";
 
 function Home() {
+  const [filteredPosts, setFilteredPosts] = useState([]);
+
   return (
     <div className={styles.container}>
       <Header />
-      <div className={styles.continentContent} >
-      <Continent />
+      <div className={styles.continentContent}>
+        <Continent />
       </div>
       <div className={styles.cardsContent}>
-        <Cards />
+        <Cards filteredPosts={filteredPosts} /> {/* Pasar los posts filtrados como prop */}
       </div>
       <div className={styles.footerContent}>
         <FooterHome />

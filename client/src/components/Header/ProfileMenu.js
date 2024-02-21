@@ -49,13 +49,13 @@ export default function BasicMenu() {
   const [loadingLogin, setLoadingLogin] = React.useState(false);
 
 
-  React.useEffect(() => {
+/*   React.useEffect(() => {
     dispatch(DetailsPostTuristic(datapersonal.id));
-  }, [dispatch, datapersonal.id]);
+  }, [dispatch, datapersonal.id]); */
 
-  React.useEffect(() => {
+/*   React.useEffect(() => {
     dispatch(fetchGoogleProfile());
-  }, [dispatch]);
+  }, [dispatch]); */
 
   function handleShow(breakpoint) {
     setFullscreen(breakpoint);
