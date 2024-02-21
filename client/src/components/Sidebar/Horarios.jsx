@@ -65,9 +65,9 @@ const Horarios = ({onGuardarClick }) => {
           </div>
         ))}
       </form>
-      <button onClick={handleGuardarClick} className={styles.button}>
+{/*       <button onClick={handleGuardarClick} className={styles.button}>
         Guardar
-      </button>
+      </button> */}
     </div>
   );
 };

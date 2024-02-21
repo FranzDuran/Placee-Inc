@@ -52,7 +52,7 @@ const CalendarComponent = ({ onSaveToDatabase }) => {
         dateFormat="dd/MM/yyyy"
         // Otros props de configuración según tus necesidades
       />
-      <button onClick={handleSaveClick} className={styles.calendarBtn} >Guardar fechas</button>
+     {/*  <button onClick={handleSaveClick} className={styles.calendarBtn} >Guardar fechas</button> */}
     </div>
   );
 };
