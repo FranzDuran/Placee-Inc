@@ -132,7 +132,7 @@ export default function FormStepper() {
   const dateFormat = "YYYY/MM/DD";
   const [show, setShow] = useState({
     title: "",
-    price: null,
+    price: 0,
 
     specialPackageName: "",
     specialPackageItems: [],
@@ -156,11 +156,11 @@ export default function FormStepper() {
     infoImportant: [],
     additionalPrices: [],
     hasSpecialPackage: false,
-    specialPrecioTotal: null,
+    specialPrecioTotal: 0,
     addressMap: "",
     horarios: [],
-    priceMenores: null,
-    priceTransporte: null,
+    priceMenores: 0,
+    priceTransporte: 0,
     transportes: [],
   });
   console.log("Show:", show);
