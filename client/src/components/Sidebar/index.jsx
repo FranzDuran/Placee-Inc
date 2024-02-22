@@ -1120,7 +1120,6 @@ export default function FormStepper() {
                             type="number"
                             defaultValue={show.price}
                             onChange={handlePrice}
-                            required={show.status === "Privado"}
                           />
                           <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
@@ -1140,7 +1139,6 @@ export default function FormStepper() {
                             type="number"
                             defaultValue={show.priceMenores}
                             onChange={handlePriceMenores}
-                            required={show.status === "Privado"}
                           />
                           <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
@@ -1160,7 +1158,6 @@ export default function FormStepper() {
                             type="number"
                             defaultValue={show.priceTransporte}
                             onChange={handlePriceTransporte}
-                            required={show.status === "Privado"}
                           />
                           <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
