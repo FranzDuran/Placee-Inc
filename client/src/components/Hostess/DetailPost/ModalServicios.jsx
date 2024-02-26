@@ -3,9 +3,21 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalServicios.module.scss";
 import { addDays, isSameDay } from "date-fns";
+import Row from "react-bootstrap/Row";
+import Button from "@mui/material/Button";
+import Form from "react-bootstrap/Form";
+import InputGroup from "react-bootstrap/InputGroup";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
 
-
-const ModalServicios = ({ isOpen, onClose, children, onChange }) => {
+const ModalServicios = ({
+  isOpen,
+  onClose,
+  children,
+  onChange,
+  detail,
+  setDetail,
+}) => {
   const {
     title,
     specialPackageItems,
@@ -35,178 +47,98 @@ const ModalServicios = ({ isOpen, onClose, children, onChange }) => {
   const [totalValue, setTotalValue] = useState(0);
 
   //------------- RESERVA ADULTO / MENORES ------------------------
-  const [reservaQuantities, setReservaQuantities] = useState({
-    adult: 0,
-    menores: 0,
-  });
-
-  const handleReservaIncrease = (type) => {
-    setReservaQuantities((prevQuantities) => ({
-      ...prevQuantities,
-      [type]: prevQuantities[type] + 1,
+  const handleAddMore = () => {
+    setDetail((prevState) => ({
+      ...prevState,
+      additionalPrices: [
+        ...prevState.additionalPrices,
+        { label: "", value: null },
+      ],
     }));
-
-    // Update total value based on the type of reservation
-    if (type === "adult") {
-      setTotalValue(totalValue + parseFloat(price));
-    } else if (type === "menores") {
-      setTotalValue(totalValue + priceMenores);
-    }
   };
 
-  const handleReservaDecrease = (type) => {
-    if (reservaQuantities[type] > 0) {
-      setReservaQuantities((prevQuantities) => ({
-        ...prevQuantities,
-        [type]: prevQuantities[type] - 1,
+  const handleAdditionalPriceChange = (index, event) => {
+    const { name, value } = event.target;
+
+    setDetail((prevState) => ({
+      ...prevState,
+      additionalPrices: prevState.additionalPrices.map((price, i) =>
+        i === index ? { ...price, [name]: parseInt(value, 10) } : price
+      ),
+    }));
+  };
+
+  const handleAdditionalLabelChange = (index, event) => {
+    const updatedPrices = [...detail.additionalPrices];
+    updatedPrices[index].label = event.target.value;
+    setDetail((prevState) => ({
+      ...prevState,
+      additionalPrices: updatedPrices,
+    }));
+  };
+
+  //---------------------------------------------------------
+  const handleSpecialPackage = (value) => {
+    console.log("boleano");
+    setDetail((prevState) => ({
+      ...prevState,
+      hasSpecialPackage: value,
+    }));
+  };
+
+  const handleSpecialPackageName = (e) => {
+    console.log("name");
+    setDetail((prevState) => ({
+      ...prevState,
+      specialPackageName: e.target.value,
+    }));
+  };
+
+  const handleType = (e) => {
+    setDetail((prevState) => ({
+      ...prevState,
+      type: e.target.value,
+    }));
+  };
+
+  const handlePrecioTotal = (e) => {
+    setDetail((prevState) => ({
+      ...prevState,
+      specialPrecioTotal: e.target.value,
+    }));
+  };
+
+  const handleSpecialPackageItem = (e) => {
+    console.log("items");
+    setDetail((prevState) => ({
+      ...prevState,
+      specialPackageItem: e.target.value,
+    }));
+  };
+
+  const handleAddSpecialPackageItem = () => {
+    console.log("add item");
+    if (detail.specialPackageItem.trim() !== "") {
+      console.log("add item 1");
+      setDetail((prevState) => ({
+        ...prevState,
+        specialPackageItems: [
+          ...prevState.specialPackageItems,
+          detail.specialPackageItem,
+        ],
+        specialPackageItem: "",
       }));
-
-      // Update total value based on the type of reservation
-      if (type === "adult") {
-        setTotalValue(totalValue - price);
-      } else if (type === "menores") {
-        setTotalValue(totalValue - priceMenores);
-      }
     }
   };
 
-  //----------------- TRANSPORTE ---------------------------------
-
-  const [selectedTransportation, setSelectedTransportation] = useState(false);
-  const [selectedSubTransportation, setSelectedSubTransportation] = useState(
-    []
-  );
-
-  // Handler for changing the first select
-  const handleTransportationChange = () => {
-    setSelectedTransportation(true);
-    setSelectedSubTransportation([]);
-    setInputValues([]);
+  const handleRemoveSpecialPackageItem = (index) => {
+    const updatedItems = [...detail.specialPackageItems];
+    updatedItems.splice(index, 1);
+    setDetail((prevState) => ({
+      ...prevState,
+      specialPackageItems: updatedItems,
+    }));
   };
-
-  // Handler for changing sub-transportation options
-  const handleSubTransportationChange = (event) => {
-    const selectedOption = event.target.value;
-    if (!selectedSubTransportation.includes(selectedOption)) {
-      setSelectedSubTransportation([
-        ...selectedSubTransportation,
-        selectedOption,
-      ]);
-      setInputValues([...inputValues, 0]); // Initialize quantity to 0 for new option
-    }
-  };
-
-  // Handler for removing a sub-transportation option
-  const handleRemoveSubTransportation = (optionToRemove, indexToRemove) => {
-    setSelectedSubTransportation(
-      selectedSubTransportation.filter((option, index) => {
-        if (index === indexToRemove) {
-          const removedValue = inputValues[indexToRemove] * priceTransporte;
-          setTotalValue(totalValue - removedValue);
-
-          // Eliminar el valor correspondiente del totalInputValues
-          const newTotalInputValues =
-            totalInputValues - inputValues[indexToRemove];
-          setTotalInputValues(newTotalInputValues);
-
-          const newInputValues = [...inputValues];
-          newInputValues.splice(indexToRemove, 1);
-          setInputValues(newInputValues);
-        }
-        return option !== optionToRemove;
-      })
-    );
-  };
-
-  const [inputValues, setInputValues] = useState([]);
-  const [totalInputValues, setTotalInputValues] = useState(0);
-
-  const handleInputChange = (index, value) => {
-    const newInputValues = [...inputValues];
-    newInputValues[index] = value;
-    setInputValues(newInputValues);
-    // Actualizar totalInputValues sumando todos los valores de inputValues
-    const sumOfInputValues = newInputValues.reduce(
-      (sum, inputValue) => sum + parseFloat(inputValue) || 0,
-      0
-    );
-    setTotalInputValues(sumOfInputValues);
-  };
-
-  // Handler for increasing quantity of a sub-transportation option
-  const handleIncreaseQuantity = (index) => {
-    //console.log(index);
-    const newInputValues = [...inputValues];
-    newInputValues[index] += 1;
-    setInputValues(newInputValues);
-    setTotalValue(totalValue + priceTransporte);
-    handleInputChange(index, newInputValues[index]);
-  };
-
-  // Handler for decreasing quantity of a sub-transportation option
-  const handleDecreaseQuantity = (index) => {
-    if (inputValues[index] > 0) {
-      const newInputValues = [...inputValues];
-      newInputValues[index] -= 1;
-      setInputValues(newInputValues);
-      setTotalValue(totalValue - priceTransporte);
-      handleInputChange(index, newInputValues[index]);
-    }
-  };
-
-  //---------------- SERVICIOS -------------------------------------
-  const [serviceQuantities, setServiceQuantities] = useState(Array(additionalPrices && additionalPrices.length).fill(0));
-
-
-  const handleServiceIncrease = (index) => {
-    if (additionalPrices && additionalPrices.length > index) {
-      setServiceQuantities((prevQuantities) => {
-        const newQuantities = [...prevQuantities];
-        newQuantities[index] = (newQuantities[index] || 0) + 1;
-        return newQuantities;
-      });
-      // Actualizar el valor total sumando el valor del servicio
-      setTotalValue(totalValue + additionalPrices[index].value);
-    }
-  };
-  
-  const handleServiceDecrease = (index) => {
-    if (additionalPrices && additionalPrices.length > index && serviceQuantities[index] > 0) {
-      setServiceQuantities((prevQuantities) => {
-        const newQuantities = [...prevQuantities];
-        newQuantities[index] = newQuantities[index] - 1;
-        return newQuantities;
-      });
-      // Actualizar el valor total restando el valor del servicio
-      setTotalValue(totalValue - additionalPrices[index].value);
-    }
-  };
-  
-  
-
-  //--------------------------------------------------------
-
-  const [precio, setPrecio] = useState(false);
-  const handleIncludeSpecialPackageChange = (para) => {
-    if (!precio) {
-      // Sumar el valor del paquete especial al totalValue
-      setTotalValue(
-        totalValue + specialPrecioTotal
-      );
-    } else {
-      // Restar el valor del paquete especial del totalValue
-      setTotalValue(
-        totalValue - specialPrecioTotal
-      );
-    }
-  };
-
-  //-------------- CALENDARIO ----------------------------------------------
-  const [selectedDate, setSelectedDate] = useState(null);
-  // Inhabilitar fechas en el calendario
-  const disabledDates =
-    reservedDates && reservedDates.map((dateString) => new Date(dateString));
-
   return (
     modalOpen && (
       <div className={styles["modal-overlay"]}>
@@ -214,10 +146,7 @@ const ModalServicios = ({ isOpen, onClose, children, onChange }) => {
           <div className={styles["modal-header"]}>
             <div className={styles.contentFile} id={styles.fileTitle}>
               <div className={styles.leftColumn} id={styles.leftColumnTitle}>
-                <h2 className={styles.title}>Reservado en {title}</h2>
-                <div className={styles.titleResult}>
-                  Total: <span>${totalValue}</span>{" "}
-                </div>
+                <h2 className={styles.title}>Reservado</h2>
               </div>
             </div>
             <button className={styles["close-button"]} onClick={closeModal}>
@@ -230,259 +159,138 @@ const ModalServicios = ({ isOpen, onClose, children, onChange }) => {
                 className={styles.modalContainer}
                 id={styles.modalContainerId}
               >
-                {additionalPrices.length > 0 && (
-                  <div className={styles.textContent}>
-                    <p className={styles.text}>
-                      IRTRA cuenta con servicios adicionales y paquetes
-                      exclusivos, los cuales puedes reservar.
-                    </p>
-                    <p className={styles.text}>Reserva un servicio adicional</p>
-                  </div>
-                )}
-                {additionalPrices.length > 0 &&
-                  additionalPrices.map((item, index) => (
-                    <div className={styles.contentFile} key={index}>
-                      <div className={styles.leftColumn}>
-                        <div className={styles.priceSection}>
-                          <span className={styles.price}>${item.value}</span>
-                          <span className={styles.titlePrice}>
-                            {item.label}
-                          </span>
-                          <div className={styles.quantitySection}>
-                            <button
-                              className={styles.btnDecrease}
-                              onClick={() => handleServiceDecrease(index)}
-                            >
-                              -
-                            </button>
-                            <span className={styles.numberResult}>
-                              {serviceQuantities && serviceQuantities[index] || 0}
+                <>
+                  <Row className="mb-3">
+                    <Form.Group as={Col}>
+                      <Form.Label className="label-status">
+                        Nombre del pase o paquete
+                      </Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Nombre del pase o paquete"
+                        value={detail.specialPackageName}
+                        onChange={handleSpecialPackageName}
+                      />
+                    </Form.Group>
+                  </Row>
+
+                  <Row className="mb-3">
+                    <Form.Group as={Col}>
+                      <Form.Label className="label-status">Incluye:</Form.Label>
+
+                      <Card className={styles["card-container"]}>
+                        <Card.Body className={styles["card-body"]}>
+                          {detail.specialPackageItems?.map((details, index) => (
+                            <span key={index} className={styles["card-span"]}>
+                              {details}
+                              <button
+                                onClick={() =>
+                                  handleRemoveSpecialPackageItem(index)
+                                }
+                                size="sm"
+                                className={styles["card-span-btn"]}
+                              >
+                                X
+                              </button>
                             </span>
-                            <button
-                              className={styles.btnIncrease}
-                              onClick={() => handleServiceIncrease(index)}
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                {specialPackageName && (
-                  <div className={styles.textContent}>
-                    <p className={styles.text}>
-                      Reservar un paquete exclusivo de servicios
-                    </p>
-                  </div>
-                )}
-                <div className={styles.containerBoxExclusivo}>
-                  <h3 className={styles.titleBoxExclusivo}>
-                    {specialPackageName}
-                  </h3>
-                  <div className={styles.contentBoxExclusivo}>
-                    <h4>Contiene:</h4>
-                    <div className={styles.containerServices}>
-                      {specialPackageItems.map((item, index) => (
-                        <span className={styles.servicesItem} key={index}>
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={styles.contentPriceExclusivo}>
-                    <p className={styles.textExclusivo}>Reservar por:</p>
-                    <button
-                      className={styles.priceExclusivo}
-                      onClick={() =>
-                        handleIncludeSpecialPackageChange(setPrecio(!precio))
-                      }
-                    >
-                      ${specialPrecioTotal}
-                    </button>
-                  </div>
-                </div>
+                          ))}
+                        </Card.Body>
+                      </Card>
+
+                      <InputGroup className={styles.contentInputForm}>
+                        <Form.Control
+                          className={styles.inputForm}
+                          type="text"
+                          placeholder="Ingrese un elemento"
+                          value={detail.specialPackageItem}
+                          onChange={handleSpecialPackageItem}
+                        />
+                        <Button
+                          id={styles.buttonBlack}
+                          variant="success"
+                          onClick={handleAddSpecialPackageItem}
+                        >
+                          Agregar
+                        </Button>
+                      </InputGroup>
+                    </Form.Group>
+                  </Row>
+
+                  {/* PRECIO TOTAL DEL PAQUETE */}
+                  <Row className="mb-3">
+                    <Form.Group as={Col}>
+                      <Form.Label className="label-status">Total</Form.Label>
+                      <InputGroup className="mb-3">
+                        <InputGroup.Text>$</InputGroup.Text>
+                        <Form.Control
+                          type="number"
+                          placeholder="Total"
+                          value={detail.specialPrecioTotal}
+                          onChange={handlePrecioTotal}
+                        />
+                        <InputGroup.Text>.00</InputGroup.Text>
+                      </InputGroup>
+                    </Form.Group>
+                  </Row>
+                </>
               </div>
             </div>
           ) : (
             <div className={styles["modal-content"]}>
               <div className={styles.modalContainer}>
-                <div className={styles.contentFile}>
-                  <div className={styles.leftColumn}>
-                    <DatePicker
-                      selected={selectedDate}
-                      onChange={(date) => setSelectedDate(date)}
-                      dateFormat="dd/MM/yyyy"
-                      className={styles.datePicker}
-                      placeholderText="Fecha"
-                      excludeDates={disabledDates}
-                    />
-                  </div>
-                </div>
+                <div>
+                  <h4 className="label-title">Agregar precio a:</h4>
+                  {detail.additionalPrices.length > 0 && (
+                    <>
+                      {detail.additionalPrices.map((price, index) => (
+                        <Row className="mb-3" key={index}>
+                          <Form.Group as={Col}>
+                            <Form.Label>{`Nombre`}</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder={` Ej: Piscina`}
+                              value={price.label}
+                              onChange={(e) =>
+                                handleAdditionalLabelChange(index, e)
+                              }
+                            />
+                          </Form.Group>
 
-                <div className={styles.contentFile}>
-                  <div className={styles.leftColumn}>
-                    <div className={styles.priceSection}>
-                      <span className={styles.price}>$ {price}</span>
-                      <span className={styles.titlePrice}>Adulto</span>
-                      <div className={styles.quantitySection}>
-                        <button
-                          className={styles.btnDecrease}
-                          onClick={() => handleReservaDecrease("adult")}
-                        >
-                          -
-                        </button>
-                        <span className={styles.numberResult}>
-                          {reservaQuantities?.adult || 0}
-                        </span>
-                        <button
-                          className={styles.btnIncrease}
-                          onClick={() => handleReservaIncrease("adult")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.contentFile}>
-                  <div className={styles.leftColumn}>
-                    <div className={styles.priceSection}>
-                      <span className={styles.price}>$ {priceMenores}</span>
-                      <span className={styles.titlePrice}>Menores</span>
-                      <div className={styles.quantitySection}>
-                        <button
-                          className={styles.btnDecrease}
-                          onClick={() => handleReservaDecrease("menores")}
-                        >
-                          -
-                        </button>
-                        <span className={styles.numberResult}>
-                          {reservaQuantities?.menores || 0}
-                        </span>
-                        <button
-                          className={styles.btnIncrease}
-                          onClick={() => handleReservaIncrease("menores")}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {!nextStep && (
-                  <>
-                    {/* First select for transportation */}
-                    <div className={styles.contentFile}>
-                      <div className={styles.leftColumn}>
-                        <span className={styles.priceSelect}>
-                          $ {priceTransporte}
-                        </span>
-                        <button
-                          className={styles.btnTransporte}
-                          onClick={handleTransportationChange}
-                        >
-                          Transporte
-                        </button>
-                        <div className={styles.titleResult}>
-                          {totalInputValues} Tickets
-                        </div>
-                      </div>
-                    </div>
-                    {/* Second select for sub-transportation */}
-                    {selectedTransportation && (
-                      <>
-                        <div className={styles.contentFile}>
-                          <div
-                            className={styles.leftColumn}
-                            id={styles.containerCheckboxs}
-                          >
-                            {transportes.map((option) => (
-                              <div
-                                key={option}
-                                className={styles.checkboxContent}
-                              >
-                                <input
-                                  type="checkbox"
-                                  id={option}
-                                  value={option}
-                                  checked={selectedSubTransportation.includes(
-                                    option
-                                  )}
-                                  onChange={handleSubTransportationChange}
-                                  className={styles.checkboxInput}
-                                />
-                                <label htmlFor={option}>{option}</label>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                        <div className={styles.contentFile}>
-                          <div className={styles.leftColumn}>
-                            <div className={styles.contentOptions}>
-                              {selectedSubTransportation.map(
-                                (option, index) => (
-                                  <div
-                                    key={option}
-                                    className={styles.selectedOption}
-                                  >
-                                    {option}
-                                    <div className={styles.counter}>
-                                      <button
-                                        className={styles.counterButton}
-                                        onClick={() =>
-                                          handleDecreaseQuantity(index)
-                                        }
-                                      >
-                                        <i className="ri-subtract-line"></i>
-                                      </button>
-                                      <span className={styles.counterValue}>
-                                        {inputValues[index]}
-                                      </span>
-                                      <button
-                                        className={styles.counterButton}
-                                        onClick={() =>
-                                          handleIncreaseQuantity(index)
-                                        }
-                                      >
-                                        <i className="ri-add-line"></i>
-                                      </button>
-                                    </div>
-                                    <button
-                                      className={styles.removeOptionButton}
-                                      onClick={() =>
-                                        handleRemoveSubTransportation(
-                                          option,
-                                          index
-                                        )
-                                      }
-                                    >
-                                      <i className="ri-close-line"></i>
-                                    </button>
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </>
-                )}
-                {specialPackageItems.length > 0 ||
-                  specialPackageName ||
-                  specialPrecioTotal ? (
-                  <button
-                    className={styles.btnSpecial}
-                    onClick={() => setNextStep(true)}
+                          <Form.Group as={Col}>
+                            <Form.Label>{`Precio`}</Form.Label>
+                            <InputGroup className="mb-3">
+                              <InputGroup.Text>$</InputGroup.Text>
+                              <Form.Control
+                                type="number"
+                                name="value"
+                                placeholder={`50`}
+                                value={price.value}
+                                onChange={(e) =>
+                                  handleAdditionalPriceChange(index, e)
+                                }
+                              />
+                              <InputGroup.Text>.00</InputGroup.Text>
+                            </InputGroup>
+                          </Form.Group>
+                        </Row>
+                      ))}
+                    </>
+                  )}
+                  <Button
+                    id={styles.buttonBlack}
+                    variant="secondary"
+                    onClick={handleAddMore}
                   >
-                    Reservar juegos adicionales
-                  </button>
-                ) : (
-                  ""
-                )}
+                    Agregar
+                  </Button>
+                </div>
               </div>
+              <button
+                className={styles.btnSpecial}
+                onClick={() => setNextStep(true)}
+              >
+                Reservar juegos adicionales
+              </button>
             </div>
           )}
           <div className={styles["modal-footer"]}>
@@ -494,6 +302,7 @@ const ModalServicios = ({ isOpen, onClose, children, onChange }) => {
                 Atras
               </button>
             )}
+
             <button className={styles["reservar-button"]} onClick={onChange}>
               Reservar
             </button>

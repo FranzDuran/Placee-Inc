@@ -67,6 +67,11 @@ export default function DetailPost() {
     people: "",
     priceTransporte: null,
     transportes: [],
+    additionalPrices:[],
+    specialPackageName:"",
+    specialPrecioTotal:"",
+    specialPackageItem:[],
+
   });
   const handleCloseTitle = () => {
     setShowTittle(false);
@@ -706,7 +711,8 @@ export default function DetailPost() {
             <ModalServicios
               isOpen={modalOpenServicios}
               onClose={closeModalServicios}
-
+              setDetail={setDetail}
+              detail={detail}
               children={detailpost}
             />
           </div>
