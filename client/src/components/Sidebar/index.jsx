@@ -132,7 +132,7 @@ export default function FormStepper() {
   const dateFormat = "YYYY/MM/DD";
   const [show, setShow] = useState({
     title: "",
-    price: null,
+    price: 0,
 
     specialPackageName: "",
     specialPackageItems: [],
@@ -156,11 +156,11 @@ export default function FormStepper() {
     infoImportant: [],
     additionalPrices: [],
     hasSpecialPackage: false,
-    specialPrecioTotal: null,
+    specialPrecioTotal: 0,
     addressMap: "",
     horarios: [],
-    priceMenores: null,
-    priceTransporte: null,
+    priceMenores: 0,
+    priceTransporte: 0,
     transportes: [],
   });
   console.log("Show:", show);
@@ -1120,7 +1120,6 @@ export default function FormStepper() {
                             type="number"
                             defaultValue={show.price}
                             onChange={handlePrice}
-                            required={show.status === "Privado"}
                           />
                           <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
@@ -1140,7 +1139,6 @@ export default function FormStepper() {
                             type="number"
                             defaultValue={show.priceMenores}
                             onChange={handlePriceMenores}
-                            required={show.status === "Privado"}
                           />
                           <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
@@ -1160,7 +1158,6 @@ export default function FormStepper() {
                             type="number"
                             defaultValue={show.priceTransporte}
                             onChange={handlePriceTransporte}
-                            required={show.status === "Privado"}
                           />
                           <InputGroup.Text>.00</InputGroup.Text>
                         </InputGroup>
