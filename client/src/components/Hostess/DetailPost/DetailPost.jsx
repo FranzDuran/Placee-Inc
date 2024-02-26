@@ -28,6 +28,7 @@ import ButtonMaterial from "@mui/material/Button";
 
 import { updatepost } from "../../../redux/action";
 import GalleryModal from "../../CardDetails/GalleryModal.jsx";
+import ModalServicios from "./ModalServicios";
 
 const { confirm } = Modal;
 
@@ -36,6 +37,7 @@ export default function DetailPost() {
   const { postId } = useParams();
   const navigate = useNavigate();
   const detailpost = useSelector((state) => state.detailpost);
+  console.log(detailpost);
   const token = useSelector((state) => state.token);
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
@@ -63,6 +65,8 @@ export default function DetailPost() {
     summary: "",
     description: "",
     people: "",
+    priceTransporte: null,
+    transportes: [],
   });
   const handleCloseTitle = () => {
     setShowTittle(false);
@@ -116,8 +120,8 @@ export default function DetailPost() {
     dispatch(updatepost(postId, detail));
   };
 
-  const handleOnClose =()=>{
-    setShow(false)
+  const handleOnClose = () => {
+    setShow(false);
   };
 
   const handleTitle = (e) => {
@@ -126,6 +130,44 @@ export default function DetailPost() {
       title: e.target.value,
     });
   };
+
+  //-------- TRANSPOSTE -------------------------
+  const handlePriceTransporte = (e) => {
+    e.preventDefault();
+    setDetail((prevState) => ({
+      ...prevState,
+      priceTransporte: parseInt(e.target.value, 10),
+    }));
+  };
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  const handleCheckboxTransporte = (itemName) => {
+    // Check if the item is already selected
+    if (selectedItems.includes(itemName)) {
+      // If selected, remove it from the array
+      setSelectedItems(selectedItems.filter((item) => item !== itemName));
+    } else {
+      // If not selected, add it to the array
+      setSelectedItems([...selectedItems, itemName]);
+    }
+    setDetail((prevState) => ({
+      ...prevState,
+      transportes: selectedItems,
+    }));
+  };
+
+  //------------- MODAL SERVICIOS -------------------------------------
+
+  const [modalOpenServicios, setModalOpenServicios] = useState(false);
+
+  const openModalServicios = () => {
+    setModalOpenServicios(true);
+  };
+
+  const closeModalServicios = () => {
+    setModalOpenServicios(false);
+  };
+
   return (
     <div className={styles["container-updatePublic"]}>
       <div className={styles["card-update"]}>
@@ -135,7 +177,7 @@ export default function DetailPost() {
               <div className={styles.titleContent}>
                 <h1>{detailpost.title}</h1>
                 <div onClick={handleShowTitle}>
-                  <EditIcon className={styles.btnEditTitle} />
+                  <i className="ri-edit-2-line" id={styles.btnEditTitle}></i>
                 </div>
 
                 <ModalBootstrap show={showTittle} onHide={handleCloseTitle}>
@@ -183,7 +225,7 @@ export default function DetailPost() {
               </div>
               <div className={styles["update-btn-container"]}>
                 <div className={styles["update-title-country"]}>
-                  <span className="sub-title">
+                  <span className={styles["sub-title"]}>
                     {detailpost.continent}, {detailpost.country}.
                   </span>
 
@@ -192,7 +234,7 @@ export default function DetailPost() {
                     onClick={handleShowContinent}
                     className={styles["country-btn"]}
                   >
-                    Editar
+                    <i class="ri-edit-2-line"></i>
                   </Button>
 
                   <ModalBootstrap
@@ -266,7 +308,9 @@ export default function DetailPost() {
                   </ModalBootstrap>
                 </div>
                 <div className={styles["update-title-status"]}>
-                  <span className="sub-title">Estado: {detailpost.status}</span>
+                  <span className={styles["sub-title"]}>
+                    Estado: {detailpost.status}
+                  </span>
 
                   <Button
                     variant="primary"
@@ -274,7 +318,7 @@ export default function DetailPost() {
                     onClick={handleShowStatus}
                     className={styles["status-btn"]}
                   >
-                    Editar
+                    <i class="ri-edit-2-line"></i>
                   </Button>
 
                   <ModalBootstrap show={showStatus} onHide={handleCloseTitle}>
@@ -321,6 +365,34 @@ export default function DetailPost() {
                     </form>
                   </ModalBootstrap>
                 </div>
+              </div>
+              <div className={styles["btn-delete-content"]}>
+                <a href={"/rooms/" + postId} target="_blank">
+                  <Space wrap>
+                    <Button
+                      onClick={showDeleteConfirm}
+                      type="dashed"
+                      className={styles["btn-delete"]}
+                    >
+                      Ir a publicación
+                    </Button>
+                  </Space>
+                </a>
+              </div>
+
+              <div
+                className={styles["btn-delete-content"]}
+                id={styles.btnEliminarPubli}
+              >
+                <Space wrap>
+                  <Button
+                    onClick={showDeleteConfirm}
+                    type="dashed"
+                    className={styles["btn-delete"]}
+                  >
+                    Eliminar publicacion
+                  </Button>
+                </Space>
               </div>
             </div>
             <div className={styles.contentImage}>
@@ -375,20 +447,6 @@ export default function DetailPost() {
                   </ModalBootstrap.Body>
                 </ModalBootstrap> */}
               </div>
-
-              <div className={styles["btn-delete-content"]}>
-                <div>
-                  <Space wrap>
-                    <Button
-                      onClick={showDeleteConfirm}
-                      type="dashed"
-                      className={styles["btn-delete"]}
-                    >
-                      Eliminar publicacion
-                    </Button>
-                  </Space>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -398,15 +456,12 @@ export default function DetailPost() {
             <div className={styles["card-direction"]}>
               <span className={styles["direction"]}>Dirección</span>
               <Card className={styles["card-detailpost"]}>
-                <p>
-                  San Juan Chamelco a Santa Cruz, San Juan Chamelco, Alta
-                  Verapaz, Guatemala.
-                </p>
+                <p>{detailpost.addressMap || "--"}</p>
               </Card>
             </div>
             <div className={styles["update-title-price"]}>
               <div className={styles["card-price"]}>
-                <span className={styles["direction"]}>Precio fijado:</span>
+                <span className={styles["direction"]}>Precio Adultos:</span>
                 <Card className={styles.price}>
                   <p> ${detailpost.price}</p>
                 </Card>
@@ -423,7 +478,7 @@ export default function DetailPost() {
                   minWidth: "40px",
                 }}
               >
-                <EditIcon className={styles["edit-icon"]} />
+                <i className="ri-edit-2-line" id={styles["edit-icon"]}></i>
               </ButtonMaterial>
               <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
@@ -468,15 +523,192 @@ export default function DetailPost() {
                   </ModalBootstrap.Footer>
                 </form>
               </ModalBootstrap>
+              <div className={styles["card-price"]}>
+                <span className={styles["direction"]}>Precio Niños:</span>
+                <Card className={styles.price}>
+                  <p> ${detailpost.priceMenores}</p>
+                </Card>
+              </div>
+              <ButtonMaterial
+                onClick={handleShowPrice}
+                className={styles.btnEditPrice}
+                sx={{
+                  color: "#8B008B",
+                  borderRadius: "50px",
+                  padding: "10px",
+                  width: "40px",
+                  height: "40px",
+                  minWidth: "40px",
+                }}
+              >
+                <i className="ri-edit-2-line" id={styles["edit-icon"]}></i>
+              </ButtonMaterial>
+              <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
+                <form onSubmit={handleSubmit}>
+                  <ModalBootstrap.Header closeButton>
+                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                  </ModalBootstrap.Header>
+                  <ModalBootstrap.Body>
+                    <Form className="modal-titleupdate">
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Label>Precio</Form.Label>
+                        <Form.Control
+                          type="text"
+                          autoFocus
+                          placeholder={detailpost.price}
+                          value={detail.price}
+                          onChange={(e) =>
+                            setDetail({
+                              ...detail,
+                              priceMenores: e.target.value,
+                            })
+                          }
+                          className={styles.inputForm}
+                        />
+                      </Form.Group>
+                    </Form>
+                  </ModalBootstrap.Body>
+                  <ModalBootstrap.Footer>
+                    <ButtonBootstrap
+                      variant="secondary"
+                      onClick={handleCloseTitle}
+                      className={styles.btnModalCancelar}
+                    >
+                      Cancelar
+                    </ButtonBootstrap>
+                    <ButtonBootstrap
+                      type="submit"
+                      variant="primary"
+                      className={styles.btnModalGuardar}
+                    >
+                      Guardar cambio
+                    </ButtonBootstrap>
+                  </ModalBootstrap.Footer>
+                </form>
+              </ModalBootstrap>
+            </div>
+
+            <div className={styles.containerSelectTransporte}>
+              <Form.Group>
+                <Form.Label className={styles["label-title"]}>
+                  Seleccione el tipo de transporte permitido
+                </Form.Label>
+                <div>
+                  <Form.Check
+                    type="checkbox"
+                    label="Automovil"
+                    checked={selectedItems.includes("Automovil")}
+                    onChange={() => handleCheckboxTransporte("Automovil")}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Moto"
+                    checked={selectedItems.includes("Moto")}
+                    onChange={() => handleCheckboxTransporte("Moto")}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Bicicleta"
+                    checked={selectedItems.includes("Bicicleta")}
+                    onChange={() => handleCheckboxTransporte("Bicicleta")}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Bus"
+                    checked={selectedItems.includes("Bus")}
+                    onChange={() => handleCheckboxTransporte("Bus")}
+                  />
+                  <Form.Check
+                    type="checkbox"
+                    label="Camion"
+                    checked={selectedItems.includes("Camion")}
+                    onChange={() => handleCheckboxTransporte("Camion")}
+                  />
+                </div>
+              </Form.Group>
+            </div>
+
+            <div className={styles["update-title-price"]}>
+              <div className={styles["card-price"]}>
+                <span className={styles["direction"]}>Precio Transporte:</span>
+                <Card className={styles.price}>
+                  <p> ${detailpost.priceTransporte}</p>
+                </Card>
+              </div>
+              <ButtonMaterial
+                onClick={handleShowPrice}
+                className={styles.btnEditPrice}
+                sx={{
+                  color: "#8B008B",
+                  borderRadius: "50px",
+                  padding: "10px",
+                  width: "40px",
+                  height: "40px",
+                  minWidth: "40px",
+                }}
+              >
+                <i className="ri-edit-2-line" id={styles["edit-icon"]}></i>
+              </ButtonMaterial>
+              <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
+                <form onSubmit={handleSubmit}>
+                  <ModalBootstrap.Header closeButton>
+                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                  </ModalBootstrap.Header>
+                  <ModalBootstrap.Body>
+                    <Form className="modal-titleupdate">
+                      <Form.Group
+                        className="mb-3"
+                        controlId="exampleForm.ControlInput1"
+                      >
+                        <Form.Label>Precio</Form.Label>
+                        <Form.Control
+                          type="text"
+                          autoFocus
+                          placeholder={detailpost.price}
+                          value={detail.price}
+                          onChange={(e) => handlePriceTransporte()}
+                          className={styles.inputForm}
+                        />
+                      </Form.Group>
+                    </Form>
+                  </ModalBootstrap.Body>
+                  <ModalBootstrap.Footer>
+                    <ButtonBootstrap
+                      variant="secondary"
+                      onClick={handleCloseTitle}
+                      className={styles.btnModalCancelar}
+                    >
+                      Cancelar
+                    </ButtonBootstrap>
+                    <ButtonBootstrap
+                      type="submit"
+                      variant="primary"
+                      className={styles.btnModalGuardar}
+                    >
+                      Guardar cambio
+                    </ButtonBootstrap>
+                  </ModalBootstrap.Footer>
+                </form>
+              </ModalBootstrap>
             </div>
 
             <div className={styles["publication-btn"]}>
-              <a href={"/rooms/" + postId} target="_blank">
-                <Button>
-                  <span id="go-btn">Ir a publicación</span>
-                </Button>
-              </a>
+              <Button
+                className={styles.btnServicios}
+                onClick={openModalServicios}
+              >
+                <span id="go-btn">Ir a Servicios Adicionales y Paquetes</span>
+              </Button>
             </div>
+            <ModalServicios
+              isOpen={modalOpenServicios}
+              onClose={closeModalServicios}
+
+              children={detailpost}
+            />
           </div>
         </div>
       </div>
