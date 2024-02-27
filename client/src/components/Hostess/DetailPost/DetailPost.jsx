@@ -29,6 +29,7 @@ import ButtonMaterial from "@mui/material/Button";
 import { updatepost } from "../../../redux/action";
 import GalleryModal from "../../CardDetails/GalleryModal.jsx";
 import ModalServicios from "./ModalServicios";
+import ModalPaquetes from "./ModalPaquetes";
 
 const { confirm } = Modal;
 
@@ -67,11 +68,10 @@ export default function DetailPost() {
     people: "",
     priceTransporte: null,
     transportes: [],
-    additionalPrices:[],
-    specialPackageName:"",
-    specialPrecioTotal:"",
-    specialPackageItem:[],
-
+    additionalPrices: [],
+    specialPackageName: "",
+    specialPrecioTotal: "",
+    specialPackageItem: [],
   });
   const handleCloseTitle = () => {
     setShowTittle(false);
@@ -137,23 +137,17 @@ export default function DetailPost() {
   };
 
   //-------- TRANSPOSTE -------------------------
-  const handlePriceTransporte = (e) => {
-    e.preventDefault();
-    setDetail((prevState) => ({
-      ...prevState,
-      priceTransporte: parseInt(e.target.value, 10),
-    }));
-  };
+
+  const [mostrarCheckbox, setMostrarCheckbox] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const handleCheckboxTransporte = (itemName) => {
-    // Check if the item is already selected
-    if (selectedItems.includes(itemName)) {
-      // If selected, remove it from the array
-      setSelectedItems(selectedItems.filter((item) => item !== itemName));
+  const handleCheckboxTransporte = (item) => {
+    if (selectedItems.includes(item)) {
+      setSelectedItems(
+        selectedItems.filter((selectedItem) => selectedItem !== item)
+      );
     } else {
-      // If not selected, add it to the array
-      setSelectedItems([...selectedItems, itemName]);
+      setSelectedItems([...selectedItems, item]);
     }
     setDetail((prevState) => ({
       ...prevState,
@@ -161,6 +155,17 @@ export default function DetailPost() {
     }));
   };
 
+  const handleLabelClick = () => {
+    setMostrarCheckbox(!mostrarCheckbox);
+  };
+
+  const handlePriceTransporte = (e) => {
+    e.preventDefault();
+    setDetail((prevState) => ({
+      ...prevState,
+      priceTransporte: parseInt(e.target.value, 10),
+    }));
+  };
   //------------- MODAL SERVICIOS -------------------------------------
 
   const [modalOpenServicios, setModalOpenServicios] = useState(false);
@@ -171,6 +176,19 @@ export default function DetailPost() {
 
   const closeModalServicios = () => {
     setModalOpenServicios(false);
+  };
+
+  //------------------------------------------------------------------
+  const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+
+  const handleCloseModal1 = () => setShowModal1(false);
+  const handleCloseModal2 = () => setShowModal2(false);
+
+  const handleShowModals = () => {
+    console.log("1");
+    setShowModal1(true);
+    setShowModal2(true);
   };
 
   return (
@@ -597,43 +615,49 @@ export default function DetailPost() {
             </div>
 
             <div className={styles.containerSelectTransporte}>
-              <Form.Group>
-                <Form.Label className={styles["label-title"]}>
-                  Seleccione el tipo de transporte permitido
-                </Form.Label>
-                <div>
-                  <Form.Check
-                    type="checkbox"
-                    label="Automovil"
-                    checked={selectedItems.includes("Automovil")}
-                    onChange={() => handleCheckboxTransporte("Automovil")}
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    label="Moto"
-                    checked={selectedItems.includes("Moto")}
-                    onChange={() => handleCheckboxTransporte("Moto")}
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    label="Bicicleta"
-                    checked={selectedItems.includes("Bicicleta")}
-                    onChange={() => handleCheckboxTransporte("Bicicleta")}
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    label="Bus"
-                    checked={selectedItems.includes("Bus")}
-                    onChange={() => handleCheckboxTransporte("Bus")}
-                  />
-                  <Form.Check
-                    type="checkbox"
-                    label="Camion"
-                    checked={selectedItems.includes("Camion")}
-                    onChange={() => handleCheckboxTransporte("Camion")}
-                  />
+              <Form.Label
+                className={styles["label-title"]}
+                onClick={handleLabelClick}
+              >
+                Seleccione el tipo de transporte permitido
+              </Form.Label>
+
+              {mostrarCheckbox && (
+                <div className={styles.containerSelectTransporte}>
+                  <Form.Group>
+                    <Form.Check
+                      type="checkbox"
+                      label="Automovil"
+                      checked={selectedItems.includes("Automovil")}
+                      onChange={() => handleCheckboxTransporte("Automovil")}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="Moto"
+                      checked={selectedItems.includes("Moto")}
+                      onChange={() => handleCheckboxTransporte("Moto")}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="Bicicleta"
+                      checked={selectedItems.includes("Bicicleta")}
+                      onChange={() => handleCheckboxTransporte("Bicicleta")}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="Bus"
+                      checked={selectedItems.includes("Bus")}
+                      onChange={() => handleCheckboxTransporte("Bus")}
+                    />
+                    <Form.Check
+                      type="checkbox"
+                      label="Camion"
+                      checked={selectedItems.includes("Camion")}
+                      onChange={() => handleCheckboxTransporte("Camion")}
+                    />
+                  </Form.Group>
                 </div>
-              </Form.Group>
+              )}
             </div>
 
             <div className={styles["update-title-price"]}>
@@ -703,14 +727,21 @@ export default function DetailPost() {
             <div className={styles["publication-btn"]}>
               <Button
                 className={styles.btnServicios}
-                onClick={openModalServicios}
+                onClick={handleShowModals}
               >
                 <span id="go-btn">Ir a Servicios Adicionales y Paquetes</span>
               </Button>
             </div>
             <ModalServicios
-              isOpen={modalOpenServicios}
-              onClose={closeModalServicios}
+              isOpen={showModal1}
+              onClose={handleCloseModal1}
+              setDetail={setDetail}
+              detail={detail}
+              children={detailpost}
+            />
+            <ModalPaquetes
+              isOpen={showModal2}
+              onClose={handleCloseModal2}
               setDetail={setDetail}
               detail={detail}
               children={detailpost}
