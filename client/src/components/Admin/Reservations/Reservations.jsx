@@ -276,7 +276,7 @@ const Reservations = () => {
   return (
     <div className="container-reservation">
       <div className="tittle">
-        <h1>Las Ilusiones { cardPersonal && cardPersonal[0].title}</h1>
+        <h1>Las Ilusiones {cardPersonal && cardPersonal[0].title}</h1>
       </div>
 
       <div className="box-reservation">

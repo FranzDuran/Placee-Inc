@@ -1,0 +1,277 @@
+@import "../../../styles.scss";
+
+.container-hitorial {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+.card-container {
+  width: 95%;
+  height: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0px;
+  gap: 10%;
+  padding: 0 20px;
+  border: 1px solid #9d9d9d;
+
+  h1 {
+    margin: 0px;
+  }
+  .months-years {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .carrusel-months {
+      border: 2px solid #cecece;
+      padding: 5px 15px;
+
+      .days-month {
+        text-align: center;
+        font-size: 22px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.card2 {
+  width: 95%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #9d9d9d;
+  .box-card2 {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    //border: 1px solid #9d9d9d;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10%;
+
+      #icons-clendar-expand {
+        margin: 0px;
+        font-size: 50px;
+      }
+      .all-reservations {
+        margin: 0px;
+      }
+      .length-reservation-remmbols {
+        margin: 0px;
+      }
+    }
+  }
+}
+
+.bottom-mobile {
+  width: 95%;
+  height: 70%;
+  border: 1px solid #9d9d9d;
+  .container-paper {
+    width: 100%;
+    height: 100%;
+
+    #fecha-historial {
+      margin: 0px;
+      background: #b797cf;
+      width: 100%;
+      height: 8%;
+      padding: 0 10px;
+      text-align: center;
+      margin: auto 0;
+    }
+    .tablet-virtuoso {
+      height: 92% !important;
+    }
+  }
+}
+.input-months {
+  padding: 15px;
+  margin-top: 2%;
+}
+
+.length-reservation-remmbols {
+  text-align: center;
+}
+#fecha-historial {
+  top: 0;
+  background: rgba(116, 255, 2, 0.24);
+}
+
+#icons-transfer {
+  font-size: 3em;
+}
+
+.table-item-title{
+  background-color: #cfcfcf !important;
+}
+.table-item-content {
+  font-style: normal;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+/* @media screen and (max-width: 1800px) {
+  .box-card2 {
+    gap: 5em;
+  }
+  .carrusel-months {
+    padding: 15px;
+    width: fit-content;
+  }
+} */
+
+@media screen and (max-width: 1439px) {
+  .card-container {
+    h1 {
+      font-size: 22px;
+    }
+    .months-years {
+      .carrusel-months {
+        padding: 0px 10px;
+        .days-month {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .box-card2 {
+    gap: 1.5em;
+  }
+  .all-reservations {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .length-reservation-remmbols {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .container-hitorial {
+    padding: 10px 0 60px 0;
+    gap: 3px;
+    .card-container {
+      height: 12%;
+      h1 {
+        font-size: 16px;
+        height: 50%;
+      }
+      .months-years {
+        height: 50%;
+        .carrusel-months {
+          padding: 0px 10px;
+          .days-month {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .card2 {
+      height: 12%;
+      .box-card2 {
+        div {
+          height: 100%;
+          #h2-none {
+            display: none;
+          }
+          .all-reservations {
+            font-size: 14px;
+          }
+          .container-input {
+            height: 50%;
+            width: 150px;
+
+            .input {
+              height: 100%;
+              //border: 1px solid #9d9d9d;
+              .ant-select-selection-search {
+                height: 100% !important;
+              }
+            }
+          }
+          .length-reservation-remmbols {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .bottom-mobile {
+      height: 76%;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container-hitorial {
+    gap: 5px;
+    padding: 5px 0 57px 0;
+  }
+  .card-container {
+    h1 {
+      font-size: 14px;
+    }
+    .carrusel-months {
+      .carrusel-months {
+        padding: 0 5px;
+        .days-month {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .card2 {
+    padding: 5px;
+    .box-card2 {
+      justify-content: space-between;
+      div {
+        .all-reservations {
+          font-size: 12px !important;
+        }
+        .length-reservation-remmbols {
+          font-size: 12px !important;
+        }
+      }
+      .icon-none {
+        display: none;
+      }
+    }
+  }
+
+  .table-item-title {
+    padding: 5px 8px !important;
+    //background: rgb(230, 230, 230);
+
+    .no-reservation {
+      font-size: 13px;
+    }
+    .no {
+      font-size: 13px;
+    }
+  }
+  .table-item-content {
+    font-style: normal;
+    font-weight: 400 !important;
+    font-size: 12px !important;
+    line-height: 18px !important;
+  }
+}

@@ -19,11 +19,17 @@ import Reservations from "./components/Hostess/Reservations/Reservations";
 import Historial from "./components/Hostess/Historial/Historial";
 import UpdatePhoto from "./components/Hostess/UpdatePhoto/UpdatePhoto";
 import Claims from "./components/Hostess/Claims/Claims";
-import Admin from "./components/Admin/Admin";
+import Admin from "./pages/AdminPage";
 import Comentarios from "./components/Hostess/Comentarios/Comentarios";
 import AllComments from "./pages/AllCommtens";
 import CheckoutContainer from "./pages/test.jsx";
-import Hola from "./components/CardDetails/app"
+import Hola from "./components/CardDetails/app";
+import StartAdmin from "./components/Admin/StartAdmin/StartAdmin";
+import PublicCountry from "./components/Admin/PublicCountry/PublicCountry";
+
+
+
+
 function App() {
   return (
     <Router>
@@ -68,14 +74,13 @@ function App() {
         </Route>
 
         <Route path="/admin" element={<Admin />}>
-          {/*    <Route index element={<Start />} />
-          <Route path="inicio" element={<Start />} />
-          <Route path="mi sitio" element={<Mywebsite />} />
-          <Route path="mi sitio/:postId" element={<DetailPost />} />
-          <Route path="reservaciones" element={<Reservations />} />
-          <Route path="historial de reservas" element={<Historial />} />
-          <Route path="historial de reservas/fotos" element={<UpdatePhoto />} />
-          <Route path="reclamos" element={<Claims />} /> */}
+      <Route index element={<StartAdmin />} />
+          <Route path="inicio" element={<StartAdmin />} />
+          <Route path="publicar país" element={<PublicCountry />} />
+
+
+          
+    
         </Route>
       </Routes>
     </Router>
