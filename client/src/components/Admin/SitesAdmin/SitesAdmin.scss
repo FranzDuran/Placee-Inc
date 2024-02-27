@@ -1,0 +1,102 @@
+.continent-container {
+    display: flex;
+    margin-top: 20px;
+
+
+    button {
+        background-color: transparent;
+        color: black;
+        width: 100%;
+        height: 40vh;
+        border-color: white;
+        transition: box-shadow 0.5s ease;
+        border-radius: 10px;
+    }
+
+    button:hover {
+        background-color: transparent;
+        box-shadow: 0px 0px 20px rgb(224, 224, 224);
+    }
+
+    /*     button:focus {
+        box-shadow: 0px 0px 10px rgba(185, 185, 185, 0.701);
+
+  
+
+    } */
+
+    .continent {
+        display: grid;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+    }
+
+    #oceania {
+        width: 230px;
+    }
+
+
+
+
+
+
+}
+
+
+
+
+@media only screen and (max-width: 767px) {
+    .continent-container {
+        margin-top: 10px;
+
+        button {
+            height: 18vh;
+        }
+
+        #continent {
+            height: 70px;
+            object-fit: cover;
+
+        }
+
+        #oceania {
+            height: 70px;
+            object-fit: cover;
+
+        }
+
+    }
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .continent-container {
+        button {
+
+            height: 15vh;
+
+        }
+
+        .continent img {
+            width: 180px;
+
+        }
+
+        #oceania {
+            width: 8em;
+            object-fit: cover;
+
+        }
+    }
+
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1440px) {
+    .continent-container {
+        #oceania {
+            width: 155px;
+        }
+
+    }
+}

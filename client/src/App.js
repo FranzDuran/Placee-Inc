@@ -26,7 +26,8 @@ import CheckoutContainer from "./pages/test.jsx";
 import Hola from "./components/CardDetails/app";
 import StartAdmin from "./components/Admin/StartAdmin/StartAdmin";
 import PublicCountry from "./components/Admin/PublicCountry/PublicCountry";
-
+import RegistersAdmin from "./components/Admin/RegistersAdmin/RegistersAdmin";
+import SitesAdmin from "./components/Admin/SitesAdmin/SitesAdmin.jsx";
 
 
 
@@ -77,6 +78,10 @@ function App() {
       <Route index element={<StartAdmin />} />
           <Route path="inicio" element={<StartAdmin />} />
           <Route path="publicar país" element={<PublicCountry />} />
+          <Route path="registros" element={<RegistersAdmin />} />
+          <Route path="sitios" element={<SitesAdmin />} />
+
+
 
 
           
