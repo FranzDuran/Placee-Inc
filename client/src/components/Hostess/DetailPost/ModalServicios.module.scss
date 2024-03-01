@@ -21,6 +21,7 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-height: 70vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -46,8 +47,22 @@
     width: fit-content;
     height: fit-content;
   }
-  .close-button:hover{
+  .close-button:hover {
     color: #000;
+  }
+
+  .contentFile {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    padding: 5px;
+    .title {
+      font-size: 16px;
+      color: #000;
+      text-align: center;
+      margin: 0px;
+    }
   }
 }
 
@@ -58,7 +73,7 @@
   padding-top: 5px;
   gap: 10px;
 
-  .reservar-button {
+  .guardar-button {
     background: #000;
     border: 1px solid #000;
     border-radius: 4px;
@@ -67,378 +82,42 @@
     font-weight: bold;
     color: #fff;
     padding: 5px 10px;
-    transition: all .4s ease-in-out;
+    transition: all 0.4s ease-in-out;
   }
-  .reservar-button:hover{
+  .guardar-button:hover {
     background: transparent;
     color: #000;
+  }
+  #buttonBlack {
+    border: 1px solid rgb(146, 146, 146);
   }
 }
 
 .modal-content {
   height: 80%;
   overflow-y: auto;
-}
-
-.modalContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-  height: 100%;
-}
-
-.row{
-  border: 1px solid red;
-  .nameInput{
-    border: 1px solid red;
-  }
-  .priceInput{
-    border: 1px solid red;
-  }
-}
-
-
-
-
-
-.contentFile {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  width: 100%;
-  padding: 5px;
-}
-
-.titleResult {
-  color: #000;
-  padding: 5px 10px;
-  width: 35%;
-  text-align: center;
-}
-
-.numberResult {
-  padding: 5px 10px;
-  color: #000;
-}
-
-.btnSpecial {
-  margin: auto 0 15px 0;
-  background: #8b008b;
-  color: #fff;
-  border: 1px solid #8b008b;
-  border-radius: 8px;
-  transition: all .4s ease-in-out;
-}
-.btnSpecial:hover{
-  background: #fff;
-  color: #8b008b;
-}
-
-.leftColumn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 0px;
-  border: 1px solid #ccc;
-
-  .title {
-    font-size: 16px;
-    color: #000;
-    text-align: center;
-    margin: 0px;
-  }
-  .checkboxContent {
-    display: flex;
-    gap: 10px;
-  }
-
-  .btnTransporte{
-    background: rgb(107, 107, 107);
-    color: #fff;
-    border-radius: 0px;
-    border: none;
-    width: 45%;
-    transition: all .4s ease-in-out;
-  }
-  .btnTransporte:hover{
-    background: #000;
-  }
-}
-#containerCheckboxs {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 5px 20px;
-  color: #000;
-}
-
-#leftColumnTitle {
-  border: none;
-}
-
-.rightColumn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-}
-
-.textContent {
-  width: 96%;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-top: 10px;
-
-  .text {
-    margin: 0px;
-    text-align: start;
-    color: #000;
-  }
-}
-
-.counter {
-  display: flex;
-  border: 1px solid #333;
-  border-radius: 1px;
-
-  .counterButton {
-    padding: 0px;
-    color: #fff;
-    background: #333;
-    border-radius: 1px;
-  }
-  .counterValue{
-    padding: 0px 5px;
-  }
-}
-
-.datePicker {
-  width: 100%;
-  padding: 10px;
-  text-align: center;
-  color: #000;
-}
-
-.priceSection {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  padding: 0px;
-
-  .price {
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000;
-  }
-
-  .titlePrice {
-    width: 45%;
-    margin: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #000;
-    padding: 5px 0;
-  }
-
-  .quantitySection {
-    display: flex;
-    align-items: center;
-    width: 35%;
-
-    .btnDecrease,
-    .btnIncrease {
-      width: 50%;
-      padding: 0px;
-      margin: 0px;
-      cursor: pointer;
-      border-radius: 0px;
-      height: 100%;
-    }
-
-    .btnDecrease {
-      background: rgb(107, 107, 107);
-      color: #fff;
-    }
-
-    .btnIncrease {
-      background: #000;
-      color: #fff;
-    }
-  }
-}
-
-.containerBoxExclusivo {
-  width: 97%;
-  //padding: 10px;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgb(107, 107, 107);
-  margin-bottom: 20px;
-
-  .titleBoxExclusivo {
-    color: #000;
-    font-size: 16px;
-    border: 1px solid rgb(107, 107, 107);
-    padding: 10px;
-    margin: 0px;
-    text-align: center;
-  }
-
-  .contentPriceExclusivo {
-    width: 100%;
-    border: 1px solid rgb(107, 107, 107);
-    margin-top: 15px;
-    color: #000;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    .textExclusivo {
-      margin: 0 0 0 10px;
-    }
-
-    .priceExclusivo {
-      width: 30%;
-      background: rgb(107, 107, 107);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px 0;
-      border-radius: 0px;
-      transition: all .4s ease-in-out;
-    }
-    .priceExclusivo:hover{
-      background: #000;
-      color: #fff;
-    }
-  }
-
-  .contentBoxExclusivo {
+  .modalContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
-    padding: 10px;
-
-    h4 {
-      font-size: 16px;
-      color: #000;
-    }
-
-    .containerServices {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-
-      .servicesItem {
-        color: #000;
-        font-size: 16px;
-        padding: 5px 10px;
-        border: 1px solid rgb(107, 107, 107);
-      }
-    }
-  }
-}
-
-.containerRadio {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: fit-content;
-
-  .labelContent {
-    font-size: 16px;
-    color: #000;
-
-    .inputRadio {
-      margin-right: 5px;
-    }
-  }
-}
-
-.priceSelect {
-  width: 20%;
-  color: #000;
-  text-align: center;
-}
-.selectInput {
-  width: 80%;
-  color: #000;
-}
-
-.contentOptions {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  padding: 5px;
-
-  .selectedOption {
-    padding: 5px 10px;
-    border: 1px solid rgb(107, 107, 107);
-    border-radius: 2px;
-    color: #000;
-    display: flex;
     gap: 10px;
-
-    .removeOptionButton {
-      padding: 0px;
-      background: #000;
-      color: #fff;
-      padding: 0px;
-      border-radius: 2px;
-    }
-    .contador {
-      width: 20px;
-      border: 1px solid #000;
-      margin-left: 5px;
-      border-radius: 4px;
-      text-align: center;
-    }
+    height: 100%;
   }
 }
 
-.checkboxContent input[type="checkbox"] {
-  accent-color: #000;
-}
-
-
-
-@media screen and (max-width: 767px) {
-  .modal {
-    border-radius: 0px;
-    height: 100vh;
-    border: 1px solid #8b008b;
+#row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  #nameInput {
+    width: 65%;
   }
-
-  .textContent {
-    flex-direction: column;
-    gap: 15px;
+  #priceInput {
+    width: 30%;
+  }
+  #eliminarInput {
+    width: 5%;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -18,66 +18,10 @@ const ModalPaquetes = ({
   detail,
   setDetail,
 }) => {
-  const {
-    title,
-    specialPackageItems,
-    specialPackageName,
-    specialPrecioTotal,
-    additionalPrices,
-    reservedDates,
-    price,
-    priceMenores,
-    priceTransporte,
-    transportes,
-  } = children;
+  const { specialPackageItems, specialPackageName, specialPrecioTotal } =
+    children;
   //----------------------------------------------------
 
-  const [nextStep, setNextStep] = useState(false);
-  const [modalOpen, setModalOpen] = useState(isOpen);
-
-  const closeModal = () => {
-    setModalOpen(false);
-    onClose();
-  };
-
-  useEffect(() => {
-    setModalOpen(isOpen);
-  }, [isOpen]);
-
-  const [totalValue, setTotalValue] = useState(0);
-
-  //------------- RESERVA ADULTO / MENORES ------------------------
-  const handleAddMore = () => {
-    setDetail((prevState) => ({
-      ...prevState,
-      additionalPrices: [
-        ...prevState.additionalPrices,
-        { label: "", value: null },
-      ],
-    }));
-  };
-
-  const handleAdditionalPriceChange = (index, event) => {
-    const { name, value } = event.target;
-
-    setDetail((prevState) => ({
-      ...prevState,
-      additionalPrices: prevState.additionalPrices.map((price, i) =>
-        i === index ? { ...price, [name]: parseInt(value, 10) } : price
-      ),
-    }));
-  };
-
-  const handleAdditionalLabelChange = (index, event) => {
-    const updatedPrices = [...detail.additionalPrices];
-    updatedPrices[index].label = event.target.value;
-    setDetail((prevState) => ({
-      ...prevState,
-      additionalPrices: updatedPrices,
-    }));
-  };
-
-  //---------------------------------------------------------
   const handleSpecialPackage = (value) => {
     console.log("boleano");
     setDetail((prevState) => ({
@@ -87,7 +31,6 @@ const ModalPaquetes = ({
   };
 
   const handleSpecialPackageName = (e) => {
-    console.log("name");
     setDetail((prevState) => ({
       ...prevState,
       specialPackageName: e.target.value,
@@ -109,7 +52,6 @@ const ModalPaquetes = ({
   };
 
   const handleSpecialPackageItem = (e) => {
-    console.log("items");
     setDetail((prevState) => ({
       ...prevState,
       specialPackageItem: e.target.value,
@@ -117,9 +59,7 @@ const ModalPaquetes = ({
   };
 
   const handleAddSpecialPackageItem = () => {
-    console.log("add item");
     if (detail.specialPackageItem.trim() !== "") {
-      console.log("add item 1");
       setDetail((prevState) => ({
         ...prevState,
         specialPackageItems: [
@@ -140,25 +80,23 @@ const ModalPaquetes = ({
     }));
   };
   return (
-    modalOpen && (
+    isOpen && (
       <div className={styles["modal-overlay"]}>
         <div className={styles.modal}>
           <div className={styles["modal-header"]}>
-            <div className={styles.contentFile} id={styles.fileTitle}>
-              <div className={styles.leftColumn} id={styles.leftColumnTitle}>
-                <h2 className={styles.title}>
-                  Agregue un paquete exclusivo a su sitio
-                </h2>
-              </div>
+            <div className={styles.contentFile}>
+              <h2 className={styles.title}>
+                Agregue un paquete exclusivo a su sitio
+              </h2>
             </div>
             <button className={styles["close-button"]} onClick={onClose}>
               <i class="ri-close-line"></i>
             </button>
           </div>
           <div className={styles["modal-content"]}>
-            <div className={styles.modalContainer} id={styles.modalContainerId}>
+            <div className={styles.modalContainer}>
               <>
-                <Row className="mb-3">
+                <Row id={styles.row}>
                   <Form.Group as={Col}>
                     <Form.Label className="label-status">
                       Nombre del pase o paquete
@@ -166,27 +104,27 @@ const ModalPaquetes = ({
                     <Form.Control
                       type="text"
                       placeholder="Nombre del pase o paquete"
-                      value={detail.specialPackageName}
+                      value={specialPackageName}
                       onChange={handleSpecialPackageName}
                     />
                   </Form.Group>
                 </Row>
 
-                <Row className="mb-3">
-                  <Form.Group as={Col}>
+                <Row id={styles.row}>
+                  <Form.Group as={Col} classNam={styles.containerRow} >
                     <Form.Label className="label-status">Incluye:</Form.Label>
 
-                    <Card className={styles["card-container"]}>
-                      <Card.Body className={styles["card-body"]}>
-                        {detail.specialPackageItems?.map((details, index) => (
-                          <span key={index} className={styles["card-span"]}>
+                    <Card className={styles.cardContainer}>
+                      <Card.Body className={styles.cardBody}>
+                        {specialPackageItems?.map((details, index) => (
+                          <span key={index} className={styles.cardSpan}>
                             {details}
                             <button
                               onClick={() =>
                                 handleRemoveSpecialPackageItem(index)
                               }
                               size="sm"
-                              className={styles["card-span-btn"]}
+                              className={styles.btnCard}
                             >
                               X
                             </button>
@@ -215,7 +153,7 @@ const ModalPaquetes = ({
                 </Row>
 
                 {/* PRECIO TOTAL DEL PAQUETE */}
-                <Row className="mb-3">
+                <Row id={styles.row}>
                   <Form.Group as={Col}>
                     <Form.Label className="label-status">Total</Form.Label>
                     <InputGroup className="mb-3">
@@ -223,7 +161,7 @@ const ModalPaquetes = ({
                       <Form.Control
                         type="number"
                         placeholder="Total"
-                        value={detail.specialPrecioTotal}
+                        value={specialPrecioTotal}
                         onChange={handlePrecioTotal}
                       />
                       <InputGroup.Text>.00</InputGroup.Text>
@@ -235,17 +173,8 @@ const ModalPaquetes = ({
           </div>
 
           <div className={styles["modal-footer"]}>
-            {nextStep && (
-              <button
-                onClick={() => setNextStep(false)}
-                className={styles.btnAtras}
-              >
-                Atras
-              </button>
-            )}
-
-            <button className={styles["reservar-button"]} onClick={onChange}>
-              Reservar
+            <button className={styles["guardar-button"]} onClick={onChange}>
+              Guardar
             </button>
           </div>
         </div>

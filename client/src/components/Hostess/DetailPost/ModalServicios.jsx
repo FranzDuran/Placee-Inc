@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalServicios.module.scss";
 import Row from "react-bootstrap/Row";
@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 
 const ModalServicios = ({
   isOpen,
@@ -16,45 +15,32 @@ const ModalServicios = ({
   detail,
   setDetail,
 }) => {
-  const {
-    title,
-    specialPackageItems,
-    specialPackageName,
-    specialPrecioTotal,
-    additionalPrices,
-    reservedDates,
-    price,
-    priceMenores,
-    priceTransporte,
-    transportes,
-  } = children;
+  const { additionalPrices } = children;
 
-  const handleAdditionalLabelChange = (index, event) => {
-    const updatedPrices = [...detail.additionalPrices];
-    updatedPrices[index].label = event.target.value;
-    setDetail((prevState) => ({
-      ...prevState,
-      additionalPrices: updatedPrices,
-    }));
+  const [additionalServices, setAdditionalServices] = useState([
+    { label: "", value: "" },
+  ]);
+
+  const handleServiceNameChange = (index, event) => {
+    const updatedServices = [...additionalServices];
+    updatedServices[index].label = event.target.value;
+    setAdditionalServices(updatedServices);
   };
 
-  const handleAdditionalPriceChange = (index, event) => {
-    const updatedPrices = [...detail.additionalPrices];
-    updatedPrices[index].value = parseInt(event.target.value, 10);
-    setDetail((prevState) => ({
-      ...prevState,
-      additionalPrices: updatedPrices,
-    }));
+  const handleServicePriceChange = (index, event) => {
+    const updatedServices = [...additionalServices];
+    updatedServices[index].value = event.target.value;
+    setAdditionalServices(updatedServices);
   };
 
-  const handleAddMore = () => {
-    setDetail((prevState) => ({
-      ...prevState,
-      additionalPrices: [
-        ...prevState.additionalPrices,
-        { label: "", value: "" }, // Añadir un nuevo objeto con valores vacíos
-      ],
-    }));
+  const handleAddService = () => {
+    setAdditionalServices([...additionalServices, { label: "", value: "" }]);
+  };
+
+  const handleRemoveService = (index) => {
+    const updatedServices = [...additionalServices];
+    updatedServices.splice(index, 1);
+    setAdditionalServices(updatedServices);
   };
 
   return (
@@ -75,50 +61,90 @@ const ModalServicios = ({
           <div className={styles["modal-content"]}>
             <div className={styles.modalContainer}>
               <h4 className={styles["label-title"]}>Agregar precio a:</h4>
+
               {additionalPrices.map((item, index) => (
-                <Row className={styles.row} key={index}>
-                  <Form.Group as={Col} className={styles.nameInput}>
+                <Row key={index} id={styles.row}>
+                  <Form.Group as={Col} id={styles.nameInput}>
                     <Form.Label>{`Nombre`}</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder={` Ej: Piscina`}
                       value={item.label}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} id={styles.priceInput}>
+                    <Form.Label>{`Precio`}</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>$</InputGroup.Text>
+                      <Form.Control
+                        type="number"
+                        placeholder={`50`}
+                        value={item.value}
+                      />
+                      {/* <InputGroup.Text>.00</InputGroup.Text> */}
+                    </InputGroup>
+                  </Form.Group>
+                  <Button
+                    id={styles.eliminarInput}
+                    variant="danger"
+                    //onClick={() => handleRemoveService(index)}
+                  >
+                    x
+                  </Button>
+                </Row>
+              ))}
+
+              {additionalServices.map((service, index) => (
+                <Row key={index} id={styles.row}>
+                  <Form.Group as={Col} id={styles.nameInput}>
+                    <Form.Label>{`Nombre`}</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder={` Ej: Piscina`}
+                      value={service.label}
                       onChange={(event) =>
-                        handleAdditionalLabelChange(index, event)
+                        handleServiceNameChange(index, event)
                       }
                     />
                   </Form.Group>
 
-                  <Form.Group as={Col} className={styles.priceInput}>
+                  <Form.Group as={Col} id={styles.priceInput}>
                     <Form.Label>{`Precio`}</Form.Label>
-                    <InputGroup className="mb-3">
+                    <InputGroup>
                       <InputGroup.Text>$</InputGroup.Text>
                       <Form.Control
                         type="number"
-                        value={item.value}
                         placeholder={`50`}
+                        value={service.value}
                         onChange={(event) =>
-                          handleAdditionalPriceChange(index, event)
+                          handleServicePriceChange(index, event)
                         }
                       />
-                      <InputGroup.Text>.00</InputGroup.Text>
+                      {/*  <InputGroup.Text>.00</InputGroup.Text> */}
                     </InputGroup>
                   </Form.Group>
+                  <Button
+                    id={styles.eliminarInput}
+                    variant="danger"
+                    onClick={() => handleRemoveService(index)}
+                  >
+                    x
+                  </Button>
                 </Row>
               ))}
-
-              <Button
-                id={styles.buttonBlack}
-                variant="secondary"
-                onClick={handleAddMore}
-              >
-                Agregar
-              </Button>
             </div>
           </div>
 
           <div className={styles["modal-footer"]}>
-            <button className={styles["reservar-button"]} onClick={onChange}>
+            <Button
+              id={styles.buttonBlack}
+              variant="secondary"
+              onClick={handleAddService}
+            >
+              Agregar
+            </Button>
+            <button className={styles["guardar-button"]} onClick={onChange}>
               Guardar
             </button>
           </div>
