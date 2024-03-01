@@ -58,15 +58,20 @@ export default function DetailPost() {
   const [showList, setShowList] = useState(false);
   const [showPolitic, setShowPolitic] = useState(false);
   const [detail, setDetail] = useState({
-    title: "",
-    continent: "",
-    country: "",
-    status: "",
-    price: "",
-    summary: "",
-    description: "",
-    people: "",
-    priceTransporte: null,
+    title: detailpost.title,
+    continent: detailpost.continent,
+    country: detailpost.country,
+    status: detailpost.status,
+    price: detailpost.price,
+    priceMenores: detailpost.priceMenores,
+    summary: detailpost.summary,
+    description: detailpost.description,
+    people: detailpost.people,
+    listDetails: detailpost.listDetails,
+    infoImportant: detailpost.infoImportant,
+    priceTransporte: detailpost.priceTransporte
+      ? detailpost.priceTransporte
+      : null,
     transportes: [],
     additionalPrices: [],
     specialPackageName: "",
@@ -206,7 +211,7 @@ export default function DetailPost() {
                 <ModalBootstrap show={showTittle} onHide={handleCloseTitle}>
                   <form action="" onSubmit={handleSubmit}>
                     <ModalBootstrap.Header closeButton>
-                      <ModalBootstrap.Title></ModalBootstrap.Title>
+                      <ModalBootstrap.Title>Titulo</ModalBootstrap.Title>
                     </ModalBootstrap.Header>
                     <ModalBootstrap.Body>
                       <Form className="modal-titleupdate">
@@ -214,11 +219,11 @@ export default function DetailPost() {
                           className="mb-3"
                           controlId="exampleForm.ControlInput1"
                         >
-                          <Form.Label>Titulo</Form.Label>
+                          <Form.Label></Form.Label>
                           <Form.Control
                             type="text"
                             autoFocus
-                            placeholder={detailpost.title}
+                            placeholder="Titulo"
                             value={detail.title}
                             onChange={handleTitle}
                             className={styles.inputForm}
@@ -347,7 +352,7 @@ export default function DetailPost() {
                   <ModalBootstrap show={showStatus} onHide={handleCloseTitle}>
                     <form onSubmit={handleSubmit}>
                       <ModalBootstrap.Header closeButton>
-                        <ModalBootstrap.Title></ModalBootstrap.Title>
+                        <ModalBootstrap.Title>Estado</ModalBootstrap.Title>
                       </ModalBootstrap.Header>
                       <ModalBootstrap.Body>
                         <Form className="modal-titleupdate">
@@ -355,7 +360,7 @@ export default function DetailPost() {
                             className="mb-3"
                             controlId="exampleForm.ControlInput1"
                           >
-                            <Form.Label>Estado</Form.Label>
+                            <Form.Label></Form.Label>
                             <Form.Control
                               type="text"
                               autoFocus
@@ -506,7 +511,7 @@ export default function DetailPost() {
               <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                    <ModalBootstrap.Title>Precio</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -514,7 +519,7 @@ export default function DetailPost() {
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
                       >
-                        <Form.Label>Precio</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="text"
                           autoFocus
@@ -569,7 +574,7 @@ export default function DetailPost() {
               <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                    <ModalBootstrap.Title>Precio Niños</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -577,7 +582,7 @@ export default function DetailPost() {
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
                       >
-                        <Form.Label>Precio</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="text"
                           autoFocus
@@ -684,7 +689,7 @@ export default function DetailPost() {
               <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                    <ModalBootstrap.Title>Precio transporte</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -692,7 +697,7 @@ export default function DetailPost() {
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
                       >
-                        <Form.Label>Precio</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="text"
                           autoFocus
@@ -786,7 +791,7 @@ export default function DetailPost() {
               <ModalBootstrap show={showSummary} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                    <ModalBootstrap.Title>Resumen del Lugar</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className={styles["modal-titleupdate"]}>
@@ -794,7 +799,7 @@ export default function DetailPost() {
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
                       >
-                        <Form.Label>Resumen del Lugar</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="text"
                           autoFocus
@@ -856,7 +861,7 @@ export default function DetailPost() {
               <ModalBootstrap show={showDescription} onHide={handleCloseTitle}>
                 <form action="" onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                    <ModalBootstrap.Title>Descripción</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -864,7 +869,7 @@ export default function DetailPost() {
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
                       >
-                        <Form.Label>Descripción</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="text"
                           autoFocus
@@ -928,7 +933,7 @@ export default function DetailPost() {
               <ModalBootstrap show={showPeople} onHide={handleCloseTitle}>
                 <form action="" onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title></ModalBootstrap.Title>
+                    <ModalBootstrap.Title>Capacidad de personas</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -936,7 +941,7 @@ export default function DetailPost() {
                         className="mb-3"
                         controlId="exampleForm.ControlInput1"
                       >
-                        <Form.Label>Capacidad de personas</Form.Label>
+                        <Form.Label></Form.Label>
                         <Form.Control
                           type="text"
                           autoFocus
@@ -1006,7 +1011,7 @@ export default function DetailPost() {
 
               <ModalBootstrap show={showList} onHide={handleCloseTitle}>
                 <ModalBootstrap.Header closeButton>
-                  <ModalBootstrap.Title></ModalBootstrap.Title>
+                  <ModalBootstrap.Title>Cuenta con:</ModalBootstrap.Title>
                 </ModalBootstrap.Header>
                 <ModalBootstrap.Body>
                   <Form className="modal-titleupdate">
@@ -1014,7 +1019,7 @@ export default function DetailPost() {
                       className="mb-3"
                       controlId="exampleForm.ControlInput1"
                     >
-                      <Form.Label>Cuenta con:</Form.Label>
+                      <Form.Label></Form.Label>
                       <ul
                         role="list"
                         className="list-disc space-y-2 pl-4 text-sm"
@@ -1030,7 +1035,7 @@ export default function DetailPost() {
                         type="text"
                         autoFocus
                         placeholder={detailpost.listDetails}
-                        value=""
+                        value={detail.listDetails}
                         className={styles.inputForm}
                       />
                     </Form.Group>
@@ -1087,7 +1092,7 @@ export default function DetailPost() {
 
               <ModalBootstrap show={showPolitic} onHide={handleCloseTitle}>
                 <ModalBootstrap.Header className="header-modal" closeButton>
-                  <ModalBootstrap.Title></ModalBootstrap.Title>
+                  <ModalBootstrap.Title>Políticas del lugar</ModalBootstrap.Title>
                 </ModalBootstrap.Header>
                 <ModalBootstrap.Body>
                   <Form className="modal-titleupdate">
@@ -1095,7 +1100,7 @@ export default function DetailPost() {
                       className="mb-3"
                       controlId="exampleForm.ControlInput1"
                     >
-                      <Form.Label>Políticas del lugar</Form.Label>
+                      <Form.Label></Form.Label>
                       <ul
                         role="list"
                         className="list-disc space-y-2 pl-4 text-sm"
@@ -1111,7 +1116,7 @@ export default function DetailPost() {
                         type="text"
                         autoFocus
                         placeholder={detailpost.infoImportant}
-                        value=""
+                        value={detail.infoImportant}
                         className={styles.inputForm}
                       />
                     </Form.Group>
