@@ -131,6 +131,8 @@ const AddNewUser = () => {
       console.error("Error:", error);
     }
   };
+
+  console.log(update.phone);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUpdate((prevData) => ({
@@ -140,11 +142,11 @@ const AddNewUser = () => {
   };
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit}>
-        <Box pt={2} pb={4}>
-          <Card sx={{ padding: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item md={4} xs={12} className={styles.content}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <Box className={styles.box}>
+          <Card className={styles.card}>
+            <Grid className={styles.gridContainer} spacing={3}>
+              <Grid /* item md={4} xs={12} */ className={styles.contentPerfil}>
                 <Card
                   /* sx={{
                     padding: 3,
@@ -155,11 +157,11 @@ const AddNewUser = () => {
                   }} */
                   className={styles.cardContent}
                 >
-                  <div>
+                  <div className={styles.cardPosicion}>
                     <Avatar
                       sx={{
-                        width: 100,
-                        height: 100,
+                        width: 200,
+                        height: 200,
                         objectFit: "cover",
                         background: datapersonal.avatar
                           ? `url(${imagePreview || datapersonal.avatar})`
@@ -170,32 +172,35 @@ const AddNewUser = () => {
                       {update.avatar ? (
                         <span></span>
                       ) : (
-                        <div>
+                        <div style={{ fontSize: "80px" }}>
                           {datapersonal.name &&
                             datapersonal.name[0].toUpperCase()}
                         </div>
                       )}
                     </Avatar>
+
+                    <ButtonWrapper className={styles.containerCamara}>
+                      <UploadButton>
+                        <label htmlFor="upload-btn">
+                          <input
+                            accept="image/*"
+                            id="upload-btn"
+                            type="file"
+                            onChange={handleImageChange}
+                            style={{ display: "none" }}
+                          />
+                          <IconButton component="span">
+                            <PhotoCamera sx={{ fontSize: 50, color: "#000" }} />
+                          </IconButton>
+                        </label>
+                      </UploadButton>
+                    </ButtonWrapper>
                   </div>
-                  <ButtonWrapper>
-                    <UploadButton>
-                      <label htmlFor="upload-btn">
-                        <input
-                          accept="image/*"
-                          id="upload-btn"
-                          type="file"
-                          onChange={handleImageChange}
-                          style={{ display: "none" }}
-                        />
-                        <IconButton component="span">
-                          <PhotoCamera sx={{ fontSize: 26, color: "#000" }} />
-                        </IconButton>
-                      </label>
-                    </UploadButton>
-                  </ButtonWrapper>
                 </Card>
               </Grid>
-              <Grid item md={8} xs={12}>
+              <Grid
+                /* item md={8} xs={12} */ className={styles.contentDatosPerfil}
+              >
                 <Card sx={{ padding: 3, boxShadow: 2 }}>
                   <Grid container spacing={3}>
                     <Grid item sm={6} xs={12}>
@@ -221,8 +226,10 @@ const AddNewUser = () => {
                       <TextField
                         fullWidth
                         name="email"
-                        placeholder="Country"
-                        value={update.email}
+                        placeholder={
+                          update.email === null ? "Email" : update.email
+                        }
+                        value={update.email !== null && update.email}
                         onChange={handleChange}
                       />
                     </Grid>
@@ -230,8 +237,8 @@ const AddNewUser = () => {
                       <TextField
                         fullWidth
                         name="phone"
-                        placeholder="Telefono"
-                        value={update.phone}
+                        placeholder="Telefonooo"
+                        value={update.phone === " " && ""}
                         onChange={handleChange}
                       />
                     </Grid>
@@ -241,23 +248,25 @@ const AddNewUser = () => {
                         fullWidth
                         name="aboutMe"
                         placeholder="Sobre mi"
-                        value={update.aboutMe}
+                        value={update.aboutMe === "null" && ""}
                         onChange={handleChange}
                       />
                     </Grid>
 
                     <Grid item xs={12} sx={{ display: "flex", gap: 2 }}>
-                      {datapersonal && datapersonal.Posts && datapersonal.Posts.length === 0 ? (
+                      {datapersonal &&
+                      datapersonal.Posts &&
+                      datapersonal.Posts.length === 0 ? (
                         <Link to="/preregister">
-                        <Button
-                          variant="contained"
-                          /* sx={{ background: "black" }} */ className={
-                            styles.btnAnfitrion
-                          }
-                        >
-                          Unirse como anfitrion
-                        </Button>
-                      </Link>
+                          <Button
+                            variant="contained"
+                            /* sx={{ background: "black" }} */ className={
+                              styles.btnAnfitrion
+                            }
+                          >
+                            Unirse como anfitrion
+                          </Button>
+                        </Link>
                       ) : (
                         <Link to="/anfitrion">
                           <Button
@@ -269,7 +278,6 @@ const AddNewUser = () => {
                             Modo anfitrion
                           </Button>
                         </Link>
-                        
                       )}
 
                       <Button
