@@ -1,5 +1,4 @@
 import * as React from "react";
-import "./Reservations.scss";
 import Carousel from "react-bootstrap/Carousel";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
@@ -64,6 +63,8 @@ function fixedHeaderContent() {
     console.log(date, dateString);
   };
   return (
+    <>
+     
     <TableRow>
       <TableCell
         variant="head"
@@ -72,15 +73,8 @@ function fixedHeaderContent() {
         }}
         className="calendar-table"
       >
+   
         <div className="icons-arrow">
-          <div>
-            <Space direction="vertical">
-              <CalendarMonthIcon
-                id="icons-clendar-expand"
-                onChange={onChange}
-              />
-            </Space>
-          </div>
           <div className="arrow-container">
             <ArrowsAltOutlined id="arrow-icons" />
           </div>
@@ -171,6 +165,8 @@ function fixedHeaderContent() {
         </div>
       </TableCell>
     </TableRow>
+    </>
+
   );
 }
 
@@ -257,7 +253,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const Reservations = () => {
+const ReservationsAdmin = () => {
   const [day, setDay] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -276,17 +272,21 @@ const Reservations = () => {
   return (
     <div className="container-reservation">
       <div className="tittle">
-        <h1>Las Ilusiones {cardPersonal && cardPersonal[0].title}</h1>
+        <h1>Parques Acuáticos</h1>
       </div>
 
       <div className="box-reservation">
         <div className="content-search-months">
           <div className="year-months">
-            <div className="months-carrusel">
-              <div className="years">2022</div>
-            </div>
-            <div className="months-carrusel">
-              <div className="months">Enero</div>
+       
+            <div className="">
+              <div className="">       
+            <Space direction="vertical">
+              <CalendarMonthIcon
+                id="icons-clendar-expand"
+              />
+            </Space>
+          </div>
             </div>
           </div>
           <div className="input-reservations">
@@ -298,9 +298,7 @@ const Reservations = () => {
         </div>
 
         <div className="days-container">
-          <div className="days-carrusel" onClick={handleDayCalendar}>
-            <div className="days">Ver en día </div>
-          </div>
+       
           {day && (
             <div className="num-carrusel">
               <div className="num-days">25</div>
@@ -324,10 +322,12 @@ const Reservations = () => {
               itemContent={rowContent}
               onClick={handleOpen}
             />
+            
           </Paper>
         </div>
       </div>
       <div className="length-reservation">
+  
         <div className="length-container">
           <div className="length">10</div>
         </div>
@@ -437,4 +437,4 @@ const Reservations = () => {
     </div>
   );
 };
-export default Reservations;
+export default ReservationsAdmin;

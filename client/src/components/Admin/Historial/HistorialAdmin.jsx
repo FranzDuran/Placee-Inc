@@ -1,6 +1,6 @@
 import * as React from "react";
 import Card from "react-bootstrap/Card";
-import styles from "./Historial.module.scss";
+import styles from "./HistorialAdmin.module.scss";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import Table from "@mui/material/Table";
@@ -200,14 +200,14 @@ const options = [
     options: [renderItem("AntDesign design language", 100000)],
   },
 ];
-function Historial() {
+function HistorialAdmin() {
   const mockVal = (str, repeat = 1) => ({
     value: str.repeat(repeat),
   });
   return (
     <div className={styles["container-hitorial"]}>
       <Card className={styles["card-container"]}>
-        <h1>Historial de reservas, reembolso. </h1>
+        <h1>Historial de reservas. </h1>
         <div className={styles["months-years"]}>
           <div className={styles["carrusel-months"]}>
             <div className={styles["days-month"]}>Abril</div>
@@ -215,6 +215,12 @@ function Historial() {
           <div className={styles["carrusel-months"]}>
             <div className={styles["days-month"]}>25</div>
           </div>
+        </div>
+        <div style={{textAlign:'center'}}>
+<strong>
+
+        Parques Acuáticos - Agua Magic - Alex Valle
+</strong>
         </div>
       </Card>
       <Card className={styles["card2"]}>
@@ -277,4 +283,4 @@ function Historial() {
   );
 }
 
-export default Historial;
+export default HistorialAdmin;
