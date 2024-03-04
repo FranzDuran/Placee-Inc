@@ -1,16 +1,19 @@
-const { Post,  } = require('../../database/models'); // Asegúrate de tener el modelo Transaction importado
+const { Post } = require('../../database/models');
 const Stripe = require('stripe');
 const stripe = new Stripe('sk_test_51OdyLLJbEYAmlcVRVseiJSfnW7JuQKk7p619XFlEgI0dZpq8WKhMNXQWRqJOXiEC8bV0jCsHux9TgUxK3Q5vIL1t00G302tfnw');
+
 module.exports = {
     createSession: async (req, res) => {
         const { postId } = req.params;
+      /*   const { totalValue } = req.body; */
+
+        
 
         try {
             const post = await Post.findByPk(postId);
             if (!post) {
                 return res.status(404).json({ message: 'Publicación no encontrada' });
             }
-
             const session = await stripe.checkout.sessions.create({
                 line_items: [
                     {
@@ -18,6 +21,7 @@ module.exports = {
                             product_data: {
                                 name: post.title,
                                 description: post.description,
+                                images: [post.imageFile[0]], // Aquí agregamos la URL de la imagen
                             },
                             currency: 'usd',
                             unit_amount: post.price * 100,
@@ -29,8 +33,6 @@ module.exports = {
                 success_url: 'https://placee-inc.vercel.app',
                 cancel_url: 'https://placee-inc.vercel.app',
             });
-
-       
 
             console.log('Pago exitoso');
             return res.json(session);
