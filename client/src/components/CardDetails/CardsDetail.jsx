@@ -264,11 +264,25 @@ export default function CardDetails() {
   const payment = useSelector((state) => state.payment);
   const handlePayment = () => {
     dispatch(paymentReserve(idTuristic));
-    window.location.href = payment.url && payment.url;
+
   };
 
   //-----------------------------------------------
+useEffect(() => {
 
+  try {
+    setIsLoading(true)
+    if (payment) {
+      
+      window.location.href = payment && payment.url;
+    }
+  } catch (error) {
+    console.error('No hay payment', error);
+  }finally {
+    setIsLoading(true)
+
+  }
+}, [payment]);
 
   return (
     <div className="detail-container">
