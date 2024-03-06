@@ -261,10 +261,28 @@
       align-items: flex-start;
       padding: 0px 30px;
 
-      .direction {
-        @include paragBody1Regular;
-        font-weight: 700;
+      .container-ubicacion {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 10px;
+        .direction {
+          @include paragBody1Regular;
+          font-weight: 700;
+        }
+        .btnUbicacion {
+         // width: 250px;
+          background-color: #000;
+          border-color: #000;
+          transition: all 0.4s ease-in-out;
+        }
+        .btnUbicacion:hover {
+          background-color: #fff;
+          color: #000;
+        }
       }
+
       .card-detailpost {
         @include paragBody1Regular;
         width: 100%;
@@ -353,11 +371,32 @@
 .containerSelectTransporte {
   width: 100%;
   display: flex;
+  flex-direction: column;
   padding: 10px 30px;
+  gap: 5px;
 
-  .label-title {
-    @include paragBody1Regular;
-    font-weight: 700;
+  .btnTransporte{
+    width: fit-content;
+    background-color: #000;
+    border-color: #000;
+    transition: all 0.4s ease-in-out;
+    //@include paragBody1Regular;
+    //font-weight: 700;
+    color: #fff;
+  }
+  .btnTransporte:hover {
+    background-color: #fff;
+    color: #000;
+  }
+  .containerCheckboxTransporte{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgb(172, 172, 172);
+    border-radius: 8px;
+    width: 283px;
+    padding: 10px 20px;
+    //@include paragBody1Regular;
+    //font-weight: 700;
   }
 }
 

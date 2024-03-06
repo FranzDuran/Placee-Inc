@@ -30,6 +30,7 @@ import RegistersAdmin from "./components/Admin/RegistersAdmin/RegistersAdmin";
 import SitesAdmin from "./components/Admin/SitesAdmin/SitesAdmin.jsx";
 import ReservationsAdmin from "./components/Admin/ReservationsAdmin/ReservationsAdmin";
 import HistorialAdmin from "./components/Admin/Historial/HistorialAdmin.jsx";
+import Favoritos from "./pages/Favoritos";
 
 
 
@@ -42,6 +43,7 @@ function App() {
         <Route exact path="/rooms/:idTuristic" element={<CardDetails />} />
         <Route exact path="/account-settings" element={<AccountSettings />} />
         <Route exact path="/all-comments" element={<AllComments/> } />
+        <Route exact path="/favoritos" element={<Favoritos /> } />
         <Route
           exact
           path="/account-settings/personal-info"

@@ -5,23 +5,23 @@ import BasicMenu from "./ProfileMenu";
 import SimpleBottomNavigation from "./BottomNav";
 import { Link } from "react-router-dom";
 import Search from "../Search/Searchs";
-import Nudo from '../../assets/logo/Nudo.png';
+import Nudo from "../../assets/logo/Nudo.png";
 
 function Header() {
   return (
     <div className="navbar-container2">
-      <Link to='/'>
+      <Link to="/">
         <img src={Nudo} alt="logo" className="navbar-logo" />
-
       </Link>
       <div className="search-bar">
         <Search />
-
       </div>
       <div className="profile-container">
-  
+        <Link to="/favoritos">
+        <i class="ri-heart-line" id="icon-favoritos"></i>
+        </Link>
         <div className="airbnb-your-home">
-          <LanguageIcon sx={{ fontSize: "1.3rem" }} id='icons-lenguage' />
+          <LanguageIcon sx={{ fontSize: "1.3rem" }} id="icons-lenguage" />
         </div>
         <div className="profile-div">
           <BasicMenu />

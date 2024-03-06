@@ -482,10 +482,19 @@ export default function DetailPost() {
         <div className={styles.tabletOneBottom}>
           <div className={styles["container-direction"]}>
             <div className={styles["card-direction"]}>
-              <span className={styles["direction"]}>Dirección</span>
+              <div className={styles["container-ubicacion"]}>
+                <span className={styles["direction"]}>Dirección</span>
+                <Button
+                  className={styles.btnUbicacion}
+                  //onClick={handleShowModals}
+                >
+                  <span id="go-btn">Editar Ubicacion</span>
+                </Button>
+              </div>
               <Card className={styles["card-detailpost"]}>
                 <p>{detailpost.addressMap || "--"}</p>
               </Card>
+              <div className={styles["publication-btn"]}></div>
             </div>
             <div className={styles["update-title-price"]}>
               <div className={styles["card-price"]}>
@@ -620,15 +629,23 @@ export default function DetailPost() {
             </div>
 
             <div className={styles.containerSelectTransporte}>
-              <Form.Label
+              {/* <Form.Label
                 className={styles["label-title"]}
                 onClick={handleLabelClick}
               >
                 Seleccione el tipo de transporte permitido
-              </Form.Label>
+              </Form.Label> */}
+              <Button
+                className={styles.btnTransporte}
+                onClick={handleLabelClick}
+              >
+                <span id="go-btn">
+                  Seleccione el tipo de transporte permitido
+                </span>
+              </Button>
 
               {mostrarCheckbox && (
-                <div className={styles.containerSelectTransporte}>
+                <div className={styles.containerCheckboxTransporte}>
                   <Form.Group>
                     <Form.Check
                       type="checkbox"
@@ -689,7 +706,9 @@ export default function DetailPost() {
               <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title>Precio transporte</ModalBootstrap.Title>
+                    <ModalBootstrap.Title>
+                      Precio transporte
+                    </ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -791,7 +810,9 @@ export default function DetailPost() {
               <ModalBootstrap show={showSummary} onHide={handleCloseTitle}>
                 <form onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title>Resumen del Lugar</ModalBootstrap.Title>
+                    <ModalBootstrap.Title>
+                      Resumen del Lugar
+                    </ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className={styles["modal-titleupdate"]}>
@@ -933,7 +954,9 @@ export default function DetailPost() {
               <ModalBootstrap show={showPeople} onHide={handleCloseTitle}>
                 <form action="" onSubmit={handleSubmit}>
                   <ModalBootstrap.Header closeButton>
-                    <ModalBootstrap.Title>Capacidad de personas</ModalBootstrap.Title>
+                    <ModalBootstrap.Title>
+                      Capacidad de personas
+                    </ModalBootstrap.Title>
                   </ModalBootstrap.Header>
                   <ModalBootstrap.Body>
                     <Form className="modal-titleupdate">
@@ -1092,7 +1115,9 @@ export default function DetailPost() {
 
               <ModalBootstrap show={showPolitic} onHide={handleCloseTitle}>
                 <ModalBootstrap.Header className="header-modal" closeButton>
-                  <ModalBootstrap.Title>Políticas del lugar</ModalBootstrap.Title>
+                  <ModalBootstrap.Title>
+                    Políticas del lugar
+                  </ModalBootstrap.Title>
                 </ModalBootstrap.Header>
                 <ModalBootstrap.Body>
                   <Form className="modal-titleupdate">
