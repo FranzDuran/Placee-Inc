@@ -101,7 +101,6 @@ function Card() {
     const cardObjeto = card[0];
     cardObjeto.avatar = cardFilter.avatar;
     cardObjeto.name = cardFilter.name;
-    
 
     // Verificar si la tarjeta ya está en favoritos
     const existingFavoriteIndex = favoriteCards.findIndex(
@@ -188,15 +187,6 @@ function Card() {
                         <div className="shadow-card">
                           <div className="card-info-flex">
                             <a href={`/rooms/${info.id}`} className="text-link">
-                              {/*  {info.title.split(" ").length > 2 ? (
-                              <h3 className="card-title">
-                                {info.title
-                                  .split(" ")
-                                  .slice(0, 2)
-                                  .join(" ")}
-                                ...
-                              </h3>
-                            ) : ( */}
                               <h3 className="card-title">{info.title}</h3>
                             </a>
                             <div>
@@ -208,9 +198,6 @@ function Card() {
                                     ? `url(${data.avatar})`
                                     : data.backgroundColor,
                                   backgroundSize: "cover",
-
-                                  /* marginRight: "10px",
-                                marginTop: "5px", */
                                 }}
                                 className="perfil-avatar-content"
                               >
@@ -228,37 +215,19 @@ function Card() {
                           <p>
                             <p
                               style={{
-                                /* margin: "0.2rem",
-                              fontSize: "1rem", */
                                 color: "var(--black)",
                               }}
                               className="price-none"
                             >
-                              <span
-                              /* style={{
-                                fontWeight: "600",
-                                marginLeft: "10px",
-                              }} */
-                              >
-                                {data.updatedAt.slice(0, 10)}
-                              </span>{" "}
+                              <span>{data.updatedAt.slice(0, 10)}</span>{" "}
                             </p>
                             <p
                               style={{
-                                /* margin: "0.2rem",
-                              fontSize: "1rem", */
                                 color: "var(--black)",
                               }}
                               className="price-none"
                             >
-                              <span
-                              /* style={{
-                                fontWeight: "600",
-                                marginLeft: "10px",
-                              }} */
-                              >
-                                Gratis
-                              </span>{" "}
+                              <span>Gratis</span>{" "}
                             </p>
                           </p>
 
@@ -282,15 +251,6 @@ function Card() {
                               target="_blank"
                               className="text-link"
                             >
-                              {/*   {info.title.split(" ").length > 2 ? (
-                              <h3 className="card-title">
-                                {info.title
-                                  .split(" ")
-                                  .slice(0, 2)
-                                  .join(" ")}
-                                ...
-                              </h3>
-                            ) : ( */}
                               <h3 className="card-title">{info.title}</h3>
                             </a>
                             <div>
@@ -302,9 +262,6 @@ function Card() {
                                     ? `url(${data.avatar})`
                                     : data.backgroundColor,
                                   backgroundSize: "cover",
-
-                                  /* marginRight: "10px",
-                                marginTop: "5px", */
                                 }}
                               >
                                 {data.avatar ? (
@@ -321,21 +278,11 @@ function Card() {
                           <p>
                             <p
                               style={{
-                                /* margin: "0.2rem",
-                              fontSize: "1rem", */
                                 color: "var(--black)",
                               }}
                               className="price-none"
                             >
-                              <span
-                              /* style={{
-                                fontWeight: "600",
-                                marginLeft: "10px",
-                              }} */
-                              >
-                                ${info.price}
-                              </span>{" "}
-                              por persona
+                              <span>${info.price}</span> por persona
                             </p>
                           </p>
                           {info.summary.split(" ").length > maxLength ? (

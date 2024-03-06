@@ -1,23 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 .cardsContainer {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
   width: 100%;
   padding: 50px;
+  .card {
+    width: 280px;
+    height: 375px;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+  }
+  .card:hover {
+    transform: scale(1.1);
+    position: relative;
+    box-shadow: 3px 5px 5px rgb(202, 202, 202);
+  }
 }
-.card {
-  width: 280px;
-  height: 375px;
-  border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
-  position: relative;
-}
-.card:hover {
-  transform: scale(1.1);
-  position: relative;
-  box-shadow: 3px 5px 5px rgb(202, 202, 202);
+@media screen and (max-width: 767) {
+  .cardsContainer {
+    display: none;
+  }
 }
 
+.iconFavoritos {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 8px;
+  z-index: 10;
+  background: rgba(58, 58, 58, 0.76);
+  border-radius: 50px;
+  i {
+    font-size: 20px;
+  }
+}
 .swiperContainer {
   //width: 230px;
   border-radius: 8px 8px 0 0;
@@ -55,12 +78,11 @@
   }
 }
 
-.text{
-    display: flex;
-    height: 50px;
-    margin-top: 5px;
-}
-.summaryCard {
+.text {
+  display: flex;
+  height: 50px;
+  margin-top: 5px;
+  .summaryCard {
     position: relative;
     bottom: 5px;
     color: gray;
@@ -70,12 +92,12 @@
     transform: translateY(20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  
-  .card:hover .summaryCard {
-    transform: scale(1);
-    opacity: 1;
-  }
-  
+}
+
+.card:hover .summaryCard {
+  transform: scale(1);
+  opacity: 1;
+}
 
 //------------------------
 #avatar {
@@ -142,62 +164,16 @@
 }
 
 //-------------------------------
-.btnPrev{
-    position: absolute;
-    z-index: 1000;
-    left: 0px;
-    color: #000;
-}
 
-.btnNext{
-    position: absolute;
-    z-index: 1000;
-    right: 0px;
-    color: #000;
-}
+.containerSinFavoritos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: auto 0;
 
+  h2 {
+    font-size: 50px;
+  }
+}
 //-------------------------
-.swiper-pagination {
-    &.swiper-pagination-bullets {
-      bottom: 20px;
-      .paginationBullet{
-        width: 10px;
-        height: 10px;
-        background-color: #999;
-        margin: 0 8px;
-        cursor: pointer;
-        //z-index: 100;
-      }
-      .paginationBulletActive {
-        background-color: #333;
-        //z-index: 100;
-      }
-    }
-  }
-  
-  .swiper-button-next, .swiper-button-prev {
-    width: 30px;
-    height: 30px;
-    background-color: #ccc;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    cursor: pointer;
-    &::after {
-      font-family: 'swiper-icons';
-      font-size: 20px;
-      font-weight: bold;
-      color: #000;
-      line-height: 30px;
-      text-align: center;
-    }
-    &.swiper-button-next {
-      right: 20px;
-    }
-    &.swiper-button-prev {
-      left: 20px;
-    }
-  }
-  

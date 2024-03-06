@@ -1,9 +1,10 @@
-/* .carusel-pagination {
+.swiper-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   .swiper-pagination-bullet {
-    background-color: #0808085e;
+    //background-color: #0808085e;
+    background-color: rgba(58, 58, 58, 0.76);
     height: 10px;
     width: 10px;
     margin-right: 6px;
@@ -12,13 +13,13 @@
     border-radius: 100%;
   }
   .swiper-pagination-bullet-active {
-    background-color: #6f4ef5;
+    background-color: #fff;
     opacity: 1;
   }
-} */
+} 
 /* .swiper-button-next {
   background: #000;
-} */
+}
 
 /* Add these styles to your Favoritos.module.scss or any appropriate CSS/SCSS file */
 .swiper-button-prev,
@@ -55,4 +56,8 @@
 .swiper-button-prev::after,
 .swiper-button-next::after {
   background-size: 80%; /* Adjust the size of the icon */
+}
+
+.swiper-button-prev.swiper-button-disabled{
+  z-index: 100;
 }

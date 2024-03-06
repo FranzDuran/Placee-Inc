@@ -8,14 +8,15 @@ import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "./Favoritos.scss";
 
-import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/pagination';
+import "swiper/scss";
+import "swiper/scss/navigation";
+import "swiper/scss/pagination";
+import { useSelector } from "react-redux";
 
 function getRandomColor() {
   const letters = "0123456789ABCDEF";
@@ -27,6 +28,7 @@ function getRandomColor() {
 }
 
 export default function Favoritos() {
+  const allPost = useSelector((state) => state.allPost);
   const [favoriteCards, setFavoriteCards] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,19 +44,42 @@ export default function Favoritos() {
     setLoading(false);
   }, []);
 
-  if (loading) {
+  /* if (loading) {
     return <div>Loading...</div>;
   }
 
   if (favoriteCards.length === 0) {
-    return <div>No favorite cards available.</div>;
-  }
+    return (
+      <div className={styles.containerSinFavoritos} >
+        <h2>No hay cartas favoritas disponibles.</h2>
+      </div>
+    );
+  } */
 
   const maxLength = 14;
 
+  //------------- FAVORITOS -----------------------
+
+  const handleFavoriteClick = (idCard) => {
+    // Verificar si la tarjeta ya está en favoritos
+    const existingFavoriteIndex = favoriteCards.findIndex(
+      (favorite) => favorite.id === idCard
+    );
+
+    if (existingFavoriteIndex !== -1) {
+      // Si la tarjeta ya está en favoritos, eliminarla
+      const updatedFavorites = [...favoriteCards];
+      updatedFavorites.splice(existingFavoriteIndex, 1);
+      setFavoriteCards(updatedFavorites);
+      localStorage.setItem("favoriteCards", JSON.stringify(updatedFavorites));
+    }
+  };
+
+  //----------------------------------------------------
+
   return (
-    <div>
-      <div>
+    <div className={styles.container} >
+     
         <div className={styles.header}>
           <span className={styles.btnVolver}>
             <Link to="/">
@@ -72,76 +97,96 @@ export default function Favoritos() {
           </div>
           <div className={styles.search}></div>
         </div>
-        <div className={styles.cardsContainer}>
-          {favoriteCards.map((card, index) => (
-            <div className={styles.card} key={index}>
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={0}
-                slidesPerView={1}
-                className={styles.swiperContainer}
-                navigation
-                pagination={{
-                    el: '.carusel-pagination',
+        {loading ? (
+          <div>Loading...</div>
+        ) : favoriteCards.length > 0 ? (
+          <div className={styles.cardsContainer}>
+            {favoriteCards.map((card, index) => (
+              <div className={styles.card} key={index}>
+                <Swiper
+                  modules={[Navigation, Pagination]}
+                  spaceBetween={0}
+                  slidesPerView={1}
+                  className={styles.swiperContainer}
+                  navigation
+                  pagination={{
                     clickable: true,
                   }}
-              >
-                {card.imageFile.map((image, idx) => (
-                  <SwiperSlide key={idx} className={styles.swiperSlide}>
-                    <div className={styles.imageContainer} key={idx}>
-                      <img
-                        src={image}
-                        alt={`Imagen ${idx}`}
-                        className={styles.image}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-                {/* <div className="carusel-pagination" ></div> */}
-
-              <div className={styles.textCard}>
-                <h3>{card.title}</h3>
-                <Avatar id={styles.avatar}>
-                  {card.avatar ? (
-                    <img src={card.avatar} alt={`Imagen`} />
-                  ) : (
-                    <div
-                      style={{
-                        backgroundColor: getRandomColor(),
-                        color: "white",
-                        width: "40px",
-                        height: "40px",
-                        borderRadius: "50%",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "20px",
-                      }}
-                    >
-                      {card.name.charAt(0).toUpperCase()}
-                    </div>
-                  )}
-                </Avatar>
-                <p>
-                  {card.price ? "$ " + card.price + " por Adulto" : "Gratis"}
-                </p>
-                {card.priceMenores && <p>{card.priceMenores + " por Niño"}</p>}
-                <div className={styles.text}>
-                  {card.summary.split(" ").length > maxLength ? (
-                    <p className={styles.summaryCard}>
-                      {card.summary.split(" ").slice(0, maxLength).join(" ")}
-                      ...
+                >
+                  {card.imageFile.map((image, idx) => (
+                    <SwiperSlide key={idx} className={styles.swiperSlide}>
+                      <div className={styles.imageContainer} key={idx}>
+                        <img
+                          src={image}
+                          alt={`Imagen ${idx}`}
+                          className={styles.image}
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <button
+                  className={styles.iconFavoritos}
+                  onClick={() => handleFavoriteClick(card.id)}
+                >
+                  <i className="ri-bookmark-line"></i>
+                </button>
+                <a href={`/rooms/${card.id}`}>
+                  <div className={styles.textCard}>
+                    <h3>{card.title}</h3>
+                    <Avatar id={styles.avatar}>
+                      {card.avatar ? (
+                        <img src={card.avatar} alt={`Imagen`} />
+                      ) : (
+                        <div
+                          style={{
+                            backgroundColor: getRandomColor(),
+                            color: "white",
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontSize: "20px",
+                          }}
+                        >
+                          {card.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                    </Avatar>
+                    <p>
+                      {card.price
+                        ? "$ " + card.price + " por Adulto"
+                        : "Gratis"}
                     </p>
-                  ) : (
-                    <p className={styles.summaryCard}>{card.summary}</p>
-                  )}
-                </div>
+                    {card.priceMenores && (
+                      <p>{card.priceMenores + " por Niño"}</p>
+                    )}
+                    <div className={styles.text}>
+                      {card.summary.split(" ").length > maxLength ? (
+                        <p className={styles.summaryCard}>
+                          {card.summary
+                            .split(" ")
+                            .slice(0, maxLength)
+                            .join(" ")}
+                          ...
+                        </p>
+                      ) : (
+                        <p className={styles.summaryCard}>{card.summary}</p>
+                      )}
+                    </div>
+                  </div>
+                </a>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
+            ))}
+          </div>
+        ) : (
+          <div className={styles.containerSinFavoritos}>
+            <h2>No hay cartas favoritas disponibles.</h2>
+          </div>
+        )}
+     
     </div>
   );
 }
