@@ -35,6 +35,7 @@ module.exports = {
       }
     }
   },
+  
   /* development: {
       dialect: 'postgres',
       host:  'localhost',
