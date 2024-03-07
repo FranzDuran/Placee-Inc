@@ -1,24 +1,40 @@
 require('dotenv').config();
 
 module.exports = {
- development: {
-     dialect: 'postgres',
-    host: 'monorail.proxy.rlwy.net',
-    port: 51173,
-    username: 'postgres',
-    password: '36AdcD5dCfbcDBCFA-Dbf6gFGDeA2C-e',
-    database: 'railway',
-
+  development: {
+    dialect: 'postgres',
+    database: 'postgres',
+    username: 'postgres.mtsawreagatljhfemguo',
+    password: 'placeeenc123456.',
+    host: 'aws-0-us-west-1.pooler.supabase.com',
+    port: 5432,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // You may need to set this to true depending on your SSL configuration
+      },
+      authentication: {
+        method: 'scram-sha-256'
+      }
+    }
   },
   production: {
     dialect: 'postgres',
-    host: 'monorail.proxy.rlwy.net',
-    port: 51173,
-    username: 'postgres',
-    password: '36AdcD5dCfbcDBCFA-Dbf6gFGDeA2C-e',
-    database: 'railway',
-
-  },   
+    database: 'postgres',
+    username: 'postgres.mtsawreagatljhfemguo',
+    password: 'placeeenc123456.',
+    host: 'aws-0-us-west-1.pooler.supabase.com',
+    port: 5432,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // You may need to set this to true depending on your SSL configuration
+      },
+      authentication: {
+        method: 'scram-sha-256'
+      }
+    }
+  },
    
 /* development: {
     dialect: 'postgres',

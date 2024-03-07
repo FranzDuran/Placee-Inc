@@ -5,9 +5,9 @@ const stripe = new Stripe('sk_test_51OdyLLJbEYAmlcVRVseiJSfnW7JuQKk7p619XFlEgI0d
 module.exports = {
     createSession: async (req, res) => {
         const { postId } = req.params;
-      /*   const { totalValue } = req.body; */
+        const {adult, menor} = req.body
 
-        
+     const totalValue = adult + menor
 
         try {
             const post = await Post.findByPk(postId);
@@ -20,11 +20,12 @@ module.exports = {
                         price_data: {
                             product_data: {
                                 name: post.title,
-                                description: post.description,
+                                description: `${post.description} - Adultos: ${adult}, Menores: ${menor}`,
+
                                 images: [post.imageFile[0]], // Aquí agregamos la URL de la imagen
                             },
                             currency: 'usd',
-                            unit_amount: post.price * 100,
+                            unit_amount:totalValue *  100,
                         },
                         quantity: 1,
                     },
