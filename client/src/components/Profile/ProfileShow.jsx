@@ -160,8 +160,9 @@ const AddNewUser = () => {
                   <div className={styles.cardPosicion}>
                     <Avatar
                       sx={{
-                        width: 200,
-                        height: 200,
+                        width: 300,
+                        height: 300,
+                        borderRadius: 0,
                         objectFit: "cover",
                         background: datapersonal.avatar
                           ? `url(${imagePreview || datapersonal.avatar})`

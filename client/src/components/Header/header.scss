@@ -12,6 +12,27 @@
   z-index: 1000;
 }
 
+.container-favoritos{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .item-favorito{
+    font-size: 12px;
+    font-weight: 900;
+    color: red;
+    background: #fff;
+    position: absolute;
+    bottom: -3px;
+    right: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+}
+#icon-favoritos{
+  font-size: 22px;
+  color: #727272;
+}
 #avatar-img {
   width: 32;
   height: 32;
