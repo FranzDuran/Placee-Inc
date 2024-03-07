@@ -46,7 +46,7 @@ dayjs.extend(customParseFormat);
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
-export default function CardDetails() {
+export default function CardDetails({totalValue}) {
   const { idTuristic } = useParams();
   const [state, setState] = React.useState({
     top: false,
@@ -59,7 +59,6 @@ export default function CardDetails() {
   const handleClose2 = () => setOpen2(false);
   const [isLoading, setIsLoading] = React.useState(true);
   const detailpost = useSelector((state) => state.detailpost);
-  console.log(detailpost);
   const dispatch = useDispatch();
   const values = [true];
 
@@ -262,10 +261,6 @@ export default function CardDetails() {
     openModal();
   };
   const payment = useSelector((state) => state.payment);
-  const handlePayment = () => {
-    dispatch(paymentReserve(idTuristic));
-
-  };
 
   //-----------------------------------------------
 useEffect(() => {
@@ -503,8 +498,9 @@ useEffect(() => {
               <ModalReserva
                 isOpen={modalOpenReserve}
                 onClose={closeModalReserve}
-                onChange={handlePayment}
+               
                 children={detailpost}
+                totalValue={totalValue}
               />
             </div>
             {/* {cardReserve && (

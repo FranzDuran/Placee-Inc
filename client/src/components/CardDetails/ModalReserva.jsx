@@ -3,7 +3,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./ModalReserva.module.scss";
 import { addDays, isSameDay } from "date-fns";
-
+import { useParams } from "react-router-dom";
+import {  useDispatch } from "react-redux";
+import {  paymentReserve } from "../../redux/action";
 
 const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   const {
@@ -19,6 +21,8 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
     transportes,
   } = children;
   //----------------------------------------------------
+  const dispatch = useDispatch();
+  const { idTuristic } = useParams();
 
   const [nextStep, setNextStep] = useState(false);
   const [modalOpen, setModalOpen] = useState(isOpen);
@@ -206,7 +210,11 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   // Inhabilitar fechas en el calendario
   const disabledDates =
     reservedDates && reservedDates.map((dateString) => new Date(dateString));
-
+    const handlePayment = () => {
+      dispatch(paymentReserve(idTuristic, totalValue));
+  
+    };
+  
   return (
     modalOpen && (
       <div className={styles["modal-overlay"]}>
@@ -494,7 +502,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
                 Atras
               </button>
             )}
-            <button className={styles["reservar-button"]} onClick={onChange}>
+            <button className={styles["reservar-button"]} onClick={handlePayment}>
               Reservar
             </button>
           </div>
