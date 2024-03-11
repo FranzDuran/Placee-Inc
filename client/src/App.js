@@ -30,7 +30,7 @@ import RegistersAdmin from "./components/Admin/RegistersAdmin/RegistersAdmin";
 import SitesAdmin from "./components/Admin/SitesAdmin/SitesAdmin.jsx";
 import ReservationsAdmin from "./components/Admin/ReservationsAdmin/ReservationsAdmin";
 import HistorialAdmin from "./components/Admin/Historial/HistorialAdmin.jsx";
-import Favoritos from "./pages/Favoritos";
+import Favoritos from "./pages/Favoritos/Favoritos.jsx";
 
 
 
