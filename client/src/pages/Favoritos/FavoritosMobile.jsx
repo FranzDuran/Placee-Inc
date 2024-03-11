@@ -27,22 +27,29 @@ export default function FavoritosMobile({
       </div>
       <div className={styles.titleContainer}>
         <div className={styles.contentTitle}>
-          <span>{favoriteCards.length}</span>
+          <div className={styles.numberContent}>
+            <span>{favoriteCards.length}</span>
+            <i class="ri-bookmark-fill" id={styles.iconFavoritos}></i>
+          </div>
+
           <div className={styles.search}></div>
         </div>
       </div>
-      <div className={styles.btnContainer} >
+      <div className={styles.btnContainer}>
         {/* Botón para mostrar la vista de lista */}
         <button
-          className={`${styles.btnImage} ${view === "cards" ? styles.btnActive : ""}`}
+          className={`${styles.btnImage} ${
+            view === "cards" ? styles.btnActive : ""
+          }`}
           onClick={() => setView("cards")}
         >
           <i className="ri-list-check"></i>
-          
         </button>
         {/* Botón para mostrar la vista de galería */}
         <button
-          className={`${styles.btnImage} ${view === "gallery" ? styles.btnActive : ""}`}
+          className={`${styles.btnImage} ${
+            view === "gallery" ? styles.btnActive : ""
+          }`}
           onClick={() => setView("gallery")}
         >
           <i className="ri-grid-line"></i>
