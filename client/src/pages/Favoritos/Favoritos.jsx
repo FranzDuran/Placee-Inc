@@ -47,18 +47,6 @@ export default function Favoritos() {
     setLoading(false);
   }, []);
 
-  /* if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (favoriteCards.length === 0) {
-    return (
-      <div className={styles.containerSinFavoritos} >
-        <h2>No hay cartas favoritas disponibles.</h2>
-      </div>
-    );
-  } */
-
   const maxLength = 14;
 
   //------------- FAVORITOS -----------------------
@@ -79,6 +67,28 @@ export default function Favoritos() {
   };
 
   //----------------------------------------------------
+  const [searchTerm, setSearchTerm] = useState("");
+  console.log(searchTerm);
+
+  const handleSearchTermChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  // Function to handle search button click
+  const handleSearchClick = () => {
+    // Perform filtering based on the search term
+    // If the search term is empty or cleared, show all favorite cards
+    if (searchTerm.trim() === "") {
+      setFavoriteCards(JSON.parse(localStorage.getItem("favoriteCards")) || []);
+    } else {
+      // Filter the favorite cards based on the title
+      const filteredCards = favoriteCards.filter((card) =>
+        card.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      // Update the state with filtered cards
+      setFavoriteCards(filteredCards);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -90,6 +100,9 @@ export default function Favoritos() {
           getRandomColor={getRandomColor}
           maxLength={maxLength}
           handleFavoriteClick={handleFavoriteClick}
+          searchTerm={searchTerm}
+          handleSearchClick={handleSearchClick}
+          handleSearchTermChange={handleSearchTermChange}
         />
       ) : (
         // Renderizar elementos específicos para desktop
@@ -109,7 +122,18 @@ export default function Favoritos() {
               <span>{favoriteCards.length}</span>
               <h2>Lugares guardados</h2>
             </div>
-            <div className={styles.search}></div>
+            <div className={styles.search}>
+              <input
+                className={styles.inputSearch}
+                type="text"
+                placeholder="Buscar..."
+                value={searchTerm}
+                onChange={handleSearchTermChange}
+              />
+              <button className={styles.btnSearch} onClick={handleSearchClick}>
+                <i class="ri-search-line"></i>
+              </button>
+            </div>
           </div>
           {loading ? (
             <div>Loading...</div>

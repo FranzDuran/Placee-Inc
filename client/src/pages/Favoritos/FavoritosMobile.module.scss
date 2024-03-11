@@ -25,9 +25,10 @@
 
     .contentTitle {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       gap: 20px;
+      width: 100%;
       .numberContent {
         display: flex;
         position: relative;
@@ -45,6 +46,33 @@
           bottom: -10px;
           right: -10px;
           color: #000;
+        }
+      }
+      .search {
+        width: 80%;
+        display: flex;
+        position: relative;
+        border-radius: 50px;
+
+        .inputSearch {
+          width: 100%;
+          padding: 5px 10px;
+          font-size: 16px;
+          color: #000;
+          border-radius: 50px;
+          border: 1px solid rgb(153, 153, 153);
+        }
+        .btnSearch {
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          bottom: 0px;
+          margin: auto;
+          //background: transparent;
+          padding: 0px 5px;
+          color: #fff;
+          font-size: 20px;
+          border-radius: 50px;
         }
       }
     }
@@ -162,6 +190,8 @@
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   //grid-gap: 10px;
   padding: 20px 0;
+  height: 100%;
+  overflow-y: auto;
 }
 
 .galleryItem {

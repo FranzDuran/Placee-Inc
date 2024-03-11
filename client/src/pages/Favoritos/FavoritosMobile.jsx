@@ -16,6 +16,9 @@ export default function FavoritosMobile({
   loading,
   maxLength,
   handleFavoriteClick,
+  searchTerm,
+  handleSearchClick,
+  handleSearchTermChange,
 }) {
   const [view, setView] = useState("cards"); // Estado para controlar qué vista se muestra
   return (
@@ -32,7 +35,18 @@ export default function FavoritosMobile({
             <i class="ri-bookmark-fill" id={styles.iconFavoritos}></i>
           </div>
 
-          <div className={styles.search}></div>
+          <div className={styles.search}>
+            <input
+              className={styles.inputSearch}
+              type="text"
+              placeholder="Buscar..."
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+            />
+            <button className={styles.btnSearch} onClick={handleSearchClick}>
+              <i class="ri-search-line"></i>
+            </button>
+          </div>
         </div>
       </div>
       <div className={styles.btnContainer}>
