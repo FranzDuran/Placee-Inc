@@ -3,11 +3,12 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import './header.scss';
+import "./header.scss";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import Drawer from "@mui/material/Drawer";
-import FilterCard from '../FilterCard/FilterCard';
+import FilterCard from "../FilterCard/FilterCard";
 import InputSearch from "../InputSearch/InputSearch";
+import { Link } from "react-router-dom";
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
@@ -39,8 +40,15 @@ export default function SimpleBottomNavigation() {
               setValue(newValue);
             }}
           >
-            <BottomNavigationAction label="Recentes" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="Favoritos" icon={<FavoriteIcon />} />
+            <BottomNavigationAction label="Recientes" icon={<RestoreIcon />} />
+            <Link to="/favoritos" className="link-mobile" >
+              <BottomNavigationAction
+                label="Favoritos"
+                icon={<FavoriteIcon />}
+              />
+              
+            </Link>
+
             <BottomNavigationAction
               onClick={toggleDrawer(anchor, true)}
               label="Buscar"
