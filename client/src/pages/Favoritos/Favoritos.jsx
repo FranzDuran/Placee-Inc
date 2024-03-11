@@ -91,7 +91,7 @@ export default function Favoritos() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       {isResponsive ? (
         <FavoritosMobile
           favoriteCards={favoriteCards}
@@ -106,6 +106,7 @@ export default function Favoritos() {
         />
       ) : (
         // Renderizar elementos específicos para desktop
+
         <div className={styles.desktopContent}>
           <div className={styles.header}>
             <span className={styles.btnVolver}>
@@ -226,6 +227,6 @@ export default function Favoritos() {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -1,7 +1,9 @@
-.container {
+.desktopContent {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100vh;
+
 }
 
 .cardsContainer {
@@ -10,6 +12,8 @@
   gap: 40px;
   width: 100%;
   padding: 50px;
+  height: 100%;
+  overflow-y: auto;
   .card {
     width: 280px;
     height: 410px;
