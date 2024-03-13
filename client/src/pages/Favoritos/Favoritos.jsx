@@ -137,6 +137,7 @@ export default function Favoritos() {
           searchTerm={searchTerm}
           handleSearchClick={handleSearchClick}
           handleSearchTermChange={handleSearchTermChange}
+          renderSuggestions={renderSuggestions}
         />
       ) : (
         // Renderizar elementos específicos para desktop
