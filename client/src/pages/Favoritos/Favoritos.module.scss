@@ -191,6 +191,16 @@
       font-size: 20px;
       border-radius: 50px;
     }
+    .suggestionsContainer{
+      width: 100%;
+      position: absolute;
+      top: 40px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid rgb(153, 153, 153);
+      background: #fff;
+      z-index: 100;
+    }
   }
 }
 

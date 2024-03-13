@@ -68,25 +68,59 @@ export default function Favoritos() {
 
   //----------------------------------------------------
   const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   console.log(searchTerm);
 
   const handleSearchTermChange = (event) => {
-    setSearchTerm(event.target.value);
+    const value = event.target.value;
+    setSearchTerm(value);
+    // Filter the favorite cards based on the input value
+    const filteredCards = favoriteCards.filter((card) =>
+      card.title.toLowerCase().includes(value.toLowerCase())
+    );
+    setSuggestions(filteredCards);
   };
 
-  // Function to handle search button click
   const handleSearchClick = () => {
-    // Perform filtering based on the search term
-    // If the search term is empty or cleared, show all favorite cards
-    if (searchTerm.trim() === "") {
-      setFavoriteCards(JSON.parse(localStorage.getItem("favoriteCards")) || []);
+    // Clear suggestions when search is initiated
+    setSuggestions([]);
+    // Find the favorite card that exactly matches the search term
+    const selectedCard = favoriteCards.find(
+      (card) => card.title.toLowerCase() === searchTerm.toLowerCase()
+    );
+
+    if (selectedCard) {
+      // If a matching card is found, update the state with the selected card
+      setFavoriteCards([selectedCard]);
     } else {
-      // Filter the favorite cards based on the title
-      const filteredCards = favoriteCards.filter((card) =>
-        card.title.toLowerCase().includes(searchTerm.toLowerCase())
+      // If no matching card is found, show all favorite cards
+      setFavoriteCards(JSON.parse(localStorage.getItem("favoriteCards")) || []);
+    }
+  };
+
+  const handleSuggestionClick = (title) => {
+    setSearchTerm(title);
+    setSuggestions([]); // Clear suggestions after selecting one
+    handleSearchClick(); // Perform search directly
+  };
+
+  const renderSuggestions = () => {
+    if (suggestions.length === 0 || searchTerm === "") {
+      return null; // Don't render suggestions if input is empty or no suggestions
+    } else {
+      return (
+        <div className={styles.suggestionsContainer}>
+          {suggestions.map((card, index) => (
+            <div
+              className={styles.suggestion}
+              key={index}
+              onClick={() => handleSuggestionClick(card.title)}
+            >
+              <p>{card.title}</p>
+            </div>
+          ))}
+        </div>
       );
-      // Update the state with filtered cards
-      setFavoriteCards(filteredCards);
     }
   };
 
@@ -134,6 +168,7 @@ export default function Favoritos() {
               <button className={styles.btnSearch} onClick={handleSearchClick}>
                 <i class="ri-search-line"></i>
               </button>
+              {renderSuggestions()}
             </div>
           </div>
           {loading ? (
