@@ -139,18 +139,20 @@ export default function FavoritosMobile({
 
           {/* Mostrar la vista de galería si el estado es "gallery" */}
           {view === "gallery" && (
-            <div className={styles.gallery}>
-              {favoriteCards.map((card, index) => (
-                <div className={styles.galleryItem} key={index}>
-                  <a href={`/rooms/${card.id}`}>
-                    <img
-                      src={card.imageFile[0]}
-                      alt={`Imagen`}
-                      className={styles.galleryImagen}
-                    />
-                  </a>
-                </div>
-              ))}
+            <div className={styles.containerGallery}>
+              <div className={styles.gallery}>
+                {favoriteCards.map((card, index) => (
+                  <div className={styles.galleryItem} key={index}>
+                    <a href={`/rooms/${card.id}`}>
+                      <img
+                        src={card.imageFile[0]}
+                        alt={`Imagen`}
+                        className={styles.galleryImagen}
+                      />
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </>
