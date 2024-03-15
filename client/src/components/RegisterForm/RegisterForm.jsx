@@ -13,23 +13,26 @@ import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
+import CircularProgress from "@mui/material/CircularProgress";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
-
-export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) {
-  const [agreed, setAgreed] = useState(false);
+export default function RegisterForm({
+  setIsModalOpen,
+  setIsModalOpenRegister,
+}) {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [loadingRegister, setLoadingRegister] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [agreed, setAgreed] = useState(false);
+  
+  const [loadingSuccess, setLoadingSuccess] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageApiError, contextHolderError] = message.useMessage();
 
   const [register, setRegister] = useState({
     name: "",
@@ -43,7 +46,7 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
 
   const showModal = () => {
     setIsModalOpen(true);
-    setIsModalOpenRegister(false)
+    setIsModalOpenRegister(false);
   };
 
   const handleOk = () => {
@@ -54,16 +57,37 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
     setIsModalOpen(false);
   };
 
+  const Success = () => {
+    messageApi.open({
+      type: "success",
+      content: "Registrado correctamente",
+    });
+  };
 
+  const Error = () => {
+    messageApiError.open({
+      type: "error",
+      content: "El email ya esta registrado",
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoadingRegister(true)
-    dispatch(UserRegister(register));
-    setSuccess(true);
-    navigate('/')
-    setLoadingRegister(false)
-
-    
+    setIsSubmitting(true);
+    setLoadingSuccess(true);
+    setTimeout(async () => {
+      try {
+        const Register = await dispatch(UserRegister(register));
+        if (Register) {
+          Success();
+        }
+      } catch (error) {
+        Error();
+        console.log(error);
+      } finally {
+        setLoadingSuccess(false);
+        setIsSubmitting(false);
+      }
+    }, 3000);
   };
 
   const handleChange = (e) => {
@@ -91,9 +115,7 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
       phone: `+${selectedCountryCode}${" "}`,
     }));
   };
-  const handleCloseSuccess = () => {
-    setSuccess(false);
-  };
+
   return (
     <div>
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 responsive-register">
@@ -242,16 +264,21 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
               </div>
             </div>
 
-            <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2 ">
+            <Switch.Group
+              as="div"
+              className="flex gap-x-4 sm:col-span-2"
+              style={{ marginBottom: "2em" }}
+            >
               <div className="flex h-6 items-center ">
-                <Switch
-                  checked={agreed}
-                  onChange={setAgreed}
-                  className={classNames(
-                    agreed ? "button-color" : "bg-gray-200",
-                    "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
-                  )}
-                >
+              <Switch
+      checked={agreed}
+      onChange={setAgreed}
+      className={classNames(
+        agreed ? "button-color" : "bg-gray-200",
+        "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ",
+        isSubmitting && "pointer-events-none" // Desactiva la interacción cuando se está procesando el registro
+      )}
+    >
                   <span className="sr-only">Agree to policies</span>
                   <span
                     aria-hidden="true"
@@ -263,7 +290,7 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
                 </Switch>
               </div>
               <Switch.Label className="text-sm leading-6 text-gray-600">
-                Al seleccionar esto, aceptas nuestra{" "}
+                Aceptas nuestra{" "}
                 <a
                   href="#"
                   className="font-semibold text-indigo-600 text-color"
@@ -277,22 +304,21 @@ export default function RegisterForm({ setIsModalOpen, setIsModalOpenRegister}) 
             <button
               type="submit"
               className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 button-color"
-            >
-                           {loadingRegister ? 'Registrando..' :  'Registrarse'}
-
+              disabled={!agreed} 
+          >
+              {loadingSuccess ? (
+                <CircularProgress
+                  size={16}
+                  thickness={5}
+                  sx={{ color: "#fff" }}
+                />
+              ) : (
+                "Registrarse"
+              )}
             </button>
           </div>
-          <Stack spacing={2} sx={{ width: "100%" }}>
-          <Snackbar open={success} autoHideDuration={2000} onClose={handleCloseSuccess}>
-            <Alert
-              onClose={handleCloseSuccess}
-              severity="success"
-              sx={{ width: "100%" }}
-            >
-             Usuario creado Inicie sesión
-            </Alert>
-          </Snackbar>
-        </Stack>
+          {contextHolder}
+          {contextHolderError}
         </form>
       </div>
     </div>

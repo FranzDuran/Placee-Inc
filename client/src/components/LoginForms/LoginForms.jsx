@@ -13,24 +13,36 @@ import MuiAlert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import RegisterForm from "../RegisterForm/RegisterForm";
+import { message } from "antd";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isModalOpenRegister}) {
+export default function LoginForms({
+  setIsModalOpen,
+  setIsModalOpenRegister,
+  isModalOpenRegister,
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
-  const [loginLoading, setLoginLoading] = React.useState(false);
+  const [loadingError, setLoadingError] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
-
+  const error = () => {
+    messageApi.open({
+      type: "error",
+      content: "el correo y/o la contraseña no coinciden",
+    });
+  };
   //const [isModalOpenRegister, setIsModalOpenRegister] = React.useState(false);
 
   const showModalRegister = () => {
     setIsModalOpenRegister(true);
-    setIsModalOpen(false)
+    setIsModalOpen(false);
   };
 
   const handleOkRegister = () => {
@@ -41,36 +53,32 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
     setIsModalOpenRegister(false);
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoginLoading(true)
-    try {
-      
-    if (email && password) {
-      // Aquí deberías tener la lógica de autenticación, por ejemplo, una llamada a la API para verificar las credenciales
+    setLoadingError(true);
+    setTimeout(async () => {
+      try {
+        if (email && password) {
+          // Aquí deberías tener la lógica de autenticación, por ejemplo, una llamada a la API para verificar las credenciales
 
-      const authenticationSuccess = await dispatch(UserLogin(email, password));
+          const authenticationSuccess = await dispatch(
+            UserLogin(email, password)
+          );
 
-      if (authenticationSuccess) {
-        navigate("/");
-        // Si la autenticación es exitosa, redirige al usuario a la página de inicio
-      } else {
-        // Si la autenticación falla, muestra una alerta
-        setOpen(true);
+          if (authenticationSuccess) {
+            navigate("/");
+            // Si la autenticación es exitosa, redirige al usuario a la página de inicio
+          } else {
+            // Si la autenticación falla, muestra una alerta
+            error();
+          }
+        }
+      } catch (error) {
+        console.log("error en la autenticacion");
+      } finally {
+        setLoadingError(false);
       }
-    }
-    setLoginLoading(false)
-  }catch (error) {
-    console.log('error en la autenticacion');
-      
-    }
+    }, 3000);
   };
 
   const handleFacebookLogin = () => {
@@ -80,7 +88,7 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
 
   const handleGoogleLogin = () => {
     // Implementa tu lógica de inicio de sesión con Google aquí
-    dispatch(loginWithGoogle())
+    dispatch(loginWithGoogle());
     console.log("Inicio de sesión con Google");
   };
 
@@ -172,13 +180,26 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
               </div>
               <div>
                 <Button
-                  style={{ backgroundColor: "#05A1A1", borderColor: "#05A1A1" }}
+                  style={{
+                    backgroundColor: "#05A1A1",
+                    borderColor: "#05A1A1",
+                    marginBottom: "1em",
+                  }}
                   type="submit"
                   className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600  button-color-iniciar"
                 >
-                {loginLoading ? "Iniciando...": "Iniciar sesión"}  
+                  {loadingError ? (
+                    <CircularProgress
+                      size={16}
+                      thickness={5}
+                      sx={{ color: "#fff" }}
+                    />
+                  ) : (
+                    "Iniciar sesión"
+                  )}
                 </Button>
               </div>
+              {contextHolder}
             </form>
 
             <p className="mt-10 text-center text-sm text-gray-500">
@@ -192,17 +213,6 @@ export default function LoginForms({setIsModalOpen, setIsModalOpenRegister, isMo
             </p>
           </div>
         </div>
-        <Stack spacing={2} sx={{ width: "100%" }}>
-          <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-            <Alert
-              onClose={handleClose}
-              severity="error"
-              sx={{ width: "100%" }}
-            >
-              El email o contraseñas es incorrecta
-            </Alert>
-          </Snackbar>
-        </Stack>
       </div>
       <Modal
         visible={isModalOpenRegister}

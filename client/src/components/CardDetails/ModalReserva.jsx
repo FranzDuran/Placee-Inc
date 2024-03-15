@@ -217,7 +217,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
   
   return (
     modalOpen && (
-      <div className={styles["modal-overlay"]}>
+      <form className={styles["modal-overlay"]}>
         <div className={styles.modal}>
           <div className={styles["modal-header"]}>
             <div className={styles.contentFile} id={styles.fileTitle}>
@@ -507,7 +507,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
             </button>
           </div>
         </div>
-      </div>
+      </form>
     )
   );
 };

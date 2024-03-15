@@ -1,6 +1,6 @@
 import axios from "axios";
 
-  export const setSelectedCardId = (id) => ({
+/*   export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -245,11 +245,11 @@ export const updatepost = (postId, payload) => {
     });
   };
 };
-export const paymentReserve = (idTuristic) => {
+export const paymentReserve = (idTuristic, payload) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `https://placee-inc.onrender.com/create-checkout-session/${idTuristic}`);
+        `https://placee-inc.onrender.com/create-checkout-session/${idTuristic}`, payload);
       const data = res.data;
 
       dispatch({
@@ -343,12 +343,11 @@ export const fetchGoogleProfile = () => async (dispatch) => {
 }; 
 
 
+ */
 
 
 
 
-
-/* 
 
  export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
@@ -621,11 +620,11 @@ export const updatepost = (postId, payload) => {
     });
   };
 };
-export const paymentReserve = (idTuristic, totalValue) => {
+export const paymentReserve = (idTuristic, payload) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `http://localhost:4000/create-checkout-session/${idTuristic}`, totalValue);
+        `http://localhost:4000/create-checkout-session/${idTuristic}`, payload);
       const data = res.data;
 
       dispatch({
@@ -634,10 +633,14 @@ export const paymentReserve = (idTuristic, totalValue) => {
       });
     } catch (error) {
       console.error("Error al realizar la reserva:", error);
-      // Puedes despachar otra acción de error si es necesario
+      dispatch({
+        type: "PAYMENT_ERROR",
+        payload: error.message, // Otra información de error útil
+      });
     }
   };
-}; 
+};
+
 
 export const ReportsPost = (payload, token) => {
   return async (dispatch) => {
@@ -688,4 +691,4 @@ export const fetchGoogleProfile = () => async (dispatch) => {
   } catch (error) {
     console.error('Error al obtener la información del perfil:', error);
   }
-};  */
+};  
