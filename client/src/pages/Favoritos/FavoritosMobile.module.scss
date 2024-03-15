@@ -74,6 +74,16 @@
           font-size: 20px;
           border-radius: 50px;
         }
+        .suggestionsCont{
+          width: 100%;
+          position: absolute;
+          top: 35px;
+          padding: 10px 20px;
+          border-radius: 8px;
+          border: 1px solid rgb(153, 153, 153);
+          background: #fff;
+          z-index: 100;
+        }
       }
     }
   }
@@ -184,18 +194,19 @@
 }
 
 //-------------------------------------------
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  //grid-gap: 10px;
-  padding: 20px 0;
-  height: 100%;
+.containerGallery {
+  width: 100%;
   overflow-y: auto;
+}
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
 }
 
 .galleryItem {
   overflow: hidden;
+  width: 100%;
 }
 
 .galleryImagen {

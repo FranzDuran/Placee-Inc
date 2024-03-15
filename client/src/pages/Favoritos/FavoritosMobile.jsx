@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
-import styles from "./FavoritosMobile.module.scss";
+import style from "./FavoritosMobile.module.scss";
+import styles from "./Favoritos.module.scss";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
@@ -19,41 +20,48 @@ export default function FavoritosMobile({
   searchTerm,
   handleSearchClick,
   handleSearchTermChange,
+  renderSuggestions,
 }) {
   const [view, setView] = useState("cards"); // Estado para controlar qué vista se muestra
   return (
-    <div className={styles.mobileContent}>
-      <div className={styles.header}>
+    <div className={style.mobileContent}>
+      <div className={style.header}>
         <Link to="/">
-          <img src={Nudo} alt="logo" className={styles.logo} />
+          <img src={Nudo} alt="logo" className={style.logo} />
         </Link>
       </div>
-      <div className={styles.titleContainer}>
-        <div className={styles.contentTitle}>
-          <div className={styles.numberContent}>
+      <div className={style.titleContainer}>
+        <div className={style.contentTitle}>
+          <div className={style.numberContent}>
             <span>{favoriteCards.length}</span>
-            <i class="ri-bookmark-fill" id={styles.iconFavoritos}></i>
+            <i class="ri-bookmark-fill" id={style.iconFavoritos}></i>
           </div>
 
-          <div className={styles.search}>
+          <div className={style.search}>
             <input
-              className={styles.inputSearch}
+              className={style.inputSearch}
               type="text"
               placeholder="Buscar..."
               value={searchTerm}
               onChange={handleSearchTermChange}
             />
-            <button className={styles.btnSearch} onClick={handleSearchClick}>
-              <i class="ri-search-line"></i>
+            <button className={style.btnSearch} onClick={handleSearchClick}>
+              <i className="ri-search-line"></i>
             </button>
+
+            {renderSuggestions() && (
+              <div className={style.suggestionsCont}>
+                {renderSuggestions()}
+              </div>
+            )}
           </div>
         </div>
       </div>
-      <div className={styles.btnContainer}>
+      <div className={style.btnContainer}>
         {/* Botón para mostrar la vista de lista */}
         <button
-          className={`${styles.btnImage} ${
-            view === "cards" ? styles.btnActive : ""
+          className={`${style.btnImage} ${
+            view === "cards" ? style.btnActive : ""
           }`}
           onClick={() => setView("cards")}
         >
@@ -61,8 +69,8 @@ export default function FavoritosMobile({
         </button>
         {/* Botón para mostrar la vista de galería */}
         <button
-          className={`${styles.btnImage} ${
-            view === "gallery" ? styles.btnActive : ""
+          className={`${style.btnImage} ${
+            view === "gallery" ? style.btnActive : ""
           }`}
           onClick={() => setView("gallery")}
         >
@@ -75,41 +83,41 @@ export default function FavoritosMobile({
         <>
           {/* Mostrar la vista de lista si el estado es "cards" */}
           {view === "cards" && (
-            <div className={styles.cardsContainerLista}>
+            <div className={style.cardsContainerLista}>
               {favoriteCards.map((card, index) => (
-                <div className={styles.card} key={index}>
+                <div className={style.card} key={index}>
                   <Swiper
                     modules={[Navigation, Pagination]}
                     spaceBetween={0}
                     slidesPerView={1}
-                    className={styles.swiperContainer}
+                    className={style.swiperContainer}
                     //navigation
                     pagination={{
                       clickable: true,
                     }}
                   >
                     {card.imageFile.map((image, idx) => (
-                      <SwiperSlide key={idx} className={styles.swiperSlide}>
-                        <div className={styles.imageContainer} key={idx}>
+                      <SwiperSlide key={idx} className={style.swiperSlide}>
+                        <div className={style.imageContainer} key={idx}>
                           <img
                             src={image}
                             alt={`Imagen ${idx}`}
-                            className={styles.image}
+                            className={style.image}
                           />
                         </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
                   <button
-                    className={styles.iconFavoritos}
+                    className={style.iconFavoritos}
                     onClick={() => handleFavoriteClick(card.id)}
                   >
                     <i className="ri-bookmark-line"></i>
                   </button>
                   <a href={`/rooms/${card.id}`}>
-                    <div className={styles.textCard}>
+                    <div className={style.textCard}>
                       <h3>{card.title}</h3>
-                      <Avatar id={styles.avatar}>
+                      <Avatar id={style.avatar}>
                         {card.avatar ? (
                           <img src={card.avatar} alt={`Imagen`} />
                         ) : (
@@ -139,23 +147,25 @@ export default function FavoritosMobile({
 
           {/* Mostrar la vista de galería si el estado es "gallery" */}
           {view === "gallery" && (
-            <div className={styles.gallery}>
-              {favoriteCards.map((card, index) => (
-                <div className={styles.galleryItem} key={index}>
-                  <a href={`/rooms/${card.id}`}>
-                    <img
-                      src={card.imageFile[0]}
-                      alt={`Imagen`}
-                      className={styles.galleryImagen}
-                    />
-                  </a>
-                </div>
-              ))}
+            <div className={style.containerGallery}>
+              <div className={style.gallery}>
+                {favoriteCards.map((card, index) => (
+                  <div className={style.galleryItem} key={index}>
+                    <a href={`/rooms/${card.id}`}>
+                      <img
+                        src={card.imageFile[0]}
+                        alt={`Imagen`}
+                        className={style.galleryImagen}
+                      />
+                    </a>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </>
       ) : (
-        <div className={styles.containerSinFavoritos}>
+        <div className={style.containerSinFavoritos}>
           <h2>No hay cartas favoritas disponibles.</h2>
         </div>
       )}
