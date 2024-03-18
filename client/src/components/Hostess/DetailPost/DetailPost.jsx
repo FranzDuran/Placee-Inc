@@ -10,15 +10,9 @@ import Carousel from "react-bootstrap/Carousel";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import styles from "./DetailPost.module.scss";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  dataPersonal,
-  DetailsPostTuristic,
-  updatePersonal,
-} from "../../../redux/action";
+
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Modal, Space } from "antd";
-import { DeletePost } from "../../../redux/action";
 import ButtonBootstrap from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import UpdatePhoto from "../UpdatePhoto/UpdatePhoto";
@@ -26,10 +20,18 @@ import ModalBootstrap from "react-bootstrap/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import ButtonMaterial from "@mui/material/Button";
 
-import { updatepost } from "../../../redux/action";
 import GalleryModal from "../../CardDetails/GalleryModal.jsx";
 import ModalServicios from "./ModalServicios";
 import ModalPaquetes from "./ModalPaquetes";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  dataPersonal,
+  DetailsPostTuristic,
+  updatePersonal,
+  DeletePost,
+  updatepost,
+} from "../../../redux/action";
 
 const { confirm } = Modal;
 
@@ -37,8 +39,11 @@ export default function DetailPost() {
   const dispatch = useDispatch();
   const { postId } = useParams();
   const navigate = useNavigate();
+
+  //---- Me traigo la data del post -----
   const detailpost = useSelector((state) => state.detailpost);
   console.log(detailpost);
+
   const token = useSelector((state) => state.token);
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
@@ -52,37 +57,68 @@ export default function DetailPost() {
   const [showContinent, setShowContinent] = useState(false);
   const [showStatus, setShowStatus] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
+  const [showPriceMenores, setShowPriceMenores] = useState(false);
+  const [showPriceTransporte, setShowPriceTransporte] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [showPeople, setShowPeople] = useState(false);
   const [showList, setShowList] = useState(false);
   const [showPolitic, setShowPolitic] = useState(false);
+
   const [detail, setDetail] = useState({
-    title: detailpost.title,
-    continent: detailpost.continent,
-    country: detailpost.country,
-    status: detailpost.status,
-    price: detailpost.price,
-    priceMenores: detailpost.priceMenores,
-    summary: detailpost.summary,
-    description: detailpost.description,
-    people: detailpost.people,
-    listDetails: detailpost.listDetails,
-    infoImportant: detailpost.infoImportant,
-    priceTransporte: detailpost.priceTransporte
-      ? detailpost.priceTransporte
-      : null,
+    title: "",
+    continent: "",
+    country: "",
+    status: "",
+    price: null,
+    priceMenores: null,
+    summary: "",
+    description: "",
+    people: "",
+    listDetails: "",
+    infoImportant: "",
+    priceTransporte: null,
     transportes: [],
     additionalPrices: [],
     specialPackageName: "",
     specialPrecioTotal: "",
     specialPackageItem: [],
   });
+  console.log(detail);
+
+  useEffect(() => {
+    if (detailpost) {
+      setDetail({
+        title: detailpost.title,
+        continent: detailpost.continent,
+        country: detailpost.country,
+        status: detailpost.status,
+        price: detailpost.price,
+        priceMenores: detailpost.priceMenores,
+        summary: detailpost.summary,
+        description: detailpost.description,
+        people: detailpost.people,
+        listDetails: detailpost.listDetails,
+        infoImportant: detailpost.infoImportant,
+        priceTransporte: detailpost.priceTransporte,
+        transportes: detailpost.transportes,
+        additionalPrices: detailpost.additionalPrices,
+        specialPackageName: detailpost.specialPackageName,
+        specialPrecioTotal: detailpost.specialPrecioTotal,
+        specialPackageItem: detailpost.specialPackageItems,
+      });
+      setSelectedItems(detailpost.transportes);
+    }
+  }, [detailpost]);
+
   const handleCloseTitle = () => {
+    console.log("cerrar modal");
     setShowTittle(false);
     setShowContinent(false);
     setShowStatus(false);
     setShowPrice(false);
+    setShowPriceMenores(false);
+    setShowPriceTransporte(false);
     setShowSummary(false);
     setShowDescription(false);
     setShowPeople(false);
@@ -94,6 +130,8 @@ export default function DetailPost() {
   const handleShowContinent = () => setShowContinent(true);
   const handleShowStatus = () => setShowStatus(true);
   const handleShowPrice = () => setShowPrice(true);
+  const handleShowPriceMenores = () => setShowPriceMenores(true);
+  const handleShowPriceTransporte = () => setShowPriceTransporte(true);
   const handleShowSummary = () => setShowSummary(true);
   const handleShowDescription = () => setShowDescription(true);
   const handleShowPeople = () => setShowPeople(true);
@@ -126,8 +164,20 @@ export default function DetailPost() {
     dispatch(DetailsPostTuristic(postId));
   }, [dispatch, token]);
 
-  const handleSubmit = () => {
-    dispatch(updatepost(postId, detail));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("dispatching updatepost...");
+    dispatch(updatepost(postId, detail))
+      .then(() => {
+        console.log("updatepost successful, fetching updated detailpost...");
+        // Fetch the updated detailpost after successful update
+        dispatch(DetailsPostTuristic(postId));
+      })
+      .catch((error) => {
+        console.error("Error updating post:", error);
+      });
+
+    handleCloseTitle();
   };
 
   const handleOnClose = () => {
@@ -144,19 +194,19 @@ export default function DetailPost() {
   //-------- TRANSPOSTE -------------------------
 
   const [mostrarCheckbox, setMostrarCheckbox] = useState(false);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(detail.transportes);
 
   const handleCheckboxTransporte = (item) => {
-    if (selectedItems.includes(item)) {
-      setSelectedItems(
-        selectedItems.filter((selectedItem) => selectedItem !== item)
-      );
-    } else {
-      setSelectedItems([...selectedItems, item]);
-    }
-    setDetail((prevState) => ({
-      ...prevState,
-      transportes: selectedItems,
+    const updatedItems = selectedItems.includes(item)
+      ? selectedItems.filter((selectedItem) => selectedItem !== item)
+      : [...selectedItems, item];
+
+    setSelectedItems(updatedItems);
+
+    // Aquí, utilizamos la función de setState para asegurarnos de tener acceso al valor actualizado de selectedItems.
+    setDetail((prevDetail) => ({
+      ...prevDetail,
+      transportes: updatedItems,
     }));
   };
 
@@ -164,13 +214,14 @@ export default function DetailPost() {
     setMostrarCheckbox(!mostrarCheckbox);
   };
 
-  const handlePriceTransporte = (e) => {
+  /* const handlePriceTransporte = (e) => {
+    console.log(e.target.value)
     e.preventDefault();
     setDetail((prevState) => ({
       ...prevState,
       priceTransporte: parseInt(e.target.value, 10),
     }));
-  };
+  }; */
   //------------- MODAL SERVICIOS -------------------------------------
 
   const [modalOpenServicios, setModalOpenServicios] = useState(false);
@@ -209,7 +260,7 @@ export default function DetailPost() {
                 </div>
 
                 <ModalBootstrap show={showTittle} onHide={handleCloseTitle}>
-                  <form action="" onSubmit={handleSubmit}>
+                  <form action="" onSubmit={(e) => handleSubmit(e)}>
                     <ModalBootstrap.Header closeButton>
                       <ModalBootstrap.Title>Titulo</ModalBootstrap.Title>
                     </ModalBootstrap.Header>
@@ -224,7 +275,7 @@ export default function DetailPost() {
                             type="text"
                             autoFocus
                             placeholder="Titulo"
-                            value={detail.title}
+                            value={detail.title && detail.title}
                             onChange={handleTitle}
                             className={styles.inputForm}
                           />
@@ -262,14 +313,14 @@ export default function DetailPost() {
                     onClick={handleShowContinent}
                     className={styles["country-btn"]}
                   >
-                    <i class="ri-edit-2-line"></i>
+                    <i className="ri-edit-2-line"></i>
                   </Button>
 
                   <ModalBootstrap
                     show={showContinent}
                     onHide={handleCloseTitle}
                   >
-                    <form action="" onSubmit={handleSubmit}>
+                    <form action="" onSubmit={(e) => handleSubmit(e)}>
                       <ModalBootstrap.Header closeButton>
                         <ModalBootstrap.Title></ModalBootstrap.Title>
                       </ModalBootstrap.Header>
@@ -346,11 +397,11 @@ export default function DetailPost() {
                     onClick={handleShowStatus}
                     className={styles["status-btn"]}
                   >
-                    <i class="ri-edit-2-line"></i>
+                    <i className="ri-edit-2-line"></i>
                   </Button>
 
                   <ModalBootstrap show={showStatus} onHide={handleCloseTitle}>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e) => handleSubmit(e)}>
                       <ModalBootstrap.Header closeButton>
                         <ModalBootstrap.Title>Estado</ModalBootstrap.Title>
                       </ModalBootstrap.Header>
@@ -364,7 +415,7 @@ export default function DetailPost() {
                             <Form.Control
                               type="text"
                               autoFocus
-                              placeholder={detailpost.status}
+                              placeholder="Estado"
                               value={detail.status}
                               onChange={(e) =>
                                 setDetail({ ...detail, status: e.target.value })
@@ -518,7 +569,7 @@ export default function DetailPost() {
                 <i className="ri-edit-2-line" id={styles["edit-icon"]}></i>
               </ButtonMaterial>
               <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <ModalBootstrap.Header closeButton>
                     <ModalBootstrap.Title>Precio</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
@@ -532,7 +583,7 @@ export default function DetailPost() {
                         <Form.Control
                           type="text"
                           autoFocus
-                          placeholder={detailpost.price}
+                          placeholder="Precio adulto"
                           value={detail.price}
                           onChange={(e) =>
                             setDetail({ ...detail, price: e.target.value })
@@ -567,7 +618,7 @@ export default function DetailPost() {
                 </Card>
               </div>
               <ButtonMaterial
-                onClick={handleShowPrice}
+                onClick={handleShowPriceMenores}
                 className={styles.btnEditPrice}
                 sx={{
                   color: "#8B008B",
@@ -580,8 +631,8 @@ export default function DetailPost() {
               >
                 <i className="ri-edit-2-line" id={styles["edit-icon"]}></i>
               </ButtonMaterial>
-              <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
-                <form onSubmit={handleSubmit}>
+              <ModalBootstrap show={showPriceMenores} onHide={handleCloseTitle}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <ModalBootstrap.Header closeButton>
                     <ModalBootstrap.Title>Precio Niños</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
@@ -595,14 +646,17 @@ export default function DetailPost() {
                         <Form.Control
                           type="text"
                           autoFocus
-                          placeholder={detailpost.price}
-                          value={detail.price}
+                          placeholder="Precio niños"
+                          value={detail.pripriceMenoresce}
                           onChange={(e) =>
                             setDetail({
                               ...detail,
                               priceMenores: e.target.value,
                             })
                           }
+                          /* onChange={(e) =>
+                            setDetail({ ...detail, price: e.target.value })
+                          } */
                           className={styles.inputForm}
                         />
                       </Form.Group>
@@ -629,12 +683,6 @@ export default function DetailPost() {
             </div>
 
             <div className={styles.containerSelectTransporte}>
-              {/* <Form.Label
-                className={styles["label-title"]}
-                onClick={handleLabelClick}
-              >
-                Seleccione el tipo de transporte permitido
-              </Form.Label> */}
               <Button
                 className={styles.btnTransporte}
                 onClick={handleLabelClick}
@@ -678,6 +726,7 @@ export default function DetailPost() {
                       onChange={() => handleCheckboxTransporte("Camion")}
                     />
                   </Form.Group>
+                  <button onClick={(e) => handleSubmit(e)}>Guardar</button>
                 </div>
               )}
             </div>
@@ -690,7 +739,7 @@ export default function DetailPost() {
                 </Card>
               </div>
               <ButtonMaterial
-                onClick={handleShowPrice}
+                onClick={handleShowPriceTransporte}
                 className={styles.btnEditPrice}
                 sx={{
                   color: "#8B008B",
@@ -703,8 +752,11 @@ export default function DetailPost() {
               >
                 <i className="ri-edit-2-line" id={styles["edit-icon"]}></i>
               </ButtonMaterial>
-              <ModalBootstrap show={showPrice} onHide={handleCloseTitle}>
-                <form onSubmit={handleSubmit}>
+              <ModalBootstrap
+                show={showPriceTransporte}
+                onHide={handleCloseTitle}
+              >
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <ModalBootstrap.Header closeButton>
                     <ModalBootstrap.Title>
                       Precio transporte
@@ -720,9 +772,14 @@ export default function DetailPost() {
                         <Form.Control
                           type="text"
                           autoFocus
-                          placeholder={detailpost.price}
-                          value={detail.price}
-                          onChange={(e) => handlePriceTransporte()}
+                          placeholder={detailpost.priceTransporte}
+                          value={detail.priceTransporte}
+                          onChange={(e) =>
+                            setDetail({
+                              ...detail,
+                              priceTransporte: parseInt(e.target.value, 10),
+                            })
+                          }
                           className={styles.inputForm}
                         />
                       </Form.Group>
@@ -808,7 +865,7 @@ export default function DetailPost() {
               </Accordion.Item>
 
               <ModalBootstrap show={showSummary} onHide={handleCloseTitle}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <ModalBootstrap.Header closeButton>
                     <ModalBootstrap.Title>
                       Resumen del Lugar
@@ -880,7 +937,7 @@ export default function DetailPost() {
               </Accordion.Item>
 
               <ModalBootstrap show={showDescription} onHide={handleCloseTitle}>
-                <form action="" onSubmit={handleSubmit}>
+                <form action="" onSubmit={(e) => handleSubmit(e)}>
                   <ModalBootstrap.Header closeButton>
                     <ModalBootstrap.Title>Descripción</ModalBootstrap.Title>
                   </ModalBootstrap.Header>
@@ -952,7 +1009,7 @@ export default function DetailPost() {
               </Accordion.Item>
 
               <ModalBootstrap show={showPeople} onHide={handleCloseTitle}>
-                <form action="" onSubmit={handleSubmit}>
+                <form action="" onSubmit={(e) => handleSubmit(e)}>
                   <ModalBootstrap.Header closeButton>
                     <ModalBootstrap.Title>
                       Capacidad de personas
@@ -1007,8 +1064,8 @@ export default function DetailPost() {
                       className="list-disc space-y-2 pl-4 text-sm"
                     >
                       {detailpost.listDetails &&
-                        detailpost.listDetails.map((list) => (
-                          <li className="text-gray-400">
+                        detailpost.listDetails.map((list, index) => (
+                          <li key={index} className="text-gray-400">
                             <span className="text-gray-600">{list}</span>
                           </li>
                         ))}
@@ -1048,8 +1105,8 @@ export default function DetailPost() {
                         className="list-disc space-y-2 pl-4 text-sm"
                       >
                         {detailpost.listDetails &&
-                          detailpost.listDetails.map((list) => (
-                            <li className="text-gray-400">
+                          detailpost.listDetails.map((list, index) => (
+                            <li key={index} className="text-gray-400">
                               <span className="text-gray-600">{list}</span>
                             </li>
                           ))}
@@ -1088,8 +1145,8 @@ export default function DetailPost() {
                       className="list-disc space-y-2 pl-4 text-sm"
                     >
                       {detailpost.infoImportant &&
-                        detailpost.infoImportant.map((list) => (
-                          <li className="text-gray-400">
+                        detailpost.infoImportant.map((list, index) => (
+                          <li key={index} className="text-gray-400">
                             <span className="text-gray-600">{list}</span>
                           </li>
                         ))}
@@ -1131,8 +1188,8 @@ export default function DetailPost() {
                         className="list-disc space-y-2 pl-4 text-sm"
                       >
                         {detailpost.infoImportant &&
-                          detailpost.infoImportant.map((list) => (
-                            <li className="text-gray-400">
+                          detailpost.infoImportant.map((list, index) => (
+                            <li key={index} className="text-gray-400">
                               <span className="text-gray-600">{list}</span>
                             </li>
                           ))}

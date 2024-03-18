@@ -1,15 +1,13 @@
 import axios from "axios";
 
-   export const setSelectedCardId = (id) => ({
+export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
 
 export const AllPostTuristic = () => {
   return async (dispach) => {
-    const res = await axios.get(
-      "https://placee-inc.onrender.com/turistic"
-    );
+    const res = await axios.get("https://placee-inc.onrender.com/turistic");
     const data = res.data.User;
     return dispach({
       type: "ALL_POST_TURISTIC",
@@ -32,9 +30,7 @@ export const DetailsPostTuristic = (idTuristic) => {
 };
 export const HostesstUser = (idHostess) => {
   return async (dispach) => {
-    const res = await axios.get(
-      `https://placee-inc.onrender.com/${idHostess}`
-    );
+    const res = await axios.get(`https://placee-inc.onrender.com/${idHostess}`);
     const data = res.data.details;
     return dispach({
       type: "HOSTESS_USER",
@@ -72,8 +68,6 @@ export const createPost = (postData, token) => {
     }
   };
 };
-
-
 
 export const UserRegister = (payload) => {
   return async (dispach) => {
@@ -116,12 +110,9 @@ export const UserLogin = (email, password) => {
   };
 };
 
-
 const checkServerStatus = async () => {
   try {
-    const response = await axios.get(
-      "https://placee-inc.onrender.com/status"
-    );
+    const response = await axios.get("https://placee-inc.onrender.com/status");
     return response.status === 200;
   } catch (error) {
     return false;
@@ -154,16 +145,13 @@ export const logoutUser = () => {
 
 export const dataPersonal = (token) => {
   return async (dispatch) => {
-    const res = await axios.get(
-      "https://placee-inc.onrender.com/user",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await axios.get("https://placee-inc.onrender.com/user", {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+    });
     const data = await res.data;
 
     return dispatch({
@@ -208,9 +196,7 @@ export const DeletePost = (postId) => {
 
 export const OnlyAllPost = () => {
   return async (dispatch) => {
-    const res = await axios.get(
-      `https://placee-inc.onrender.com/posthostess`
-    );
+    const res = await axios.get(`https://placee-inc.onrender.com/posthostess`);
     const data = res.data.OnlyPosts;
     return dispatch({
       type: "ONLY_POST",
@@ -233,12 +219,15 @@ export const UserPostDetails = (idUser) => {
 };
 
 export const updatepost = (postId, payload) => {
+  console.log(postId)
+  console.log(payload)
   return async (dispatch) => {
     const res = await axios.put(
       `https://placee-inc.onrender.com/post/${postId}`,
       payload
     );
     const data = res.data;
+    console.log("data",data)
     return dispatch({
       type: "UPDATE_POST",
       payload: data,
@@ -249,7 +238,9 @@ export const paymentReserve = (idTuristic, payload) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `https://placee-inc.onrender.com/create-checkout-session/${idTuristic}`, payload);
+        `https://placee-inc.onrender.com/create-checkout-session/${idTuristic}`,
+        payload
+      );
       const data = res.data;
 
       dispatch({
@@ -261,7 +252,7 @@ export const paymentReserve = (idTuristic, payload) => {
       // Puedes despachar otra acción de error si es necesario
     }
   };
-}; 
+};
 
 export const CommentPost = (payload, token) => {
   return async (dispatch) => {
@@ -322,31 +313,27 @@ export const ReportsPost = (payload, token) => {
 export const loginWithGoogle = () => async (dispatch) => {
   try {
     // Redirige al usuario a la página de inicio de sesión de Google
-    window.location.href = 'https://placee-inc.onrender.com/auth/google';
+    window.location.href = "https://placee-inc.onrender.com/auth/google";
   } catch (error) {
-    console.error('Error en la acción loginWithGoogle:', error);
+    console.error("Error en la acción loginWithGoogle:", error);
   }
 };
 
 export const fetchGoogleProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get('https://placee-inc.onrender.com/profile', { withCredentials: true });
+    const res = await axios.get("https://placee-inc.onrender.com/profile", {
+      withCredentials: true,
+    });
     const data = res.data;
 
     dispatch({
-      type: 'DATA_GOOGLE',
+      type: "DATA_GOOGLE",
       payload: data,
     });
   } catch (error) {
-    console.error('Error al obtener la información del perfil:', error);
+    console.error("Error al obtener la información del perfil:", error);
   }
-}; 
-
-
-
-
-
-
+};
 
 /*  export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",

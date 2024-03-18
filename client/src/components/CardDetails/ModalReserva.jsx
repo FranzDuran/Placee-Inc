@@ -38,7 +38,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
 
   const [totalValue, setTotalValue] = useState(0);
 
-  // Esta función almacenará el valor de totalValue en formData y lo pasará al componente padre
+ /*  // Esta función almacenará el valor de totalValue en formData y lo pasará al componente padre
   const saveTotalValueToFormData = (value) => {
     const formData = new FormData();
     formData.append('totalValue', value);
@@ -47,7 +47,7 @@ const ModalReserva = ({ isOpen, onClose, children, onChange }) => {
 
   useEffect(() => {
     saveTotalValueToFormData(totalValue); // Llama a la función cuando totalValue cambie
-  }, [totalValue, saveTotalValueToFormData]);
+  }, [totalValue, saveTotalValueToFormData]); */
 
   //------------- RESERVA ADULTO / MENORES ------------------------
   const [reservaQuantities, setReservaQuantities] = useState({
