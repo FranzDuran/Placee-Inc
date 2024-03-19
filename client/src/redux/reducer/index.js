@@ -12,12 +12,10 @@ const initialState = {
   reservaEnProceso: false,
   reservaError: null,
   selectedCardId: null,
-
 };
 
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    
     case "SET_SELECTED_CARD_ID":
       return {
         ...state,
@@ -46,12 +44,12 @@ export const rootReducer = (state = initialState, action) => {
         loginError: true,
       };
 
-      case "DATA_GOOGLE":
-        return {
-          ...state,
-          datapersonal: action.payload,
-        };
-      
+    case "DATA_GOOGLE":
+      return {
+        ...state,
+        datapersonal: action.payload,
+      };
+
     case "SET_DATA_PERSONAL":
       return {
         ...state,
@@ -123,7 +121,7 @@ export const rootReducer = (state = initialState, action) => {
         },
       };
 
-      case "POST_REPORTS":
+    case "POST_REPORTS":
       return {
         ...state,
         detailpost: {
@@ -137,9 +135,6 @@ export const rootReducer = (state = initialState, action) => {
         // Otro estado actualizado aquí según sea necesario
         payment: action.payload,
       };
-
-
-      
 
     default:
       return { ...state };

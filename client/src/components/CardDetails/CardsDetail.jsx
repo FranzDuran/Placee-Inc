@@ -46,7 +46,7 @@ dayjs.extend(customParseFormat);
 const { RangePicker } = DatePicker;
 const dateFormat = "YYYY/MM/DD";
 
-export default function CardDetails({totalValue}) {
+export default function CardDetails({ totalValue }) {
   const { idTuristic } = useParams();
   const [state, setState] = React.useState({
     top: false,
@@ -263,21 +263,18 @@ export default function CardDetails({totalValue}) {
   const payment = useSelector((state) => state.payment);
 
   //-----------------------------------------------
-useEffect(() => {
-
-  try {
-    setIsLoading(true)
-    if (payment) {
-      
-      window.location.href = payment && payment.url;
+  useEffect(() => {
+    try {
+      setIsLoading(true);
+      if (payment) {
+        window.location.href = payment && payment.url;
+      }
+    } catch (error) {
+      console.error("No hay payment", error);
+    } finally {
+      setIsLoading(true);
     }
-  } catch (error) {
-    console.error('No hay payment', error);
-  }finally {
-    setIsLoading(true)
-
-  }
-}, [payment]);
+  }, [payment]);
 
   return (
     <div className="detail-container">
@@ -324,7 +321,7 @@ useEffect(() => {
                     <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block ">
                       <img
                         srcset={detailpost.imageFile[0]}
-                        /*   src={product.images[0].src} */
+                        //src={product.images[0].src}
                         alt="Not found"
                         className="h-full w-full object-cover object-center hover-image-left"
                       />
@@ -333,14 +330,14 @@ useEffect(() => {
                     <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                       <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img
-                          srcset={detailpost.imageFile[1]}
+                          srcset={detailpost?.imageFile[1]}
                           alt="Not found"
                           className="h-full w-full object-cover object-center hover-image-center"
                         />
                       </div>
                       <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg ">
                         <img
-                          srcset={detailpost.imageFile[2]}
+                          srcset={detailpost?.imageFile[2]}
                           alt="Not found"
                           className="h-full w-full object-cover object-center hover-image-center"
                         />
@@ -348,7 +345,7 @@ useEffect(() => {
                     </div>
                     <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg ">
                       <img
-                        srcset={detailpost.imageFile[3]}
+                        srcset={detailpost?.imageFile[3]}
                         alt="Not found"
                         className="h-full w-full object-cover object-center hover-image-left"
                       />
@@ -356,7 +353,7 @@ useEffect(() => {
                       <div>
                         <Fab size="small" id="icons-details" aria-label="add">
                           <AddIcon />
-                          {detailpost.imageFile.length - 4}
+                          {detailpost?.imageFile.length - 4}
                         </Fab>
                       </div>
                     </div>
@@ -498,7 +495,6 @@ useEffect(() => {
               <ModalReserva
                 isOpen={modalOpenReserve}
                 onClose={closeModalReserve}
-               
                 children={detailpost}
                 totalValue={totalValue}
               />
