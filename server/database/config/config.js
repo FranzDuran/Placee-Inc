@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 module.exports = {
-  development: {
+ development: {
     dialect: 'postgres',
     database: 'postgres',
     username: 'postgres.mtsawreagatljhfemguo',
@@ -34,9 +34,9 @@ module.exports = {
         method: 'scram-sha-256'
       }
     }
-  },
+  }, 
   
-  /* development: {
+/*  development: {
       dialect: 'postgres',
       host:  'localhost',
       port: 5432,

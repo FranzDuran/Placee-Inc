@@ -7,6 +7,7 @@ const { DetailsTuristic } = require('../controllers/User/DetailsTuristic');
 const { CommentPost } = require('../controllers/User/CommentPost');
 const { ReportPost } = require('../controllers/User/Report');
 const { DeleteComment } = require('../controllers/User/DeleteComent');
+const { OnlyAllPost } = require('../controllers/User/OnlyAllPost')
 
 
 
@@ -39,6 +40,8 @@ router.post('/reports',  ReportPost);
 
 
 router.get('/turistic', AllTuristic)
+router.get('/allposts', OnlyAllPost)
+
 
 
 router.get('/turistic/:idTuristic', DetailsTuristic)

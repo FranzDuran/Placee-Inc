@@ -5,13 +5,7 @@ import "./RegisterForm.scss";
 import { UserRegister } from "../../redux/action";
 import { useDispatch } from "react-redux";
 import { countries } from "../../assets/codeCountry/countries";
-import Swal from "sweetalert2/dist/sweetalert2.js";
-//import '@sweetalert2/theme-bulma/bulma.scss';
-import { Modal } from "antd";
-import LoginForms from "../LoginForms/LoginForms";
-import MuiAlert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
+
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -25,11 +19,10 @@ export default function RegisterForm({
   setIsModalOpenRegister,
 }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [selectedCountry, setSelectedCountry] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  
+
   const [loadingSuccess, setLoadingSuccess] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
   const [messageApiError, contextHolderError] = message.useMessage();
@@ -108,8 +101,6 @@ export default function RegisterForm({
     const selectedCountryCode = countries[selectedCountryIndex].phone;
     setSelectedCountry(selectedCountryCode);
 
-    // You can set the phone number here if you want
-    // Assuming you want to include the country code as well
     setRegister((prevRegister) => ({
       ...prevRegister,
       phone: `+${selectedCountryCode}${" "}`,
@@ -270,15 +261,15 @@ export default function RegisterForm({
               style={{ marginBottom: "2em" }}
             >
               <div className="flex h-6 items-center ">
-              <Switch
-      checked={agreed}
-      onChange={setAgreed}
-      className={classNames(
-        agreed ? "button-color" : "bg-gray-200",
-        "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ",
-        isSubmitting && "pointer-events-none" // Desactiva la interacción cuando se está procesando el registro
-      )}
-    >
+                <Switch
+                  checked={agreed}
+                  onChange={setAgreed}
+                  className={classNames(
+                    agreed ? "button-color" : "bg-gray-200",
+                    "flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ",
+                    isSubmitting && "pointer-events-none" // Desactiva la interacción cuando se está procesando el registro
+                  )}
+                >
                   <span className="sr-only">Agree to policies</span>
                   <span
                     aria-hidden="true"
@@ -304,8 +295,8 @@ export default function RegisterForm({
             <button
               type="submit"
               className="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 button-color"
-              disabled={!agreed} 
-          >
+              disabled={!agreed}
+            >
               {loadingSuccess ? (
                 <CircularProgress
                   size={16}

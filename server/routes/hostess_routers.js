@@ -12,7 +12,7 @@ const { UpdatePost } = require('../controllers/User/UpdatePost');
 
 
 router.get('/hostess/:idHostess', HostessUser)
-router.get('/posthostess', OnlyAllPost)
+router.get('/allposts', OnlyAllPost)
 
 router.put('/post/:postId', UpdatePost)
 

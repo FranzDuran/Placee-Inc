@@ -6,8 +6,10 @@ module.exports = {
       const posts = await Post.findAll();
 
       if (posts.length > 0) {
-        res.status(200).send({OnlyPosts: posts});
+        console.log("Solo todas las publicaciones");
+        res.status(200).send(posts);
       } else {
+        console.log("No existen publicación");
         res.status(404).send({
           message: 'No existen publicación'
         });

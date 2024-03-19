@@ -1,6 +1,6 @@
 import axios from "axios";
 
-   export const setSelectedCardId = (id) => ({
+export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -73,7 +73,33 @@ export const createPost = (postData, token) => {
   };
 };
 
+export const CommentPost = (payload, token) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(
+        `https://placee-inc.onrender.com/comment`,
+        payload,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
 
+      const createdPost = response.data.post;
+
+      dispatch({
+        type: "POST_COMMENT",
+        payload: createdPost,
+      });
+
+      return createdPost;
+    } catch (error) {
+      console.error("Error creating post:", error);
+      throw error;
+    }
+  };
+};
 
 export const UserRegister = (payload) => {
   return async (dispach) => {
@@ -209,9 +235,9 @@ export const DeletePost = (postId) => {
 export const OnlyAllPost = () => {
   return async (dispatch) => {
     const res = await axios.get(
-      `https://placee-inc.onrender.com/posthostess`
+      `https://placee-inc.onrender.com/allposts`
     );
-    const data = res.data.OnlyPosts;
+    const data = res.data;
     return dispatch({
       type: "ONLY_POST",
       payload: data,
@@ -245,11 +271,11 @@ export const updatepost = (postId, payload) => {
     });
   };
 };
-export const paymentReserve = (idTuristic, payload) => {
+export const paymentReserve = (idTuristic) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `https://placee-inc.onrender.com/create-checkout-session/${idTuristic}`, payload);
+        `https://placee-inc.onrender.com/create-checkout-session/${idTuristic}`);
       const data = res.data;
 
       dispatch({
@@ -258,38 +284,14 @@ export const paymentReserve = (idTuristic, payload) => {
       });
     } catch (error) {
       console.error("Error al realizar la reserva:", error);
-      // Puedes despachar otra acción de error si es necesario
-    }
-  };
-}; 
-
-export const CommentPost = (payload, token) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(
-        `https://placee-inc.onrender.com/comment`,
-        payload,
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
-
-      const createdPost = response.data.post;
-
       dispatch({
-        type: "POST_COMMENT",
-        payload: createdPost,
+        type: "PAYMENT_ERROR",
+        payload: error.message, // Otra información de error útil
       });
-
-      return createdPost;
-    } catch (error) {
-      console.error("Error creating post:", error);
-      throw error;
     }
   };
 };
+
 
 export const ReportsPost = (payload, token) => {
   return async (dispatch) => {
@@ -340,7 +342,7 @@ export const fetchGoogleProfile = () => async (dispatch) => {
   } catch (error) {
     console.error('Error al obtener la información del perfil:', error);
   }
-}; 
+};   
 
 
 
@@ -348,7 +350,24 @@ export const fetchGoogleProfile = () => async (dispatch) => {
 
 
 
-/*  export const setSelectedCardId = (id) => ({
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
+
+
+ export const setSelectedCardId = (id) => ({
   type: "SET_SELECTED_CARD_ID",
   payload: id,
 });
@@ -583,9 +602,9 @@ export const DeletePost = (postId) => {
 export const OnlyAllPost = () => {
   return async (dispatch) => {
     const res = await axios.get(
-      `http://localhost:4000/posthostess`
+      `http://localhost:4000/allposts`
     );
-    const data = res.data.OnlyPosts;
+    const data = res.data;
     return dispatch({
       type: "ONLY_POST",
       payload: data,
@@ -619,11 +638,11 @@ export const updatepost = (postId, payload) => {
     });
   };
 };
-export const paymentReserve = (idTuristic, payload) => {
+export const paymentReserve = (idTuristic) => {
   return async (dispatch) => {
     try {
       const res = await axios.post(
-        `http://localhost:4000/create-checkout-session/${idTuristic}`, payload);
+        `http://localhost:4000/create-checkout-session/${idTuristic}`);
       const data = res.data;
 
       dispatch({
@@ -690,4 +709,4 @@ export const fetchGoogleProfile = () => async (dispatch) => {
   } catch (error) {
     console.error('Error al obtener la información del perfil:', error);
   }
-};   */
+};    */
